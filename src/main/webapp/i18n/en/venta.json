@@ -1,0 +1,26 @@
+{
+  "tiendaOnlineApp": {
+    "venta": {
+      "home": {
+        "title": "Ventas",
+        "createLabel": "Create a new Venta",
+        "createOrEditLabel": "Create or edit a Venta"
+      },
+      "created": "A new Venta is created with identifier {{ param }}",
+      "updated": "A Venta is updated with identifier {{ param }}",
+      "deleted": "A Venta is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Venta {{ id }}?"
+      },
+      "detail": {
+        "title": "Venta"
+      },
+      "fechaVenta": "Fecha Venta",
+      "precioVenta": "Precio Venta",
+      "cliente": "Cliente",
+      "producto": "Producto",
+      "videoJuegos": "Video Juegos",
+      "carrito": "Carrito"
+    }
+  }
+}

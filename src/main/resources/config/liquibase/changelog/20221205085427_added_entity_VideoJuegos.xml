@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+
+    <!--
+        Added the entity VideoJuegos.
+    -->
+    <changeSet id="20221205085427-1" author="jhipster">
+        <createTable tableName="video_juegos">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="titulo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="sinopsis" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pegi" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="fecha_lanzamiento" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="precio" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="stock" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="destacado" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="caratula_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_video_juegos_caratula_id" />
+            </column>
+            <column name="compannia_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+
+    </changeSet>
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20221205085427-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/data/video_juegos.csv"
+                  separator=";"
+                  tableName="video_juegos"
+                  context="dev">
+            <column name="id" type="numeric"/>
+            <column name="titulo" type="string"/>
+            <column name="sinopsis" type="string"/>
+            <column name="pegi" type="string"/>
+            <column name="fecha_lanzamiento" type="date"/>
+            <column name="precio" type="numeric"/>
+            <column name="stock" type="numeric"/>
+            <column name="destacado" type="boolean"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="20221205085427-1-relations" author="jhipster">
+
+        <createTable tableName="video_juegos_valoraciones">
+            <column name="valoraciones_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="video_juegos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="video_juegos_id, valoraciones_id" tableName="video_juegos_valoraciones"/>
+        
+        <createTable tableName="video_juegos_plataforma">
+            <column name="plataforma_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="video_juegos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="video_juegos_id, plataforma_id" tableName="video_juegos_plataforma"/>
+        
+        <createTable tableName="video_juegos_categoria">
+            <column name="categoria_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="video_juegos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="video_juegos_id, categoria_id" tableName="video_juegos_categoria"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

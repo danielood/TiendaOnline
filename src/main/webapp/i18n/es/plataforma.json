@@ -1,0 +1,23 @@
+{
+  "tiendaOnlineApp": {
+    "plataforma": {
+      "home": {
+        "title": "Plataformas",
+        "createLabel": "Crear nuevo Plataforma",
+        "createOrEditLabel": "Crear o editar Plataforma"
+      },
+      "created": "Un nuevo Plataforma ha sido creado con el identificador {{ param }}",
+      "updated": "Un Plataforma ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Plataforma ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Plataforma {{ id }}?"
+      },
+      "detail": {
+        "title": "Plataforma"
+      },
+      "nombre": "Nombre",
+      "videoJuegos": "Video Juegos",
+      "producto": "Producto"
+    }
+  }
+}

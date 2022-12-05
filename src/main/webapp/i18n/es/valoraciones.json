@@ -1,0 +1,24 @@
+{
+  "tiendaOnlineApp": {
+    "valoraciones": {
+      "home": {
+        "title": "Valoraciones",
+        "createLabel": "Crear nuevo Valoraciones",
+        "createOrEditLabel": "Crear o editar Valoraciones"
+      },
+      "created": "Un nuevo Valoraciones ha sido creado con el identificador {{ param }}",
+      "updated": "Un Valoraciones ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Valoraciones ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Valoraciones {{ id }}?"
+      },
+      "detail": {
+        "title": "Valoraciones"
+      },
+      "puntuacion": "Puntuacion",
+      "comentario": "Comentario",
+      "cliente": "Cliente",
+      "videoJuegos": "Video Juegos"
+    }
+  }
+}

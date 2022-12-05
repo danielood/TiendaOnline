@@ -1,0 +1,21 @@
+{
+  "tiendaOnlineApp": {
+    "compannia": {
+      "home": {
+        "title": "Compannias",
+        "createLabel": "Crear nuevo Compannia",
+        "createOrEditLabel": "Crear o editar Compannia"
+      },
+      "created": "Un nuevo Compannia ha sido creado con el identificador {{ param }}",
+      "updated": "Un Compannia ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Compannia ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Compannia {{ id }}?"
+      },
+      "detail": {
+        "title": "Compannia"
+      },
+      "nombre": "Nombre"
+    }
+  }
+}

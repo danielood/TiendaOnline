@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity Venta.
+    -->
+    <changeSet id="20221205085426-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="cliente_id"
+                                 baseTableName="venta"
+                                 constraintName="fk_venta_cliente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
+
+        <addForeignKeyConstraint baseColumnNames="venta_id"
+                                 baseTableName="venta_producto"
+                                 constraintName="fk_venta_producto_venta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venta"/>
+
+        <addForeignKeyConstraint baseColumnNames="producto_id"
+                                 baseTableName="venta_producto"
+                                 constraintName="fk_venta_producto_producto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
+        
+        <addForeignKeyConstraint baseColumnNames="venta_id"
+                                 baseTableName="venta_video_juegos"
+                                 constraintName="fk_venta_video_juegos_venta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venta"/>
+
+        <addForeignKeyConstraint baseColumnNames="video_juegos_id"
+                                 baseTableName="venta_video_juegos"
+                                 constraintName="fk_venta_video_juegos_video_juegos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="video_juegos"/>
+        
+    </changeSet>
+</databaseChangeLog>

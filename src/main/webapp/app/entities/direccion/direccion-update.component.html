@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-direccion-heading" jhiTranslate="tiendaOnlineApp.direccion.home.createOrEditLabel">Create or edit a Direccion</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!direccion.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.pais" for="field_pais">Pais</label>
+                    <input type="text" class="form-control" name="pais" id="field_pais"
+                           formControlName="pais"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.provincia" for="field_provincia">Provincia</label>
+                    <input type="text" class="form-control" name="provincia" id="field_provincia"
+                           formControlName="provincia"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.ciudad" for="field_ciudad">Ciudad</label>
+                    <input type="text" class="form-control" name="ciudad" id="field_ciudad"
+                           formControlName="ciudad"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.calle" for="field_calle">Calle</label>
+                    <input type="text" class="form-control" name="calle" id="field_calle"
+                           formControlName="calle"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.portal" for="field_portal">Portal</label>
+                    <input type="text" class="form-control" name="portal" id="field_portal"
+                           formControlName="portal"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.escalera" for="field_escalera">Escalera</label>
+                    <input type="text" class="form-control" name="escalera" id="field_escalera"
+                           formControlName="escalera"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.piso" for="field_piso">Piso</label>
+                    <input type="text" class="form-control" name="piso" id="field_piso"
+                           formControlName="piso"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.letra" for="field_letra">Letra</label>
+                    <input type="text" class="form-control" name="letra" id="field_letra"
+                           formControlName="letra"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.direccion.cliente" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" formControlName="clienteId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "tiendaOnlineApp": {
+    "Pegi": {
+      "null": "",
+      "PEGI3": "PEGI3",
+      "PEGI7": "PEGI7",
+      "PEGI12": "PEGI12",
+      "PEGI16": "PEGI16",
+      "PEGI18": "PEGI18"
+    }
+  }
+}

@@ -46,6 +46,31 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.User.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Authority.class.getName());
             createCache(cm, com.mycompany.myapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.mycompany.myapp.domain.Producto.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Producto.class.getName() + ".plataformas");
+            createCache(cm, com.mycompany.myapp.domain.Producto.class.getName() + ".ventas");
+            createCache(cm, com.mycompany.myapp.domain.Cliente.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Direccion.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Venta.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Venta.class.getName() + ".productos");
+            createCache(cm, com.mycompany.myapp.domain.Venta.class.getName() + ".videoJuegos");
+            createCache(cm, com.mycompany.myapp.domain.Venta.class.getName() + ".carritos");
+            createCache(cm, com.mycompany.myapp.domain.VideoJuegos.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.VideoJuegos.class.getName() + ".valoraciones");
+            createCache(cm, com.mycompany.myapp.domain.VideoJuegos.class.getName() + ".plataformas");
+            createCache(cm, com.mycompany.myapp.domain.VideoJuegos.class.getName() + ".categorias");
+            createCache(cm, com.mycompany.myapp.domain.VideoJuegos.class.getName() + ".ventas");
+            createCache(cm, com.mycompany.myapp.domain.Imagen.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Compannia.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Categoria.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Categoria.class.getName() + ".videoJuegos");
+            createCache(cm, com.mycompany.myapp.domain.Plataforma.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Plataforma.class.getName() + ".videoJuegos");
+            createCache(cm, com.mycompany.myapp.domain.Plataforma.class.getName() + ".productos");
+            createCache(cm, com.mycompany.myapp.domain.Valoraciones.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Valoraciones.class.getName() + ".videoJuegos");
+            createCache(cm, com.mycompany.myapp.domain.Carrito.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Carrito.class.getName() + ".ventas");
             // jhipster-needle-ehcache-add-entry
         };
     }

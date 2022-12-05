@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="direccion">
+            <h2><span jhiTranslate="tiendaOnlineApp.direccion.detail.title">Direccion</span> {{direccion.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.pais">Pais</span></dt>
+                <dd>
+                    <span>{{direccion.pais}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.provincia">Provincia</span></dt>
+                <dd>
+                    <span>{{direccion.provincia}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.ciudad">Ciudad</span></dt>
+                <dd>
+                    <span>{{direccion.ciudad}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.calle">Calle</span></dt>
+                <dd>
+                    <span>{{direccion.calle}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.portal">Portal</span></dt>
+                <dd>
+                    <span>{{direccion.portal}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.escalera">Escalera</span></dt>
+                <dd>
+                    <span>{{direccion.escalera}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.piso">Piso</span></dt>
+                <dd>
+                    <span>{{direccion.piso}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.letra">Letra</span></dt>
+                <dd>
+                    <span>{{direccion.letra}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.direccion.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="direccion.clienteId">
+                        <a [routerLink]="['/cliente', direccion.clienteId, 'view']">{{direccion.clienteId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/direccion', direccion.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

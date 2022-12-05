@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="venta">
+            <h2><span jhiTranslate="tiendaOnlineApp.venta.detail.title">Venta</span> {{venta.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="tiendaOnlineApp.venta.fechaVenta">Fecha Venta</span></dt>
+                <dd>
+                    <span>{{venta.fechaVenta}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.venta.precioVenta">Precio Venta</span></dt>
+                <dd>
+                    <span>{{venta.precioVenta}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.venta.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="venta.clienteId">
+                        <a [routerLink]="['/cliente', venta.clienteId, 'view']">{{venta.clienteId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.venta.producto">Producto</span></dt>
+                <dd>
+                    <span *ngFor="let producto of venta.productos; let last = last">
+                        <a [routerLink]="['/producto', producto?.id, 'view' ]">{{producto.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.venta.videoJuegos">Video Juegos</span></dt>
+                <dd>
+                    <span *ngFor="let videoJuegos of venta.videoJuegos; let last = last">
+                        <a [routerLink]="['/video-juegos', videoJuegos?.id, 'view' ]">{{videoJuegos.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/venta', venta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

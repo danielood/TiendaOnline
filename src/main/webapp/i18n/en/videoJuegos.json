@@ -1,0 +1,33 @@
+{
+  "tiendaOnlineApp": {
+    "videoJuegos": {
+      "home": {
+        "title": "Video Juegos",
+        "createLabel": "Create a new Video Juegos",
+        "createOrEditLabel": "Create or edit a Video Juegos"
+      },
+      "created": "A new Video Juegos is created with identifier {{ param }}",
+      "updated": "A Video Juegos is updated with identifier {{ param }}",
+      "deleted": "A Video Juegos is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Video Juegos {{ id }}?"
+      },
+      "detail": {
+        "title": "Video Juegos"
+      },
+      "titulo": "Titulo",
+      "sinopsis": "Sinopsis",
+      "pegi": "Pegi",
+      "fechaLanzamiento": "Fecha Lanzamiento",
+      "precio": "Precio",
+      "stock": "Stock",
+      "destacado": "Destacado",
+      "caratula": "Caratula",
+      "compannia": "Compannia",
+      "valoraciones": "Valoraciones",
+      "plataforma": "Plataforma",
+      "categoria": "Categoria",
+      "venta": "Venta"
+    }
+  }
+}

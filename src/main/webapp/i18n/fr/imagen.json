@@ -1,0 +1,21 @@
+{
+  "tiendaOnlineApp": {
+    "imagen": {
+      "home": {
+        "title": "Imagens",
+        "createLabel": "Créer un nouveau Imagen",
+        "createOrEditLabel": "Créer ou éditer un Imagen"
+      },
+      "created": "Un nouveau Imagen a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Imagen avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Imagen avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Imagen {{ id }} ?"
+      },
+      "detail": {
+        "title": "Imagen"
+      },
+      "path": "Path"
+    }
+  }
+}

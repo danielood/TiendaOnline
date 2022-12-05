@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="videoJuegos">
+            <h2><span jhiTranslate="tiendaOnlineApp.videoJuegos.detail.title">Video Juegos</span> {{videoJuegos.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.titulo">Titulo</span></dt>
+                <dd>
+                    <span>{{videoJuegos.titulo}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.sinopsis">Sinopsis</span></dt>
+                <dd>
+                    <span>{{videoJuegos.sinopsis}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.pegi">Pegi</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'tiendaOnlineApp.Pegi.' + videoJuegos.pegi}}">{{videoJuegos.pegi}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.fechaLanzamiento">Fecha Lanzamiento</span></dt>
+                <dd>
+                    <span>{{videoJuegos.fechaLanzamiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.precio">Precio</span></dt>
+                <dd>
+                    <span>{{videoJuegos.precio}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.stock">Stock</span></dt>
+                <dd>
+                    <span>{{videoJuegos.stock}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.destacado">Destacado</span></dt>
+                <dd>
+                    <span>{{videoJuegos.destacado}}</span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.caratula">Caratula</span></dt>
+                <dd>
+                    <div *ngIf="videoJuegos.caratulaId">
+                        <a [routerLink]="['/imagen', videoJuegos.caratulaId, 'view']">{{videoJuegos.caratulaId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.compannia">Compannia</span></dt>
+                <dd>
+                    <div *ngIf="videoJuegos.companniaId">
+                        <a [routerLink]="['/compannia', videoJuegos.companniaId, 'view']">{{videoJuegos.companniaId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.valoraciones">Valoraciones</span></dt>
+                <dd>
+                    <span *ngFor="let valoraciones of videoJuegos.valoraciones; let last = last">
+                        <a [routerLink]="['/valoraciones', valoraciones?.id, 'view' ]">{{valoraciones.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma">Plataforma</span></dt>
+                <dd>
+                    <span *ngFor="let plataforma of videoJuegos.plataformas; let last = last">
+                        <a [routerLink]="['/plataforma', plataforma?.id, 'view' ]">{{plataforma.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.categoria">Categoria</span></dt>
+                <dd>
+                    <span *ngFor="let categoria of videoJuegos.categorias; let last = last">
+                        <a [routerLink]="['/categoria', categoria?.id, 'view' ]">{{categoria.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/video-juegos', videoJuegos.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

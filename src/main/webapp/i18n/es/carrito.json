@@ -1,0 +1,22 @@
+{
+  "tiendaOnlineApp": {
+    "carrito": {
+      "home": {
+        "title": "Carritos",
+        "createLabel": "Crear nuevo Carrito",
+        "createOrEditLabel": "Crear o editar Carrito"
+      },
+      "created": "Un nuevo Carrito ha sido creado con el identificador {{ param }}",
+      "updated": "Un Carrito ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Carrito ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Carrito {{ id }}?"
+      },
+      "detail": {
+        "title": "Carrito"
+      },
+      "cliente": "Cliente",
+      "venta": "Venta"
+    }
+  }
+}

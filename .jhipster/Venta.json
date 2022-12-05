@@ -1,0 +1,55 @@
+{
+    "name": "Venta",
+    "fields": [
+        {
+            "fieldName": "fechaVenta",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "precioVenta",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "cliente",
+            "otherEntityRelationshipName": "venta",
+            "relationshipName": "cliente",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "producto",
+            "otherEntityRelationshipName": "venta",
+            "relationshipName": "producto",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "videoJuegos",
+            "otherEntityRelationshipName": "venta",
+            "relationshipName": "videoJuegos",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "carrito",
+            "otherEntityRelationshipName": "venta",
+            "relationshipName": "carrito",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20221205085426",
+    "entityTableName": "venta",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

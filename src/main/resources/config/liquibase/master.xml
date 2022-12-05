@@ -5,6 +5,23 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085423_added_entity_Producto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085424_added_entity_Cliente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085425_added_entity_Direccion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085426_added_entity_Venta.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085427_added_entity_VideoJuegos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085428_added_entity_Imagen.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085429_added_entity_Compannia.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085430_added_entity_Categoria.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085431_added_entity_Plataforma.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085432_added_entity_Valoraciones.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085433_added_entity_Carrito.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20221205085423_added_entity_constraints_Producto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085425_added_entity_constraints_Direccion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085426_added_entity_constraints_Venta.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085427_added_entity_constraints_VideoJuegos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085432_added_entity_constraints_Valoraciones.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221205085433_added_entity_constraints_Carrito.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

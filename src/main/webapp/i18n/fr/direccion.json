@@ -1,0 +1,29 @@
+{
+  "tiendaOnlineApp": {
+    "direccion": {
+      "home": {
+        "title": "Direccions",
+        "createLabel": "Créer un nouveau Direccion",
+        "createOrEditLabel": "Créer ou éditer un Direccion"
+      },
+      "created": "Un nouveau Direccion a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Direccion avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Direccion avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Direccion {{ id }} ?"
+      },
+      "detail": {
+        "title": "Direccion"
+      },
+      "pais": "Pais",
+      "provincia": "Provincia",
+      "ciudad": "Ciudad",
+      "calle": "Calle",
+      "portal": "Portal",
+      "escalera": "Escalera",
+      "piso": "Piso",
+      "letra": "Letra",
+      "cliente": "Cliente"
+    }
+  }
+}

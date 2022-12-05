@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="carrito">
+            <h2><span jhiTranslate="tiendaOnlineApp.carrito.detail.title">Carrito</span> {{carrito.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="tiendaOnlineApp.carrito.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="carrito.clienteId">
+                        <a [routerLink]="['/cliente', carrito.clienteId, 'view']">{{carrito.clienteId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="tiendaOnlineApp.carrito.venta">Venta</span></dt>
+                <dd>
+                    <span *ngFor="let venta of carrito.ventas; let last = last">
+                        <a [routerLink]="['/venta', venta?.id, 'view' ]">{{venta.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/carrito', carrito.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

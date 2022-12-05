@@ -1,0 +1,22 @@
+{
+  "tiendaOnlineApp": {
+    "carrito": {
+      "home": {
+        "title": "Carritos",
+        "createLabel": "Créer un nouveau Carrito",
+        "createOrEditLabel": "Créer ou éditer un Carrito"
+      },
+      "created": "Un nouveau Carrito a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Carrito avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Carrito avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Carrito {{ id }} ?"
+      },
+      "detail": {
+        "title": "Carrito"
+      },
+      "cliente": "Cliente",
+      "venta": "Venta"
+    }
+  }
+}

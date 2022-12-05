@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity VideoJuegos.
+    -->
+    <changeSet id="20221205085427-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="caratula_id"
+                                 baseTableName="video_juegos"
+                                 constraintName="fk_video_juegos_caratula_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="imagen"/>
+
+        <addForeignKeyConstraint baseColumnNames="compannia_id"
+                                 baseTableName="video_juegos"
+                                 constraintName="fk_video_juegos_compannia_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compannia"/>
+
+        <addForeignKeyConstraint baseColumnNames="video_juegos_id"
+                                 baseTableName="video_juegos_valoraciones"
+                                 constraintName="fk_video_juegos_valoraciones_video_juegos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="video_juegos"/>
+
+        <addForeignKeyConstraint baseColumnNames="valoraciones_id"
+                                 baseTableName="video_juegos_valoraciones"
+                                 constraintName="fk_video_juegos_valoraciones_valoraciones_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="valoraciones"/>
+        
+        <addForeignKeyConstraint baseColumnNames="video_juegos_id"
+                                 baseTableName="video_juegos_plataforma"
+                                 constraintName="fk_video_juegos_plataforma_video_juegos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="video_juegos"/>
+
+        <addForeignKeyConstraint baseColumnNames="plataforma_id"
+                                 baseTableName="video_juegos_plataforma"
+                                 constraintName="fk_video_juegos_plataforma_plataforma_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="plataforma"/>
+        
+        <addForeignKeyConstraint baseColumnNames="video_juegos_id"
+                                 baseTableName="video_juegos_categoria"
+                                 constraintName="fk_video_juegos_categoria_video_juegos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="video_juegos"/>
+
+        <addForeignKeyConstraint baseColumnNames="categoria_id"
+                                 baseTableName="video_juegos_categoria"
+                                 constraintName="fk_video_juegos_categoria_categoria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="categoria"/>
+        
+    </changeSet>
+</databaseChangeLog>

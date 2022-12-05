@@ -7,6 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "producto": "Producto",
+        "cliente": "Cliente",
+        "direccion": "Direccion",
+        "venta": "Venta",
+        "videoJuegos": "Video Juegos",
+        "imagen": "Imagen",
+        "compannia": "Compannia",
+        "categoria": "Categoria",
+        "plataforma": "Plataforma",
+        "valoraciones": "Valoraciones",
+        "carrito": "Carrito",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

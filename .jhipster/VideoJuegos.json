@@ -1,0 +1,92 @@
+{
+    "name": "VideoJuegos",
+    "fields": [
+        {
+            "fieldName": "titulo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sinopsis",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pegi",
+            "fieldType": "Pegi",
+            "fieldValues": "PEGI3,PEGI7,PEGI12,PEGI16,PEGI18"
+        },
+        {
+            "fieldName": "fechaLanzamiento",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "stock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "destacado",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "imagen",
+            "otherEntityRelationshipName": "videoJuegos",
+            "relationshipName": "caratula",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "compannia",
+            "otherEntityRelationshipName": "videoJuegos",
+            "relationshipName": "compannia",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "valoraciones",
+            "otherEntityRelationshipName": "videoJuegos",
+            "relationshipName": "valoraciones",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "plataforma",
+            "otherEntityRelationshipName": "videoJuegos",
+            "relationshipName": "plataforma",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "categoria",
+            "otherEntityRelationshipName": "videoJuegos",
+            "relationshipName": "categoria",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "venta",
+            "otherEntityRelationshipName": "videoJuegos",
+            "relationshipName": "venta",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20221205085427",
+    "entityTableName": "video_juegos",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
