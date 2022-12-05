@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
+import { IVideoJuegos, JuegoTabla, Pegi } from 'app/shared/model/video-juegos.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
