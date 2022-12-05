@@ -69,12 +69,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label jhiTranslate="tiendaOnlineApp.videoJuegos.valoraciones" for="field_valoraciones">Valoraciones</label>
-                    <select class="form-control" id="field_valoraciones" multiple name="valoraciones" formControlName="valoraciones">
-                        <option [ngValue]="getSelected(editForm.get('valoraciones').value, valoracionesOption)" *ngFor="let valoracionesOption of valoraciones; trackBy: trackValoracionesById">{{valoracionesOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma" for="field_plataformas">Plataforma</label>
                     <select class="form-control" id="field_plataformas" multiple name="plataformas" formControlName="plataformas">
                         <option [ngValue]="getSelected(editForm.get('plataformas').value, plataformaOption)" *ngFor="let plataformaOption of plataformas; trackBy: trackPlataformaById">{{plataformaOption.id}}</option>
