@@ -1,8 +1,12 @@
 package com.mycompany.myapp.repository;
 
+import com.mycompany.myapp.domain.AuxRepository;
 import com.mycompany.myapp.domain.Imagen;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -11,5 +15,8 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ImagenRepository extends JpaRepository<Imagen, Long> {
+
+    @Query("select v.id, i.path from videoJuegos v, imagen i where i.id = v.caratula.id and v.id in (:ids)")
+    List<AuxRepository> findCaratulas(@Param("ids")List<Long> ids);
 
 }

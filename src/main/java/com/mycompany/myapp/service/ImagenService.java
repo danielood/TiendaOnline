@@ -1,10 +1,13 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Fichero;
 import com.mycompany.myapp.service.dto.ImagenDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,6 +31,7 @@ public interface ImagenService {
      */
     Page<ImagenDTO> findAll(Pageable pageable);
 
+    Map<Long, Fichero> findCaratulas(List<Long> ids);
 
     /**
      * Get the "id" imagen.
