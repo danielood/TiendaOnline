@@ -1,29 +1,25 @@
-<div class="row justify-content-right">
-    <div class="col-8">
-        <h3>{{juego.id}}</h3>
-        <img [src]="url">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <h3>
-                    <dl>
-                        <dt>
-                            <span><strong>{{juego.titulo}}</strong></span>
-                        </dt>
-                        <dd>
-                            <span>{{juego.compannia}}</span>
-                        </dd>
-                    </dl>
-                </h3>
-                <dd class="col-8">
-                    <span *ngFor="let plat of juego.plataformas">{{plat}}, </span>
-                </dd>
-                <div class="text-left">
-                    <dd>
-                        <span><strong>{{juego.precio | currency:'EUR':true}}</strong></span>
-                        <span class="col-10 text-right">{{juego.stock}}</span>
-                    </dd>
+<div class="container d-flex justify-content-center">
+    <figure class="card card-product-grid card-lg"> <a href="#" class="img-wrap" data-abc="true"> <img src="https://images.alphacoders.com/596/596639.jpg"> </a>
+        <figcaption class="info-wrap">
+            <div class="row">
+                <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true">{{juego.titulo}}</a> <span class="rated">{{juego.compannia}}</span> </div>
+                <div class="col-md-3 col-xs-3">
+                    <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="rated">{{juego.plataformas}}</span> </div>
                 </div>
             </div>
+        </figcaption>
+        <div class="bottom-wrap-payment">
+            <figcaption class="info-wrap">
+                <div class="row">
+                    <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true">{{juego.precio | currency:'EUR':true}}</a> <span class="rated">{{juego.stock}} Disponibles</span> </div>
+                    <div class="col-md-3 col-xs-3">
+                        <div class="rating text-right img-wrap"><img src="https://images.alphacoders.com/596/596639.jpg">{{juego.pegi}}</div>
+                    </div>
+                </div>
+            </figcaption>
         </div>
-    </div>
+        <div class="bottom-wrap"> <a href="#" class="btn btn-primary float-right" data-abc="true"> Editar </a>
+            <div class="price-wrap"> <a href="#" class="btn btn-warning float-left" data-abc="true"> Eliminar </a> </div>
+        </div>
+    </figure>
 </div>

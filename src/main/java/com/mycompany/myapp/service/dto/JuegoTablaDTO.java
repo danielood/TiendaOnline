@@ -11,7 +11,7 @@ public class JuegoTablaDTO {
     private String titulo;
     private Pegi pegi;
     private Double precio;
-
+    private Integer stock;
     private Fichero caratula;
     private String compannia;
     private List<String> plataformas;
@@ -70,5 +70,13 @@ public class JuegoTablaDTO {
 
     public void setPlataformas(List<String> plataformas) {
         this.plataformas = plataformas;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }

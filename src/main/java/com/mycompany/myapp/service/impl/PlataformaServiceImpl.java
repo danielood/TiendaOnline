@@ -1,12 +1,11 @@
 package com.mycompany.myapp.service.impl;
 
-import com.mycompany.myapp.domain.AuxRepository;
+import com.mycompany.myapp.domain.IAuxNativeQuery;
 import com.mycompany.myapp.service.PlataformaService;
 import com.mycompany.myapp.domain.Plataforma;
 import com.mycompany.myapp.repository.PlataformaRepository;
 import com.mycompany.myapp.service.dto.PlataformaDTO;
 import com.mycompany.myapp.service.mapper.PlataformaMapper;
-import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,9 +91,9 @@ public class PlataformaServiceImpl implements PlataformaService {
     @Override
     public Map<Long, List<String>> findAllById(List<Long> ids) {
         Map<Long,List<String>> map = new HashMap<>();
-        List<AuxRepository> result = plataformaRepository.findAllByIds(ids);
-        for(AuxRepository row : result){
-            map.put(row.getId(),toList(row.getAuxString()));
+        List<IAuxNativeQuery> result = plataformaRepository.findAllByIds(ids);
+        for(IAuxNativeQuery row : result){
+            map.put(row.getId(),toList(row.getConcat()));
         }
         return map;
     }

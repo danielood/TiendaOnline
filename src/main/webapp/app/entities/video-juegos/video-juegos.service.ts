@@ -7,10 +7,11 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
+import { IJuegoTabla, IVideoJuegos } from 'app/shared/model/video-juegos.model';
 
 type EntityResponseType = HttpResponse<IVideoJuegos>;
 type EntityArrayResponseType = HttpResponse<IVideoJuegos[]>;
+type EntityArrayResponseJuegoTabla = HttpResponse<IJuegoTabla[]>;
 
 @Injectable({ providedIn: 'root' })
 export class VideoJuegosService {
@@ -38,11 +39,9 @@ export class VideoJuegosService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any): Observable<EntityArrayResponseJuegoTabla> {
     const options = createRequestOption(req);
-    return this.http
-      .get<IVideoJuegos[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    return this.http.get<IJuegoTabla[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

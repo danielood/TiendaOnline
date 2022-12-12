@@ -5,6 +5,11 @@ public class AuxRepository {
     private Long id;
     private String auxString;
 
+    public AuxRepository(Long id,String auxString){
+        this.id = id;
+        this.auxString = auxString;
+    }
+
     public Long getId() {
         return id;
     }
