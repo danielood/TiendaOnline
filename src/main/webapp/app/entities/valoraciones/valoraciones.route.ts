@@ -7,10 +7,6 @@ import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Valoraciones } from 'app/shared/model/valoraciones.model';
 import { ValoracionesService } from './valoraciones.service';
-import { ValoracionesComponent } from './valoraciones.component';
-import { ValoracionesDetailComponent } from './valoraciones-detail.component';
-import { ValoracionesUpdateComponent } from './valoraciones-update.component';
-import { ValoracionesDeletePopupComponent } from './valoraciones-delete-dialog.component';
 import { IValoraciones } from 'app/shared/model/valoraciones.model';
 
 @Injectable({ providedIn: 'root' })
@@ -29,70 +25,6 @@ export class ValoracionesResolve implements Resolve<IValoraciones> {
   }
 }
 
-export const valoracionesRoute: Routes = [
-  {
-    path: '',
-    component: ValoracionesComponent,
-    resolve: {
-      pagingParams: JhiResolvePagingParams
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      defaultSort: 'id,asc',
-      pageTitle: 'tiendaOnlineApp.valoraciones.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':id/view',
-    component: ValoracionesDetailComponent,
-    resolve: {
-      valoraciones: ValoracionesResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'tiendaOnlineApp.valoraciones.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: 'new',
-    component: ValoracionesUpdateComponent,
-    resolve: {
-      valoraciones: ValoracionesResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'tiendaOnlineApp.valoraciones.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':id/edit',
-    component: ValoracionesUpdateComponent,
-    resolve: {
-      valoraciones: ValoracionesResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'tiendaOnlineApp.valoraciones.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
-];
+export const valoracionesRoute: Routes = [];
 
-export const valoracionesPopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: ValoracionesDeletePopupComponent,
-    resolve: {
-      valoraciones: ValoracionesResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'tiendaOnlineApp.valoraciones.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  }
-];
+export const valoracionesPopupRoute: Routes = [];
