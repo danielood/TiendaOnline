@@ -5,6 +5,8 @@ import com.mycompany.myapp.service.dto.PlataformaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -36,6 +38,8 @@ public interface PlataformaService {
      * @return the entity.
      */
     Optional<PlataformaDTO> findOne(Long id);
+
+    Map<Long,List<String>> findAllById(List<Long> ids);
 
     /**
      * Delete the "id" plataforma.
