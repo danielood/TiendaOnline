@@ -33,8 +33,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
 
   compannias: ICompannia[];
 
-  valoraciones: IValoraciones[];
-
   plataformas: IPlataforma[];
 
   categorias: ICategoria[];
@@ -53,7 +51,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
     destacado: [],
     caratulaId: [],
     companniaId: [],
-    valoraciones: [],
     plataformas: [],
     categorias: []
   });
@@ -63,7 +60,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
     protected videoJuegosService: VideoJuegosService,
     protected imagenService: ImagenService,
     protected companniaService: CompanniaService,
-    protected valoracionesService: ValoracionesService,
     protected plataformaService: PlataformaService,
     protected categoriaService: CategoriaService,
     protected ventaService: VentaService,
@@ -109,13 +105,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
         map((response: HttpResponse<ICompannia[]>) => response.body)
       )
       .subscribe((res: ICompannia[]) => (this.compannias = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.valoracionesService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IValoraciones[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IValoraciones[]>) => response.body)
-      )
-      .subscribe((res: IValoraciones[]) => (this.valoraciones = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.plataformaService
       .query()
       .pipe(
@@ -151,7 +140,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
       destacado: videoJuegos.destacado,
       caratulaId: videoJuegos.caratulaId,
       companniaId: videoJuegos.companniaId,
-      valoraciones: videoJuegos.valoraciones,
       plataformas: videoJuegos.plataformas,
       categorias: videoJuegos.categorias
     });
@@ -184,7 +172,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
       destacado: this.editForm.get(['destacado']).value,
       caratulaId: this.editForm.get(['caratulaId']).value,
       companniaId: this.editForm.get(['companniaId']).value,
-      valoraciones: this.editForm.get(['valoraciones']).value,
       plataformas: this.editForm.get(['plataformas']).value,
       categorias: this.editForm.get(['categorias']).value
     };
