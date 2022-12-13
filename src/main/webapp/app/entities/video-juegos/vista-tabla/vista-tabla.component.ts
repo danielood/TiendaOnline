@@ -17,6 +17,7 @@ export class VistaTablaComponent implements OnInit {
   constructor(private fileService: FileService) {}
 
   ngOnInit() {
+    //TODO
     //this.portada = this.fileService.ficheroToFile(this.juego.caratula);
     // const reader = new FileReader();
     // reader.onload = event => {

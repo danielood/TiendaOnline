@@ -10,7 +10,7 @@
       "updated": "Un Video Juegos ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Video Juegos ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Video Juegos {{ id }}?"
+        "question": "¿Seguro que quiere eliminar el videojuego {{ param }}?"
       },
       "detail": {
         "title": "Video Juegos"

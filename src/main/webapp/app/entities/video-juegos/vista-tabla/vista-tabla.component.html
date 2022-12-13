@@ -1,25 +1,40 @@
 <div class="container d-flex justify-content-center">
-    <figure class="card card-product-grid card-lg"> <a href="#" class="img-wrap" data-abc="true"> <img src="https://images.alphacoders.com/596/596639.jpg"> </a>
+    <figure class="card card-product-grid card-lg"><a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="img-wrap" data-abc="true"><span class="title row d-flex col-4">{{juego.id}}</span><img alt="{{juego.titulo}}" src="https://images.alphacoders.com/596/596639.jpg"> </a>
         <figcaption class="info-wrap">
             <div class="row">
-                <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true">{{juego.titulo}}</a> <span class="rated">{{juego.compannia}}</span> </div>
+                <div class="col-md-9 col-xs-9"> <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title" data-abc="true">{{juego.titulo}}</a> <span class="rated">{{juego.compannia}}</span> </div>
                 <div class="col-md-3 col-xs-3">
-                    <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="rated">{{juego.plataformas}}</span> </div>
+                    <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="rated row">{{juego.plataformas}}</span> </div>
                 </div>
             </div>
         </figcaption>
         <div class="bottom-wrap-payment">
             <figcaption class="info-wrap">
                 <div class="row">
-                    <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true">{{juego.precio | currency:'EUR':true}}</a> <span class="rated">{{juego.stock}} Disponibles</span> </div>
+                    <div class="col-md-9 col-xs-9"> <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title" data-abc="true">{{juego.precio | currency:'EUR':true}}</a> <span class="rated">{{juego.stock}} Disponibles</span> </div>
                     <div class="col-md-3 col-xs-3">
-                        <div class="rating text-right img-wrap"><img src="https://images.alphacoders.com/596/596639.jpg">{{juego.pegi}}</div>
+                        <div class="rating text-right" [ngSwitch]="juego.pegi">
+                            <img *ngSwitchCase="'PEGI3'" alt="PEGI3" src="../../../../content/images/PEGI3.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI7'" alt="PEGI7" src="../../../../content/images/PEGI7.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI12'" alt="PEGI12" src="../../../../content/images/PEGI12.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI16'" alt="PEGI16" src="../../../../content/images/PEGI16.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI18'" alt="PEGI18" src="../../../../content/images/PEGI18.png" width="55px" height="64px">
+                        </div>
                     </div>
                 </div>
             </figcaption>
         </div>
         <div class="bottom-wrap"> <a href="#" class="btn btn-primary float-right" data-abc="true"> Editar </a>
-            <div class="price-wrap"> <a href="#" class="btn btn-warning float-left" data-abc="true"> Eliminar </a> </div>
+            <div class="price-wrap">
+                <button type="submit"
+                [routerLink]="['/', 'video-juegos', { outlets: { popup: juego.id + '/delete'} }]"
+                replaceUrl="true"
+                queryParamsHandling="merge"
+                class="btn-danger btn-sm">
+                <fa-icon [icon]="'times'"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
         </div>
     </figure>
 </div>
