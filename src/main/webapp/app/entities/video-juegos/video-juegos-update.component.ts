@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IVideoJuegos, VideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from './video-juegos.service';
@@ -23,13 +22,12 @@ import { VentaService } from 'app/entities/venta';
 
 @Component({
   selector: 'jhi-video-juegos-update',
-  templateUrl: './video-juegos-update.component.html'
+  templateUrl: './video-juegos-update.component.html',
+  styleUrls: ['./video-juegos-update.component.scss']
 })
 export class VideoJuegosUpdateComponent implements OnInit {
   videoJuegos: IVideoJuegos;
   isSaving: boolean;
-
-  caratulas: IImagen[];
 
   compannias: ICompannia[];
 
@@ -39,6 +37,13 @@ export class VideoJuegosUpdateComponent implements OnInit {
 
   ventas: IVenta[];
   fechaLanzamientoDp: any;
+  caratula;
+
+  isPegi3: boolean;
+  isPegi7: boolean;
+  isPegi12: boolean;
+  isPegi16: boolean;
+  isPegi18: boolean;
 
   editForm = this.fb.group({
     id: [],
@@ -48,7 +53,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
     fechaLanzamiento: [],
     precio: [],
     stock: [],
-    caratulaId: [],
     companniaId: [],
     plataformas: [],
     categorias: []
@@ -72,31 +76,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
       this.updateForm(videoJuegos);
       this.videoJuegos = videoJuegos;
     });
-    this.imagenService
-      .query({ filter: 'videojuegos-is-null' })
-      .pipe(
-        filter((mayBeOk: HttpResponse<IImagen[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IImagen[]>) => response.body)
-      )
-      .subscribe(
-        (res: IImagen[]) => {
-          if (!this.videoJuegos.caratulaId) {
-            this.caratulas = res;
-          } else {
-            this.imagenService
-              .find(this.videoJuegos.caratulaId)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IImagen>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IImagen>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IImagen) => (this.caratulas = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
     this.companniaService
       .query()
       .pipe(
@@ -125,6 +104,12 @@ export class VideoJuegosUpdateComponent implements OnInit {
         map((response: HttpResponse<IVenta[]>) => response.body)
       )
       .subscribe((res: IVenta[]) => (this.ventas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.isPegi3 = false;
+    this.isPegi7 = false;
+    this.isPegi12 = false;
+    this.isPegi16 = false;
+    this.isPegi18 = false;
+    this.caratula = '';
   }
 
   updateForm(videoJuegos: IVideoJuegos) {
@@ -136,7 +121,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
       fechaLanzamiento: videoJuegos.fechaLanzamiento,
       precio: videoJuegos.precio,
       stock: videoJuegos.stock,
-      caratulaId: videoJuegos.caratulaId,
       companniaId: videoJuegos.companniaId,
       plataformas: videoJuegos.plataformas,
       categorias: videoJuegos.categorias
@@ -167,7 +151,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
       fechaLanzamiento: this.editForm.get(['fechaLanzamiento']).value,
       precio: this.editForm.get(['precio']).value,
       stock: this.editForm.get(['stock']).value,
-      caratulaId: this.editForm.get(['caratulaId']).value,
       companniaId: this.editForm.get(['companniaId']).value,
       plataformas: this.editForm.get(['plataformas']).value,
       categorias: this.editForm.get(['categorias']).value
@@ -224,5 +207,61 @@ export class VideoJuegosUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  selectPegi(pegi: String) {
+    switch (pegi) {
+      case 'PEGI3':
+        this.isPegi3 = true;
+        this.isPegi7 = false;
+        this.isPegi12 = false;
+        this.isPegi16 = false;
+        this.isPegi18 = false;
+        break;
+      case 'PEGI7':
+        this.isPegi3 = false;
+        this.isPegi7 = true;
+        this.isPegi12 = false;
+        this.isPegi16 = false;
+        this.isPegi18 = false;
+        break;
+      case 'PEGI12':
+        this.isPegi3 = false;
+        this.isPegi7 = false;
+        this.isPegi12 = true;
+        this.isPegi16 = false;
+        this.isPegi18 = false;
+        break;
+      case 'PEGI16':
+        this.isPegi3 = false;
+        this.isPegi7 = false;
+        this.isPegi12 = false;
+        this.isPegi16 = true;
+        this.isPegi18 = false;
+        break;
+      case 'PEGI18':
+        this.isPegi3 = false;
+        this.isPegi7 = false;
+        this.isPegi12 = false;
+        this.isPegi16 = false;
+        this.isPegi18 = true;
+        break;
+    }
+  }
+
+  onChange(event) {
+    var reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.caratula = event.target.result;
+    };
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      this.caratula = '';
+    }
+  }
+
+  onSelectPlataforma(event) {
+    console.log(event);
   }
 }
