@@ -13,6 +13,7 @@ import {
   videoJuegosRoute,
   videoJuegosPopupRoute
 } from './';
+import { VistaTablaComponent } from './vista-tabla/vista-tabla.component';
 
 const ENTITY_STATES = [...videoJuegosRoute, ...videoJuegosPopupRoute];
 
@@ -23,9 +24,16 @@ const ENTITY_STATES = [...videoJuegosRoute, ...videoJuegosPopupRoute];
     VideoJuegosDetailComponent,
     VideoJuegosUpdateComponent,
     VideoJuegosDeleteDialogComponent,
-    VideoJuegosDeletePopupComponent
+    VideoJuegosDeletePopupComponent,
+    VistaTablaComponent
   ],
-  entryComponents: [VideoJuegosComponent, VideoJuegosUpdateComponent, VideoJuegosDeleteDialogComponent, VideoJuegosDeletePopupComponent],
+  entryComponents: [
+    VideoJuegosComponent,
+    VideoJuegosUpdateComponent,
+    VideoJuegosDeleteDialogComponent,
+    VideoJuegosDeletePopupComponent,
+    VistaTablaComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,0 +1,29 @@
+<div class="row justify-content-right">
+    <div class="col-8">
+        <h3>{{juego.id}}</h3>
+        <img [src]="url">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h3>
+                    <dl>
+                        <dt>
+                            <span><strong>{{juego.titulo}}</strong></span>
+                        </dt>
+                        <dd>
+                            <span>{{juego.compannia}}</span>
+                        </dd>
+                    </dl>
+                </h3>
+                <dd class="col-8">
+                    <span *ngFor="let plat of juego.plataformas">{{plat}}, </span>
+                </dd>
+                <div class="text-left">
+                    <dd>
+                        <span><strong>{{juego.precio | currency:'EUR':true}}</strong></span>
+                        <span class="col-10 text-right">{{juego.stock}}</span>
+                    </dd>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
