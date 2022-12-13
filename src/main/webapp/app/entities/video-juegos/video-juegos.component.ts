@@ -102,10 +102,6 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IVideoJuegos) {
-    return item.id;
-  }
-
   registerChangeInVideoJuegos() {
     this.eventSubscriber = this.eventManager.subscribe('videoJuegosListModification', response => this.loadAll());
   }
@@ -118,19 +114,9 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  checkRow(index: number): boolean {
-    if (index % 3 == 0) {
-      console.log(true);
-      return true;
-    }
-    console.log(false);
-    return false;
-  }
-
   protected paginateVideoJuegos(data: IJuegoTabla[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    console.log(data);
     this.videoJuegos = data;
   }
 
