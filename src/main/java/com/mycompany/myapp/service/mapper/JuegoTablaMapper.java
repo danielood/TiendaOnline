@@ -13,6 +13,8 @@ public class JuegoTablaMapper {
         juegoTablaDTO.setId(videoJuegos.getId());
         juegoTablaDTO.setTitulo(videoJuegos.getTitulo());
         juegoTablaDTO.setPegi(videoJuegos.getPegi());
+        juegoTablaDTO.setPrecio(videoJuegos.getPrecio());
+        juegoTablaDTO.setStock(videoJuegos.getStock());
         juegoTablaDTO.setCaratula(caratula);
         juegoTablaDTO.setCompannia(compannia);
         juegoTablaDTO.setPlataformas(plataformas);

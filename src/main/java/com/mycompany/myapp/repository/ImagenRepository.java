@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface ImagenRepository extends JpaRepository<Imagen, Long> {
 
-    @Query("select v.id, i.path from videoJuegos v, imagen i where i.id = v.caratula.id and v.id in (:ids)")
+    @Query("select new com.mycompany.myapp.domain.AuxRepository(v.id, i.path) from VideoJuegos v, Imagen i where i.id = v.caratula.id and v.id in (:ids)")
     List<AuxRepository> findCaratulas(@Param("ids")List<Long> ids);
 
 }
