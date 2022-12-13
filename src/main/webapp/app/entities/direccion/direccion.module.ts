@@ -4,28 +4,14 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
 import { TiendaOnlineSharedModule } from 'app/shared';
-import {
-  DireccionComponent,
-  DireccionDetailComponent,
-  DireccionUpdateComponent,
-  DireccionDeletePopupComponent,
-  DireccionDeleteDialogComponent,
-  direccionRoute,
-  direccionPopupRoute
-} from './';
+import {} from './';
 
-const ENTITY_STATES = [...direccionRoute, ...direccionPopupRoute];
+const ENTITY_STATES = [];
 
 @NgModule({
   imports: [TiendaOnlineSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [
-    DireccionComponent,
-    DireccionDetailComponent,
-    DireccionUpdateComponent,
-    DireccionDeleteDialogComponent,
-    DireccionDeletePopupComponent
-  ],
-  entryComponents: [DireccionComponent, DireccionUpdateComponent, DireccionDeleteDialogComponent, DireccionDeletePopupComponent],
+  declarations: [],
+  entryComponents: [],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
