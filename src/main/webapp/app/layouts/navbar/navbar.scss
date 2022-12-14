@@ -7,6 +7,7 @@ Navbar
 
 .navbar-version {
   font-size: 0.65em;
+
   color: $navbar-dark-color;
 }
 
@@ -14,7 +15,9 @@ Navbar
   height: 1.75em;
   width: 1.75em;
 }
-
+.bg-blue {
+  background-color: #4267b2;
+}
 .navbar {
   padding: 0.2rem 1rem;
 
@@ -37,6 +40,7 @@ Logo styles
   width: 45px;
   display: inline-block;
   vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+  background: url('https://www.flaticon.es/icono-gratis/bolso_590506?term=bolsa%20de%20la%20compra&page=1&position=4&page=1&position=4&related_id=590506&origin=tag')
+    no-repeat center center;
   background-size: contain;
 }
