@@ -4,6 +4,9 @@ body {
 a {
   text-decoration: none !important;
 }
+.fuera {
+  text-overflow: ellipsis;
+}
 .card-product-list,
 .card-product-grid {
   margin-bottom: 0;

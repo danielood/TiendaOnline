@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
-
 import { TiendaOnlineSharedModule } from 'app/shared';
 import {
   VentaComponent,
@@ -13,13 +12,19 @@ import {
   ventaRoute,
   ventaPopupRoute
 } from './';
-
+import { VistaVentaComponent } from './vista-venta/vista-venta.component';
 const ENTITY_STATES = [...ventaRoute, ...ventaPopupRoute];
-
 @NgModule({
   imports: [TiendaOnlineSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [VentaComponent, VentaDetailComponent, VentaUpdateComponent, VentaDeleteDialogComponent, VentaDeletePopupComponent],
-  entryComponents: [VentaComponent, VentaUpdateComponent, VentaDeleteDialogComponent, VentaDeletePopupComponent],
+  declarations: [
+    VentaComponent,
+    VentaDetailComponent,
+    VentaUpdateComponent,
+    VentaDeleteDialogComponent,
+    VentaDeletePopupComponent,
+    VistaVentaComponent
+  ],
+  entryComponents: [VentaComponent, VentaUpdateComponent, VentaDeleteDialogComponent, VentaDeletePopupComponent, VistaVentaComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
