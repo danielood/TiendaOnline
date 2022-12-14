@@ -13,7 +13,7 @@ import {
   productoRoute,
   productoPopupRoute
 } from './';
-
+import { VistaProductoComponent } from './vista-producto/vista-producto.component';
 const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
 
 @NgModule({
@@ -23,9 +23,16 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
     ProductoDetailComponent,
     ProductoUpdateComponent,
     ProductoDeleteDialogComponent,
-    ProductoDeletePopupComponent
+    ProductoDeletePopupComponent,
+    VistaProductoComponent
   ],
-  entryComponents: [ProductoComponent, ProductoUpdateComponent, ProductoDeleteDialogComponent, ProductoDeletePopupComponent],
+  entryComponents: [
+    ProductoComponent,
+    ProductoUpdateComponent,
+    ProductoDeleteDialogComponent,
+    ProductoDeletePopupComponent,
+    VistaProductoComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
