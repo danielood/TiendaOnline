@@ -13,13 +13,27 @@ import {
   ventaRoute,
   ventaPopupRoute
 } from './';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 
 const ENTITY_STATES = [...ventaRoute, ...ventaPopupRoute];
 
 @NgModule({
   imports: [TiendaOnlineSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [VentaComponent, VentaDetailComponent, VentaUpdateComponent, VentaDeleteDialogComponent, VentaDeletePopupComponent],
-  entryComponents: [VentaComponent, VentaUpdateComponent, VentaDeleteDialogComponent, VentaDeletePopupComponent],
+  declarations: [
+    VentaComponent,
+    VentaDetailComponent,
+    VentaUpdateComponent,
+    VentaDeleteDialogComponent,
+    VentaDeletePopupComponent,
+    CrearEditarDialogComponent
+  ],
+  entryComponents: [
+    VentaComponent,
+    VentaUpdateComponent,
+    VentaDeleteDialogComponent,
+    VentaDeletePopupComponent,
+    CrearEditarDialogComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

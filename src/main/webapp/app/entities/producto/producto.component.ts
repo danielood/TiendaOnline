@@ -2,14 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, isEmpty, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { IProducto } from 'app/shared/model/producto.model';
+import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProductoService } from './producto.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 
 @Component({
   selector: 'jhi-producto',
@@ -31,6 +33,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected productoService: ProductoService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -46,6 +49,17 @@ export class ProductoComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+  }
+
+  open(producto: IProducto) {
+    if (!producto) {
+      producto = {};
+      const modalRef = this.modalService.open(CrearEditarDialogComponent);
+      modalRef.componentInstance.producto = producto;
+    } else {
+      const modalRef = this.modalService.open(CrearEditarDialogComponent);
+      modalRef.componentInstance.producto = producto;
+    }
   }
 
   loadAll() {

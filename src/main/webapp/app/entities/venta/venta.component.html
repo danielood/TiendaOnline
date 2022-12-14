@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.venta.home.title">Ventas</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-venta" [routerLink]="['/venta/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-venta" (click)="open()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.venta.home.createLabel">
             Create new Venta
@@ -40,7 +40,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/venta', venta.id, 'edit']"
+                                (click)="open(venta)"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
