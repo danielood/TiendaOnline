@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Fichero;
+import com.mycompany.myapp.domain.Imagen;
 import com.mycompany.myapp.service.dto.ImagenDTO;
 
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ public interface ImagenService {
      * @param imagenDTO the entity to save.
      * @return the persisted entity.
      */
+    Imagen save(Fichero fichero);
+
     ImagenDTO save(ImagenDTO imagenDTO);
 
     /**

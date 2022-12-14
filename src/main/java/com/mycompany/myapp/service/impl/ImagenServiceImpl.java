@@ -2,6 +2,7 @@ package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.domain.AuxRepository;
 import com.mycompany.myapp.domain.Fichero;
+import com.mycompany.myapp.service.FileService;
 import com.mycompany.myapp.service.ImagenService;
 import com.mycompany.myapp.domain.Imagen;
 import com.mycompany.myapp.repository.ImagenRepository;
@@ -30,13 +31,16 @@ public class ImagenServiceImpl implements ImagenService {
 
     private final Logger log = LoggerFactory.getLogger(ImagenServiceImpl.class);
 
+    private final FileService fileService;
+
     private final ImagenRepository imagenRepository;
 
     private final ImagenMapper imagenMapper;
 
-    public ImagenServiceImpl(ImagenRepository imagenRepository, ImagenMapper imagenMapper) {
+    public ImagenServiceImpl(ImagenRepository imagenRepository, ImagenMapper imagenMapper,FileService fileService) {
         this.imagenRepository = imagenRepository;
         this.imagenMapper = imagenMapper;
+        this.fileService = fileService;
     }
 
     /**
@@ -46,8 +50,16 @@ public class ImagenServiceImpl implements ImagenService {
      * @return the persisted entity.
      */
     @Override
+    public Imagen save(Fichero fichero) {
+        Imagen imagenToSave = new Imagen();
+        imagenToSave.setPath(fileService.saveFile(fichero));
+        Imagen imagen = imagenRepository.save(imagenToSave);
+        log.debug("Request to save Imagen : {}",imagen);
+        return imagen;
+    }
+
+    @Override
     public ImagenDTO save(ImagenDTO imagenDTO) {
-        log.debug("Request to save Imagen : {}", imagenDTO);
         Imagen imagen = imagenMapper.toEntity(imagenDTO);
         imagen = imagenRepository.save(imagen);
         return imagenMapper.toDto(imagen);
