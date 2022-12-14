@@ -14,15 +14,22 @@ export class VistaTablaComponent implements OnInit {
   portada: File;
   url;
 
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService) {
+    this.url = '';
+  }
 
   ngOnInit() {
-    //TODO
-    //this.portada = this.fileService.ficheroToFile(this.juego.caratula);
-    // const reader = new FileReader();
-    // reader.onload = event => {
-    //   this.url = event.target.result;
-    //   reader.readAsDataURL(this.portada);
-    // };
+    if (this.juego.caratula) {
+      this.portada = this.fileService.ficheroToFile(this.juego.caratula);
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      };
+      if (this.portada) {
+        reader.readAsDataURL(this.portada);
+      } else {
+        this.url = '';
+      }
+    }
   }
 }

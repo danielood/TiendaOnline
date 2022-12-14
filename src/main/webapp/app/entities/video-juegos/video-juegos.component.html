@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.videoJuegos.home.title">Video Juegos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-video-juegos" [routerLink]="['/video-juegos/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-video-juegos" (click)="openModalCreate()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.videoJuegos.home.createLabel">
             Create new Video Juegos

@@ -1,41 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { Observable, ReplaySubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
-import { IVideoJuegos, VideoJuegos } from 'app/shared/model/video-juegos.model';
+import { IVideoJuegos, Pegi, VideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from './video-juegos.service';
-import { IImagen } from 'app/shared/model/imagen.model';
 import { ImagenService } from 'app/entities/imagen';
 import { ICompannia } from 'app/shared/model/compannia.model';
 import { CompanniaService } from 'app/entities/compannia';
-import { IValoraciones } from 'app/shared/model/valoraciones.model';
-import { ValoracionesService } from 'app/entities/valoraciones';
-import { IPlataforma } from 'app/shared/model/plataforma.model';
+import { IPlataforma, Plataforma } from 'app/shared/model/plataforma.model';
 import { PlataformaService } from 'app/entities/plataforma';
 import { ICategoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from 'app/entities/categoria';
-import { IVenta } from 'app/shared/model/venta.model';
-import { VentaService } from 'app/entities/venta';
-
+import { Fichero } from 'app/core/fichero.model';
 @Component({
   selector: 'jhi-video-juegos-update',
   templateUrl: './video-juegos-update.component.html',
   styleUrls: ['./video-juegos-update.component.scss']
 })
 export class VideoJuegosUpdateComponent implements OnInit {
-  videoJuegos: IVideoJuegos;
+  @Input() videoJuegos: IVideoJuegos;
   isSaving: boolean;
 
   compannias: ICompannia[];
 
-  plataformas: IPlataforma[];
+  plataformas: Array<IPlataforma>;
 
   categorias: ICategoria[];
 
-  ventas: IVenta[];
   fechaLanzamientoDp: any;
   caratula;
 
@@ -44,6 +37,18 @@ export class VideoJuegosUpdateComponent implements OnInit {
   isPegi12: boolean;
   isPegi16: boolean;
   isPegi18: boolean;
+
+  selectedPlat: string;
+  selectedPlatObj: IPlataforma;
+  listPlat: Array<IPlataforma>;
+
+  selectedCat: string;
+  selectedCatObj: ICategoria;
+  listCat: Array<ICategoria>;
+
+  selectedPegi: Pegi;
+
+  caratulaFichero: Fichero;
 
   editForm = this.fb.group({
     id: [],
@@ -65,17 +70,11 @@ export class VideoJuegosUpdateComponent implements OnInit {
     protected companniaService: CompanniaService,
     protected plataformaService: PlataformaService,
     protected categoriaService: CategoriaService,
-    protected ventaService: VentaService,
-    protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ videoJuegos }) => {
-      this.updateForm(videoJuegos);
-      this.videoJuegos = videoJuegos;
-    });
     this.companniaService
       .query()
       .pipe(
@@ -97,19 +96,29 @@ export class VideoJuegosUpdateComponent implements OnInit {
         map((response: HttpResponse<ICategoria[]>) => response.body)
       )
       .subscribe((res: ICategoria[]) => (this.categorias = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.ventaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVenta[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVenta[]>) => response.body)
-      )
-      .subscribe((res: IVenta[]) => (this.ventas = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.isPegi3 = false;
     this.isPegi7 = false;
     this.isPegi12 = false;
     this.isPegi16 = false;
     this.isPegi18 = false;
     this.caratula = '';
+    this.selectedPlat = '';
+    this.selectedPlatObj = {};
+    this.selectedCat = '';
+    this.selectedCatObj = {};
+    if (!this.videoJuegos) {
+      this.videoJuegos = new VideoJuegos();
+    }
+    if (this.videoJuegos.plataformas) {
+      this.listPlat = this.videoJuegos.plataformas;
+    } else {
+      this.listPlat = new Array<IPlataforma>();
+    }
+    if (this.videoJuegos.categorias) {
+      this.listCat = this.videoJuegos.categorias;
+    } else {
+      this.listCat = new Array<ICategoria>();
+    }
   }
 
   updateForm(videoJuegos: IVideoJuegos) {
@@ -122,7 +131,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
       precio: videoJuegos.precio,
       stock: videoJuegos.stock,
       companniaId: videoJuegos.companniaId,
-      plataformas: videoJuegos.plataformas,
       categorias: videoJuegos.categorias
     });
   }
@@ -147,13 +155,14 @@ export class VideoJuegosUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       titulo: this.editForm.get(['titulo']).value,
       sinopsis: this.editForm.get(['sinopsis']).value,
-      pegi: this.editForm.get(['pegi']).value,
+      pegi: this.selectedPegi,
       fechaLanzamiento: this.editForm.get(['fechaLanzamiento']).value,
       precio: this.editForm.get(['precio']).value,
       stock: this.editForm.get(['stock']).value,
       companniaId: this.editForm.get(['companniaId']).value,
-      plataformas: this.editForm.get(['plataformas']).value,
-      categorias: this.editForm.get(['categorias']).value
+      plataformas: this.listPlat,
+      categorias: this.listCat,
+      caratula: this.caratulaFichero
     };
     return entity;
   }
@@ -174,39 +183,8 @@ export class VideoJuegosUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackImagenById(index: number, item: IImagen) {
-    return item.id;
-  }
-
   trackCompanniaById(index: number, item: ICompannia) {
     return item.id;
-  }
-
-  trackValoracionesById(index: number, item: IValoraciones) {
-    return item.id;
-  }
-
-  trackPlataformaById(index: number, item: IPlataforma) {
-    return item.id;
-  }
-
-  trackCategoriaById(index: number, item: ICategoria) {
-    return item.id;
-  }
-
-  trackVentaById(index: number, item: IVenta) {
-    return item.id;
-  }
-
-  getSelected(selectedVals: Array<any>, option: any) {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
   }
 
   selectPegi(pegi: String) {
@@ -217,6 +195,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.isPegi12 = false;
         this.isPegi16 = false;
         this.isPegi18 = false;
+        this.selectedPegi = Pegi.PEGI3;
         break;
       case 'PEGI7':
         this.isPegi3 = false;
@@ -224,6 +203,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.isPegi12 = false;
         this.isPegi16 = false;
         this.isPegi18 = false;
+        this.selectedPegi = Pegi.PEGI7;
         break;
       case 'PEGI12':
         this.isPegi3 = false;
@@ -231,6 +211,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.isPegi12 = true;
         this.isPegi16 = false;
         this.isPegi18 = false;
+        this.selectedPegi = Pegi.PEGI12;
         break;
       case 'PEGI16':
         this.isPegi3 = false;
@@ -238,6 +219,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.isPegi12 = false;
         this.isPegi16 = true;
         this.isPegi18 = false;
+        this.selectedPegi = Pegi.PEGI16;
         break;
       case 'PEGI18':
         this.isPegi3 = false;
@@ -245,23 +227,64 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.isPegi12 = false;
         this.isPegi16 = false;
         this.isPegi18 = true;
+        this.selectedPegi = Pegi.PEGI18;
         break;
     }
   }
 
-  onChange(event) {
-    var reader = new FileReader();
+  onChangeCaratula(event) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
     reader.onload = (event: any) => {
       this.caratula = event.target.result;
     };
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]);
+    if (file) {
+      reader.readAsDataURL(file);
+      this.convertFile(file).subscribe(base64 => {
+        this.caratulaFichero = new Fichero(file.name, file.type, base64);
+      });
     } else {
       this.caratula = '';
     }
   }
 
-  onSelectPlataforma(event) {
-    console.log(event);
+  onSelectPlataforma() {
+    this.selectedPlatObj = this.plataformas.find(p => p.nombre == this.selectedPlat);
+    if (!this.listPlat.find(p => p.nombre.toLocaleLowerCase() == this.selectedPlat.toLocaleLowerCase())) {
+      if (this.selectedPlatObj) {
+        this.listPlat.push(this.selectedPlatObj);
+      } else {
+        const newPlat: IPlataforma = { ...new Plataforma(), nombre: this.selectedPlat };
+        this.listPlat.push(newPlat);
+      }
+    }
+  }
+
+  deletePlat(index: number) {
+    this.listPlat.splice(index, 1);
+  }
+
+  onSelectCategoria() {
+    this.selectedCatObj = this.plataformas.find(p => p.nombre == this.selectedCat);
+    if (!this.listCat.find(p => p.nombre.toLocaleLowerCase() == this.selectedCat.toLocaleLowerCase())) {
+      if (this.selectedCatObj) {
+        this.listCat.push(this.selectedCatObj);
+      } else {
+        const newPlat: IPlataforma = { ...new Plataforma(), nombre: this.selectedCat };
+        this.listCat.push(newPlat);
+      }
+    }
+  }
+
+  deleteCat(index: number) {
+    this.listCat.splice(index, 1);
+  }
+
+  private convertFile(file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = event => result.next(btoa(event.target.result.toString()));
+    return result;
   }
 }

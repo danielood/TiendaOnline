@@ -9,6 +9,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { VideoJuegosService } from './video-juegos.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VideoJuegosUpdateComponent } from './video-juegos-update.component';
 
 @Component({
   selector: 'jhi-video-juegos',
@@ -36,7 +38,8 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    private modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -112,6 +115,10 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
       result.push('id');
     }
     return result;
+  }
+
+  openModalCreate() {
+    this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg' });
   }
 
   protected paginateVideoJuegos(data: IJuegoTabla[], headers: HttpHeaders) {
