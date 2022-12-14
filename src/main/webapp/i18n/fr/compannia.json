@@ -2,18 +2,18 @@
   "tiendaOnlineApp": {
     "compannia": {
       "home": {
-        "title": "Compannias",
-        "createLabel": "Créer un nouveau Compannia",
-        "createOrEditLabel": "Créer ou éditer un Compannia"
+        "title": "Entreprises",
+        "createLabel": "Créer un nouveau Compagnie",
+        "createOrEditLabel": "Créer ou éditer un Compagnie"
       },
-      "created": "Un nouveau Compannia a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Compannia avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Compannia avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Compagnie a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Compagnie avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Compagnie avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Compannia {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Compagnie {{ id }} ?"
       },
       "detail": {
-        "title": "Compannia"
+        "title": "Compagnie"
       },
       "nombre": "Nombre"
     }

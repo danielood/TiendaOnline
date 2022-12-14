@@ -1,7 +1,13 @@
 package com.mycompany.myapp.repository;
 
+import com.mycompany.myapp.domain.AuxRepository;
+import com.mycompany.myapp.domain.IAuxNativeQuery;
 import com.mycompany.myapp.domain.Plataforma;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -12,4 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlataformaRepository extends JpaRepository<Plataforma, Long> {
 
+    @Query(value = "select v.id, group_concat(p.nombre) AS concat FROM tiendaonline.video_juegos as v,video_juegos_plataforma as m, plataforma as p where v.id = m.video_juegos_id and p.id = m.plataforma_id and v.id in (:ids) group by v.id;",nativeQuery = true)
+    List<IAuxNativeQuery> findAllByIds(@Param("ids")List<Long> ids);
 }

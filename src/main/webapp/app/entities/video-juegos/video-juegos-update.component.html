@@ -49,12 +49,6 @@
                            formControlName="stock"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.destacado" for="field_destacado">Destacado</label>
-                    <input type="checkbox" class="form-control" name="destacado" id="field_destacado"
-                           formControlName="destacado"/>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.caratula" for="field_caratula">Caratula</label>
                     <select class="form-control" id="field_caratula" name="caratula" formControlName="caratulaId">
                         <option [ngValue]="null"></option>
@@ -66,12 +60,6 @@
                     <select class="form-control" id="field_compannia" name="compannia" formControlName="companniaId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="companniaOption.id" *ngFor="let companniaOption of compannias; trackBy: trackCompanniaById">{{companniaOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="tiendaOnlineApp.videoJuegos.valoraciones" for="field_valoraciones">Valoraciones</label>
-                    <select class="form-control" id="field_valoraciones" multiple name="valoraciones" formControlName="valoraciones">
-                        <option [ngValue]="getSelected(editForm.get('valoraciones').value, valoracionesOption)" *ngFor="let valoracionesOption of valoraciones; trackBy: trackValoracionesById">{{valoracionesOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">

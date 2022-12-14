@@ -14,8 +14,6 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from 'app/entities/video-juegos';
-import { ICarrito } from 'app/shared/model/carrito.model';
-import { CarritoService } from 'app/entities/carrito';
 
 @Component({
   selector: 'jhi-venta-update',
@@ -24,14 +22,9 @@ import { CarritoService } from 'app/entities/carrito';
 export class VentaUpdateComponent implements OnInit {
   venta: IVenta;
   isSaving: boolean;
-
   clientes: ICliente[];
-
   productos: IProducto[];
-
   videojuegos: IVideoJuegos[];
-
-  carritos: ICarrito[];
   fechaVentaDp: any;
 
   editForm = this.fb.group({
@@ -49,7 +42,6 @@ export class VentaUpdateComponent implements OnInit {
     protected clienteService: ClienteService,
     protected productoService: ProductoService,
     protected videoJuegosService: VideoJuegosService,
-    protected carritoService: CarritoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -81,13 +73,6 @@ export class VentaUpdateComponent implements OnInit {
         map((response: HttpResponse<IVideoJuegos[]>) => response.body)
       )
       .subscribe((res: IVideoJuegos[]) => (this.videojuegos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.carritoService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ICarrito[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ICarrito[]>) => response.body)
-      )
-      .subscribe((res: ICarrito[]) => (this.carritos = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(venta: IVenta) {
@@ -153,10 +138,6 @@ export class VentaUpdateComponent implements OnInit {
   }
 
   trackVideoJuegosById(index: number, item: IVideoJuegos) {
-    return item.id;
-  }
-
-  trackCarritoById(index: number, item: ICarrito) {
     return item.id;
   }
 
