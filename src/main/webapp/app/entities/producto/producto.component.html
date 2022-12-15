@@ -21,7 +21,8 @@
             <th jhiSortBy="precio"><span jhiTranslate="tiendaOnlineApp.producto.precio">Precio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="stock"><span jhiTranslate="tiendaOnlineApp.producto.stock">Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="imagenId"><span jhiTranslate="tiendaOnlineApp.producto.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th jhiSortBy="plataformas"><span>Plataformas</span><fa-icon [icon]="'sort'"></fa-icon></th>
+
             </tr>
             </thead>
             <tbody>
@@ -34,6 +35,13 @@
                 <td>
                     <div *ngIf="producto.imagenId">
                         <a [routerLink]="['../imagen', producto.imagenId , 'view' ]" >{{producto.imagenId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="producto.plataformas">
+                        <ng-container *ngFor="let item of producto.plataformas">
+                            <a >{{item.nombre}},</a>
+                        </ng-container>
                     </div>
                 </td>
                 <td class="text-right">
