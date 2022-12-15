@@ -1,24 +1,7 @@
 import { IPlataforma } from 'app/shared/model/plataforma.model';
 import { IVenta } from 'app/shared/model/venta.model';
-export interface IProductoTabla {
-  id?: number;
-  nombre?: string;
-  precio?: number;
-  stock?: number;
-  imagenId?: number;
-  plataformas?: IPlataforma[];
-}
+import { ICarrito } from 'app/shared/model/carrito.model';
 
-export class ProductoTabla implements IProductoTabla {
-  constructor(
-    public id?: number,
-    public nombre?: string,
-    public precio?: number,
-    public stock?: number,
-    public imagenId?: number,
-    public plataformas?: IPlataforma[]
-  ) {}
-}
 export interface IProducto {
   id?: number;
   nombre?: string;
@@ -28,6 +11,7 @@ export interface IProducto {
   imagenId?: number;
   plataformas?: IPlataforma[];
   ventas?: IVenta[];
+  carritos?: ICarrito[];
 }
 
 export class Producto implements IProducto {
@@ -39,6 +23,7 @@ export class Producto implements IProducto {
     public stock?: number,
     public imagenId?: number,
     public plataformas?: IPlataforma[],
-    public ventas?: IVenta[]
+    public ventas?: IVenta[],
+    public carritos?: ICarrito[]
   ) {}
 }

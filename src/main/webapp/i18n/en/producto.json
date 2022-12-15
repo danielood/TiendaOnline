@@ -21,7 +21,8 @@
       "stock": "Stock",
       "imagen": "Imagen",
       "plataforma": "Plataforma",
-      "venta": "Venta"
+      "venta": "Venta",
+      "carrito": "Carrito"
     }
   }
 }

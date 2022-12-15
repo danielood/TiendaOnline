@@ -16,6 +16,7 @@ public interface ProductoMapper extends EntityMapper<ProductoDTO, Producto> {
 
     @Mapping(source = "imagenId", target = "imagen")
     @Mapping(target = "ventas", ignore = true)
+    @Mapping(target = "carritos", ignore = true)
     Producto toEntity(ProductoDTO productoDTO);
 
     default Producto fromId(Long id) {

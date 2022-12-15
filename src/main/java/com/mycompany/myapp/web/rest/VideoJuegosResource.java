@@ -1,7 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.service.VideoJuegosService;
-import com.mycompany.myapp.service.dto.JuegoTablaDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.service.dto.VideoJuegosDTO;
 
@@ -94,9 +93,9 @@ public class VideoJuegosResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of videoJuegos in body.
      */
     @GetMapping("/video-juegos")
-    public ResponseEntity<List<JuegoTablaDTO>> getAllVideoJuegos(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<VideoJuegosDTO>> getAllVideoJuegos(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of VideoJuegos");
-        Page<JuegoTablaDTO> page;
+        Page<VideoJuegosDTO> page;
         if (eagerload) {
             page = videoJuegosService.findAllWithEagerRelationships(pageable);
         } else {

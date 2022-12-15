@@ -43,6 +43,30 @@ import { RouterModule } from '@angular/router';
       {
         path: 'valoraciones',
         loadChildren: './valoraciones/valoraciones.module#TiendaOnlineValoracionesModule'
+      },
+      {
+        path: 'carrito',
+        loadChildren: './carrito/carrito.module#TiendaOnlineCarritoModule'
+      },
+      {
+        path: 'video-juegos',
+        loadChildren: './video-juegos/video-juegos.module#TiendaOnlineVideoJuegosModule'
+      },
+      {
+        path: 'carrito',
+        loadChildren: './carrito/carrito.module#TiendaOnlineCarritoModule'
+      },
+      {
+        path: 'producto',
+        loadChildren: './producto/producto.module#TiendaOnlineProductoModule'
+      },
+      {
+        path: 'venta',
+        loadChildren: './venta/venta.module#TiendaOnlineVentaModule'
+      },
+      {
+        path: 'carrito',
+        loadChildren: './carrito/carrito.module#TiendaOnlineCarritoModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

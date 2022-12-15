@@ -1,13 +1,9 @@
 package com.mycompany.myapp.service.dto;
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.Objects;
-
-import com.mycompany.myapp.domain.Fichero;
 import com.mycompany.myapp.domain.enumeration.Pegi;
 
 /**
@@ -32,13 +28,15 @@ public class VideoJuegosDTO implements Serializable {
     private Boolean destacado;
 
 
-    private Fichero caratula;
+    private Long caratulaId;
 
     private Long companniaId;
 
-    private List<PlataformaDTO> plataformas = new ArrayList<>();
+    private Set<ValoracionesDTO> valoraciones = new HashSet<>();
 
-    private List<CategoriaDTO> categorias = new ArrayList<>();
+    private Set<PlataformaDTO> plataformas = new HashSet<>();
+
+    private Set<CategoriaDTO> categorias = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -104,12 +102,12 @@ public class VideoJuegosDTO implements Serializable {
         this.destacado = destacado;
     }
 
-    public Fichero getCaratula() {
-        return caratula;
+    public Long getCaratulaId() {
+        return caratulaId;
     }
 
-    public void setCaratula(Fichero caratula) {
-        this.caratula = caratula;
+    public void setCaratulaId(Long imagenId) {
+        this.caratulaId = imagenId;
     }
 
     public Long getCompanniaId() {
@@ -120,19 +118,27 @@ public class VideoJuegosDTO implements Serializable {
         this.companniaId = companniaId;
     }
 
-    public List<PlataformaDTO> getPlataformas() {
+    public Set<ValoracionesDTO> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(Set<ValoracionesDTO> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
+    public Set<PlataformaDTO> getPlataformas() {
         return plataformas;
     }
 
-    public void setPlataformas(List<PlataformaDTO> plataformas) {
+    public void setPlataformas(Set<PlataformaDTO> plataformas) {
         this.plataformas = plataformas;
     }
 
-    public List<CategoriaDTO> getCategorias() {
+    public Set<CategoriaDTO> getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(List<CategoriaDTO> categorias) {
+    public void setCategorias(Set<CategoriaDTO> categorias) {
         this.categorias = categorias;
     }
 
@@ -168,7 +174,7 @@ public class VideoJuegosDTO implements Serializable {
             ", precio=" + getPrecio() +
             ", stock=" + getStock() +
             ", destacado='" + isDestacado() + "'" +
-            ", caratula=" + getCaratula() +
+            ", caratula=" + getCaratulaId() +
             ", compannia=" + getCompanniaId() +
             "}";
     }

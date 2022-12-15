@@ -22,8 +22,11 @@ import { VideoJuegosService } from 'app/entities/video-juegos';
 export class VentaUpdateComponent implements OnInit {
   venta: IVenta;
   isSaving: boolean;
+
   clientes: ICliente[];
+
   productos: IProducto[];
+
   videojuegos: IVideoJuegos[];
   fechaVentaDp: any;
 

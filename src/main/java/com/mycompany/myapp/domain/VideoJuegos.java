@@ -86,6 +86,11 @@ public class VideoJuegos implements Serializable {
     @JsonIgnore
     private Set<Venta> ventas = new HashSet<>();
 
+    @ManyToMany(mappedBy = "videoJuegos")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
+    private Set<Carrito> carritos = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -310,6 +315,31 @@ public class VideoJuegos implements Serializable {
 
     public void setVentas(Set<Venta> ventas) {
         this.ventas = ventas;
+    }
+
+    public Set<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public VideoJuegos carritos(Set<Carrito> carritos) {
+        this.carritos = carritos;
+        return this;
+    }
+
+    public VideoJuegos addCarrito(Carrito carrito) {
+        this.carritos.add(carrito);
+        carrito.getVideoJuegos().add(this);
+        return this;
+    }
+
+    public VideoJuegos removeCarrito(Carrito carrito) {
+        this.carritos.remove(carrito);
+        carrito.getVideoJuegos().remove(this);
+        return this;
+    }
+
+    public void setCarritos(Set<Carrito> carritos) {
+        this.carritos = carritos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

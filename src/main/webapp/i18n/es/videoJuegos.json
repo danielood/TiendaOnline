@@ -10,7 +10,7 @@
       "updated": "Un Video Juegos ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Video Juegos ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar el videojuego {{ param }}?"
+        "question": "¿Seguro que quiere eliminar Video Juegos {{ id }}?"
       },
       "detail": {
         "title": "Video Juegos"
@@ -27,7 +27,8 @@
       "valoraciones": "Valoraciones",
       "plataforma": "Plataforma",
       "categoria": "Categoria",
-      "venta": "Venta"
+      "venta": "Venta",
+      "carrito": "Carrito"
     }
   }
 }

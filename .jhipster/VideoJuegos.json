@@ -1,36 +1,6 @@
 {
-    "name": "VideoJuegos",
-    "fields": [
-        {
-            "fieldName": "titulo",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "sinopsis",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "pegi",
-            "fieldType": "Pegi",
-            "fieldValues": "PEGI3,PEGI7,PEGI12,PEGI16,PEGI18"
-        },
-        {
-            "fieldName": "fechaLanzamiento",
-            "fieldType": "LocalDate"
-        },
-        {
-            "fieldName": "precio",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "stock",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "destacado",
-            "fieldType": "Boolean"
-        }
-    ],
+    "fluentMethods": true,
+    "clientRootFolder": "",
     "relationships": [
         {
             "relationshipType": "one-to-one",
@@ -78,15 +48,52 @@
             "relationshipName": "venta",
             "otherEntityField": "id",
             "ownerSide": false
+        },
+        {
+            "relationshipName": "carrito",
+            "otherEntityName": "carrito",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "videoJuegos"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "titulo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sinopsis",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pegi",
+            "fieldType": "Pegi",
+            "fieldValues": "PEGI3,PEGI7,PEGI12,PEGI16,PEGI18"
+        },
+        {
+            "fieldName": "fechaLanzamiento",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "stock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "destacado",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20221205085427",
-    "entityTableName": "video_juegos",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "video_juegos",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

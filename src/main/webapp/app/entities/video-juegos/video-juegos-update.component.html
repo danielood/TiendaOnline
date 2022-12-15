@@ -1,169 +1,100 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-  <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <img [src]="caratula" alt="" class="img-fluid mh-img" />
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.compannia" for="field_compannia">Compannia</label>
-          <select class="form-control" id="field_compannia" name="compannia" formControlName="companniaId">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="companniaOption.id" *ngFor="let companniaOption of compannias; trackBy: trackCompanniaById">
-              {{ companniaOption.id }}</option
-            >
-          </select>
-        </div>
-        <div class="form-group">
-          <label jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma" for="field_plataformas">Plataforma</label>
-          <div class="d-flex">
-            <input class="form-control" formControlName="plataformas" type="text" list="plats" value="{{selectedPlat}}" [(ngModel)]="selectedPlat"/>
-            <datalist id="plats">
-              <option *ngFor="let p of plataformas" [value]="p.nombre">{{p.nombre}}</option>
-            </datalist>
-            <div class="text-right">
-              <span class="btn btn-primary" (click)="onSelectPlataforma()">></span>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-video-juegos-heading" jhiTranslate="tiendaOnlineApp.videoJuegos.home.createOrEditLabel">Create or edit a Video Juegos</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!videoJuegos.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.titulo" for="field_titulo">Titulo</label>
+                    <input type="text" class="form-control" name="titulo" id="field_titulo"
+                           formControlName="titulo"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.sinopsis" for="field_sinopsis">Sinopsis</label>
+                    <input type="text" class="form-control" name="sinopsis" id="field_sinopsis"
+                           formControlName="sinopsis"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.pegi" for="field_pegi">Pegi</label>
+                    <select class="form-control" name="pegi" formControlName="pegi" id="field_pegi">
+                        <option value="PEGI3">{{'tiendaOnlineApp.Pegi.PEGI3' | translate}}</option>
+                        <option value="PEGI7">{{'tiendaOnlineApp.Pegi.PEGI7' | translate}}</option>
+                        <option value="PEGI12">{{'tiendaOnlineApp.Pegi.PEGI12' | translate}}</option>
+                        <option value="PEGI16">{{'tiendaOnlineApp.Pegi.PEGI16' | translate}}</option>
+                        <option value="PEGI18">{{'tiendaOnlineApp.Pegi.PEGI18' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.fechaLanzamiento" for="field_fechaLanzamiento">Fecha Lanzamiento</label>
+                    <div class="input-group">
+                        <input id="field_fechaLanzamiento" type="text" class="form-control" name="fechaLanzamiento" ngbDatepicker  #fechaLanzamientoDp="ngbDatepicker" formControlName="fechaLanzamiento"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaLanzamientoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.precio" for="field_precio">Precio</label>
+                    <input type="number" class="form-control" name="precio" id="field_precio"
+                           formControlName="precio"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.stock" for="field_stock">Stock</label>
+                    <input type="number" class="form-control" name="stock" id="field_stock"
+                           formControlName="stock"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.destacado" for="field_destacado">Destacado</label>
+                    <input type="checkbox" class="form-control" name="destacado" id="field_destacado"
+                           formControlName="destacado"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.caratula" for="field_caratula">Caratula</label>
+                    <select class="form-control" id="field_caratula" name="caratula" formControlName="caratulaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="imagenOption.id" *ngFor="let imagenOption of caratulas; trackBy: trackImagenById">{{imagenOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.compannia" for="field_compannia">Compannia</label>
+                    <select class="form-control" id="field_compannia" name="compannia" formControlName="companniaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companniaOption.id" *ngFor="let companniaOption of compannias; trackBy: trackCompanniaById">{{companniaOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="tiendaOnlineApp.videoJuegos.valoraciones" for="field_valoraciones">Valoraciones</label>
+                    <select class="form-control" id="field_valoraciones" multiple name="valoraciones" formControlName="valoraciones">
+                        <option [ngValue]="getSelected(editForm.get('valoraciones').value, valoracionesOption)" *ngFor="let valoracionesOption of valoraciones; trackBy: trackValoracionesById">{{valoracionesOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma" for="field_plataformas">Plataforma</label>
+                    <select class="form-control" id="field_plataformas" multiple name="plataformas" formControlName="plataformas">
+                        <option [ngValue]="getSelected(editForm.get('plataformas').value, plataformaOption)" *ngFor="let plataformaOption of plataformas; trackBy: trackPlataformaById">{{plataformaOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="tiendaOnlineApp.videoJuegos.categoria" for="field_categorias">Categoria</label>
+                    <select class="form-control" id="field_categorias" multiple name="categorias" formControlName="categorias">
+                        <option [ngValue]="getSelected(editForm.get('categorias').value, categoriaOption)" *ngFor="let categoriaOption of categorias; trackBy: trackCategoriaById">{{categoriaOption.id}}</option>
+                    </select>
+                </div>
             </div>
-          </div>
-          <table class="table table-bordered" *ngIf="listPlat.length>0">
-                <tr *ngFor="let plat of listPlat; let i = index" class="">
-                    <span>{{plat.nombre}}</span>
-                    <a (click)="deletePlat(i)">
-                        <fa-icon [icon]="'times'" class="fa"></fa-icon>
-                    </a>
-                </tr>
-        </table>
-        </div>
-        <div class="form-group">
-          <label jhiTranslate="tiendaOnlineApp.videoJuegos.categoria" for="field_categorias">Categoria</label>
-          <div class="d-flex">
-            <input class="form-control" formControlName="categorias" type="text" list="cats" value="{{selectedCat}}" [(ngModel)]="selectedCat"/>
-            <datalist id="cats">
-              <option *ngFor="let c of categorias" [value]="c.nombre">{{c.nombre}}</option>
-            </datalist>
-            <div class="text-right">
-              <span class="btn btn-primary" (click)="onSelectCategoria()">></span>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
             </div>
-          </div>
-          <table class="table table-bordered" *ngIf="listCat.length>0">
-                <tr *ngFor="let cat of listCat; let i = index">
-                    <span>{{cat.nombre}}</span>
-                    <a (click)="deleteCat(i)">
-                        <fa-icon [icon]="'times'" class="fa"></fa-icon>
-                    </a>
-                </tr>
-        </table>
-        </div>
-        <div>
-          <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-          </button>
-          <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-          </button>
-        </div>
-      </div>
-      <div class="col-6">
-        <h2 id="jhi-video-juegos-heading" jhiTranslate="tiendaOnlineApp.videoJuegos.home.createOrEditLabel">
-          Create or edit a Video Juegos
-        </h2>
-        <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!videoJuegos.id">
-          <label for="id" jhiTranslate="global.field.id">ID</label>
-          <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.titulo" for="field_titulo">Titulo</label>
-          <input type="text" class="form-control" name="titulo" id="field_titulo" formControlName="titulo" />
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.sinopsis" for="field_sinopsis">Sinopsis</label>
-          <input type="text" class="form-control" name="sinopsis" id="field_sinopsis" formControlName="sinopsis" />
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.pegi" for="field_pegi">Pegi</label>
-          <div class="d-flex justify-content-center">
-            <a (click)="selectPegi('PEGI3')"
-              ><img
-                class="mr-3"
-                [ngClass]="isPegi3 ? '' : 'opacity'"
-                alt="PEGI3"
-                src="../../../content/images/PEGI3.png"
-                width="55px"
-                height="64px"
-            /></a>
-            <a (click)="selectPegi('PEGI7')"
-              ><img
-                class="mr-3"
-                [ngClass]="isPegi7 ? '' : 'opacity'"
-                alt="PEGI7"
-                src="../../../content/images/PEGI7.png"
-                width="55px"
-                height="64px"
-            /></a>
-            <a (click)="selectPegi('PEGI12')"
-              ><img
-                class="mr-3"
-                [ngClass]="isPegi12 ? '' : 'opacity'"
-                alt="PEGI12"
-                src="../../../content/images/PEGI12.png"
-                width="55px"
-                height="64px"
-            /></a>
-            <a (click)="selectPegi('PEGI16')"
-              ><img
-                class="mr-3"
-                [ngClass]="isPegi16 ? '' : 'opacity'"
-                alt="PEGI16"
-                src="../../../content/images/PEGI16.png"
-                width="55px"
-                height="64px"
-            /></a>
-            <a (click)="selectPegi('PEGI18')"
-              ><img
-                class="mr-3"
-                [ngClass]="isPegi18 ? '' : 'opacity'"
-                alt="PEGI18"
-                src="../../../content/images/PEGI18.png"
-                width="55px"
-                height="64px"
-            /></a>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.fechaLanzamiento" for="field_fechaLanzamiento"
-            >Fecha Lanzamiento</label
-          >
-          <div class="input-group">
-            <input
-              id="field_fechaLanzamiento"
-              type="text"
-              class="form-control"
-              name="fechaLanzamiento"
-              ngbDatepicker
-              #fechaLanzamientoDp="ngbDatepicker"
-              formControlName="fechaLanzamiento"
-            />
-            <span class="input-group-append">
-              <button type="button" class="btn btn-secondary" (click)="fechaLanzamientoDp.toggle()">
-                <fa-icon [icon]="'calendar-alt'"></fa-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.precio" for="field_precio">Precio</label>
-          <input type="number" class="form-control" name="precio" id="field_precio" formControlName="precio" />
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.stock" for="field_stock">Stock</label>
-          <input type="number" class="form-control" name="stock" id="field_stock" formControlName="stock" />
-        </div>
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.caratula" for="field_caratula">Caratula</label>
-          <div class="d-flex">
-            <input type="file" (change)="onChangeCaratula($event)" />
-          </div>
-        </div>
-      </div>
+        </form>
     </div>
-  </div>
-</form>
+</div>

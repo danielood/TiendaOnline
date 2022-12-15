@@ -71,6 +71,10 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.Valoraciones.class.getName() + ".videoJuegos");
             createCache(cm, com.mycompany.myapp.domain.Carrito.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Carrito.class.getName() + ".ventas");
+            createCache(cm, com.mycompany.myapp.domain.Carrito.class.getName() + ".videoJuegos");
+            createCache(cm, com.mycompany.myapp.domain.VideoJuegos.class.getName() + ".carritos");
+            createCache(cm, com.mycompany.myapp.domain.Carrito.class.getName() + ".productos");
+            createCache(cm, com.mycompany.myapp.domain.Producto.class.getName() + ".carritos");
             // jhipster-needle-ehcache-add-entry
         };
     }

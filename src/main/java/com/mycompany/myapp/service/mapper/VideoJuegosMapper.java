@@ -8,8 +8,19 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link VideoJuegos} and its DTO {@link VideoJuegosDTO}.
  */
-@Mapper(componentModel = "spring", uses = {CompanniaMapper.class, PlataformaMapper.class, CategoriaMapper.class})
+@Mapper(componentModel = "spring", uses = {ImagenMapper.class, CompanniaMapper.class, ValoracionesMapper.class, PlataformaMapper.class, CategoriaMapper.class})
 public interface VideoJuegosMapper extends EntityMapper<VideoJuegosDTO, VideoJuegos> {
+
+    @Mapping(source = "caratula.id", target = "caratulaId")
+    @Mapping(source = "compannia.id", target = "companniaId")
+    VideoJuegosDTO toDto(VideoJuegos videoJuegos);
+
+    @Mapping(source = "caratulaId", target = "caratula")
+    @Mapping(source = "companniaId", target = "compannia")
+    @Mapping(target = "ventas", ignore = true)
+    @Mapping(target = "carritos", ignore = true)
+    VideoJuegos toEntity(VideoJuegosDTO videoJuegosDTO);
+
     default VideoJuegos fromId(Long id) {
         if (id == null) {
             return null;

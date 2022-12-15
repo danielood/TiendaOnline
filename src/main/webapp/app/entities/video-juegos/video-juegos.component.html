@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.videoJuegos.home.title">Video Juegos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-video-juegos" (click)="openModalCreate()">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-video-juegos" [routerLink]="['/video-juegos/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.videoJuegos.home.createLabel">
             Create new Video Juegos
@@ -10,10 +10,70 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="row">
-        <div class="col-sm-12 col-md-3" *ngFor="let juego of videoJuegos">
-            <jhi-vista-tabla [juego]="juego"></jhi-vista-tabla>
-        </div>
+    <div class="table-responsive" *ngIf="videoJuegos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="titulo"><span jhiTranslate="tiendaOnlineApp.videoJuegos.titulo">Titulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sinopsis"><span jhiTranslate="tiendaOnlineApp.videoJuegos.sinopsis">Sinopsis</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pegi"><span jhiTranslate="tiendaOnlineApp.videoJuegos.pegi">Pegi</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fechaLanzamiento"><span jhiTranslate="tiendaOnlineApp.videoJuegos.fechaLanzamiento">Fecha Lanzamiento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="precio"><span jhiTranslate="tiendaOnlineApp.videoJuegos.precio">Precio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="stock"><span jhiTranslate="tiendaOnlineApp.videoJuegos.stock">Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="destacado"><span jhiTranslate="tiendaOnlineApp.videoJuegos.destacado">Destacado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="caratulaId"><span jhiTranslate="tiendaOnlineApp.videoJuegos.caratula">Caratula</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companniaId"><span jhiTranslate="tiendaOnlineApp.videoJuegos.compannia">Compannia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let videoJuegos of videoJuegos ;trackBy: trackId">
+                <td><a [routerLink]="['/video-juegos', videoJuegos.id, 'view' ]">{{videoJuegos.id}}</a></td>
+                <td>{{videoJuegos.titulo}}</td>
+                <td>{{videoJuegos.sinopsis}}</td>
+                <td jhiTranslate="{{'tiendaOnlineApp.Pegi.' + videoJuegos.pegi}}">{{videoJuegos.pegi}}</td>
+                <td>{{videoJuegos.fechaLanzamiento | date:'mediumDate'}}</td>
+                <td>{{videoJuegos.precio}}</td>
+                <td>{{videoJuegos.stock}}</td>
+                <td>{{videoJuegos.destacado}}</td>
+                <td>
+                    <div *ngIf="videoJuegos.caratulaId">
+                        <a [routerLink]="['../imagen', videoJuegos.caratulaId , 'view' ]" >{{videoJuegos.caratulaId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="videoJuegos.companniaId">
+                        <a [routerLink]="['../compannia', videoJuegos.companniaId , 'view' ]" >{{videoJuegos.companniaId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/video-juegos', videoJuegos.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/video-juegos', videoJuegos.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'video-juegos', { outlets: { popup: videoJuegos.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div *ngIf="videoJuegos && videoJuegos.length">
         <div class="row justify-content-center">

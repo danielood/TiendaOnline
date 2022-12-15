@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p id="jhi-delete-videoJuegos-heading" jhiTranslate="tiendaOnlineApp.videoJuegos.delete.question" [translateValues]="{param: videoJuegos.titulo}">Are you sure you want to delete this Video Juegos?</p>
+        <p id="jhi-delete-videoJuegos-heading" jhiTranslate="tiendaOnlineApp.videoJuegos.delete.question" [translateValues]="{id: videoJuegos.id}">Are you sure you want to delete this Video Juegos?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

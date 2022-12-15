@@ -1,18 +1,6 @@
 import { Moment } from 'moment';
 import { IProducto } from 'app/shared/model/producto.model';
 import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
-import { ICarrito } from 'app/shared/model/carrito.model';
-
-export interface IVentaTabla {
-  id?: number;
-  fechaVenta?: Moment;
-  precioVenta?: number;
-  clienteId?: number;
-}
-
-export class VentaTabla implements IVentaTabla {
-  constructor(public id?: number, public fechaVenta?: Moment, public precioVenta?: number, public clienteId?: number) {}
-}
 
 export interface IVenta {
   id?: number;
@@ -21,7 +9,6 @@ export interface IVenta {
   clienteId?: number;
   productos?: IProducto[];
   videoJuegos?: IVideoJuegos[];
-  carritos?: ICarrito[];
 }
 
 export class Venta implements IVenta {
@@ -31,7 +18,6 @@ export class Venta implements IVenta {
     public precioVenta?: number,
     public clienteId?: number,
     public productos?: IProducto[],
-    public videoJuegos?: IVideoJuegos[],
-    public carritos?: ICarrito[]
+    public videoJuegos?: IVideoJuegos[]
   ) {}
 }

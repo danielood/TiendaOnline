@@ -4,9 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { IProducto } from 'app/shared/model/producto.model';
-import { IProductoTabla } from 'app/shared/model/producto.model';
 
+import { IProducto } from 'app/shared/model/producto.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
@@ -18,7 +17,7 @@ import { ProductoService } from './producto.service';
 })
 export class ProductoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  productos: IProductoTabla[];
+  productos: IProducto[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
