@@ -11,9 +11,11 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.io.Files;
 import com.mycompany.myapp.config.ApplicationProperties;
 import com.mycompany.myapp.domain.Fichero;
 import com.mycompany.myapp.service.FileService;
+import com.mycompany.myapp.service.dto.ImagenDTO;
 
 @Service
 @Transactional
@@ -25,9 +27,30 @@ public class FileServiceImpl implements FileService {
         this.applicationProperties = applicationProperties;
     }
 
+
     @Override
     public String saveFile(Fichero file) {
         return saveLocalFile(file).getAbsolutePath();
+    }
+
+    @Override
+    public Fichero getFicheroFromImagen(String path) {
+        File file = new File(path);
+        Fichero fichero = new Fichero();
+        fichero.setFileName(file.getName());
+        if((Files.getFileExtension(file.getName())=="jpg" || (Files.getFileExtension(file.getName())=="jpeg"))){
+            fichero.setFileType("image/jpeg");
+        }
+        fichero.setFileBase64(encodeBase64(file));
+        return fichero;
+    }
+
+    @Override
+    public void deleteFile(String path) {
+        File file = new File(path);
+        if(file.delete()){
+            System.out.println(String.format("%s%s%s", "Fichero ",file.getName()," borrado"));
+        }
     }
 
     private File saveLocalFile(Fichero file){
@@ -60,5 +83,4 @@ public class FileServiceImpl implements FileService {
 
         return base64;
     }
-
 }

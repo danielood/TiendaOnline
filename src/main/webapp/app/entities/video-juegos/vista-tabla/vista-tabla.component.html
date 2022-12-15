@@ -24,7 +24,7 @@
                 </div>
             </figcaption>
         </div>
-        <div class="bottom-wrap"> <a href="#" class="btn btn-primary float-right" data-abc="true"> Editar </a>
+        <div class="bottom-wrap"> <a (click)="openEditModal()" class="btn btn-primary float-right" data-abc="true"> Editar </a>
             <div class="price-wrap">
                 <button type="submit"
                 [routerLink]="['/', 'video-juegos', { outlets: { popup: juego.id + '/delete'} }]"

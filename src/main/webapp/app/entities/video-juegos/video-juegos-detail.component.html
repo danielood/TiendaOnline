@@ -36,7 +36,7 @@
                 <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.caratula">Caratula</span></dt>
                 <dd>
                     <div *ngIf="videoJuegos.caratulaId">
-                        <a [routerLink]="['/imagen', videoJuegos.caratulaId, 'view']">{{videoJuegos.caratulaId}}</a>
+                        {{videoJuegos.caratulaId}}
                     </div>
                 </dd>
                 <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.compannia">Compannia</span></dt>
@@ -70,7 +70,6 @@
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
-
             <button type="button"
                     [routerLink]="['/video-juegos', videoJuegos.id, 'edit']"
                     class="btn btn-primary">

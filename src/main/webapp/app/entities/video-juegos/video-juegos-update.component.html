@@ -5,12 +5,10 @@
         <img [src]="caratula" alt="" class="img-fluid mh-img" />
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="tiendaOnlineApp.videoJuegos.compannia" for="field_compannia">Compannia</label>
-          <select class="form-control" id="field_compannia" name="compannia" formControlName="companniaId">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="companniaOption.id" *ngFor="let companniaOption of compannias; trackBy: trackCompanniaById">
-              {{ companniaOption.id }}</option
-            >
-          </select>
+          <input class="form-control" formControlName="compannia" type="text" list="comps" value="{{selectedComp}}" [(ngModel)]="selectedComp" (ngModelChange)="onSelectCompannia()"/>
+            <datalist id="comps">
+              <option *ngFor="let c of compannias" [value]="c.nombre">{{c.nombre}}</option>
+            </datalist>
         </div>
         <div class="form-group">
           <label jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma" for="field_plataformas">Plataforma</label>
@@ -66,7 +64,7 @@
           Create or edit a Video Juegos
         </h2>
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!videoJuegos.id">
+        <div class="form-group" [hidden]="!videoJuego.id">
           <label for="id" jhiTranslate="global.field.id">ID</label>
           <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
         </div>

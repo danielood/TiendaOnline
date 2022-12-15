@@ -16,28 +16,16 @@ import com.mycompany.myapp.domain.enumeration.Pegi;
 public class VideoJuegosDTO implements Serializable {
 
     private Long id;
-
     private String titulo;
-
     private String sinopsis;
-
     private Pegi pegi;
-
     private LocalDate fechaLanzamiento;
-
     private Double precio;
-
     private Integer stock;
-
     private Boolean destacado;
-
-
     private Fichero caratula;
-
-    private Long companniaId;
-
+    private CompanniaDTO compannia;
     private List<PlataformaDTO> plataformas = new ArrayList<>();
-
     private List<CategoriaDTO> categorias = new ArrayList<>();
 
     public Long getId() {
@@ -112,12 +100,12 @@ public class VideoJuegosDTO implements Serializable {
         this.caratula = caratula;
     }
 
-    public Long getCompanniaId() {
-        return companniaId;
+    public CompanniaDTO getCompannia() {
+        return compannia;
     }
 
-    public void setCompanniaId(Long companniaId) {
-        this.companniaId = companniaId;
+    public void setCompannia(CompanniaDTO compannia) {
+        this.compannia = compannia;
     }
 
     public List<PlataformaDTO> getPlataformas() {
@@ -169,7 +157,7 @@ public class VideoJuegosDTO implements Serializable {
             ", stock=" + getStock() +
             ", destacado='" + isDestacado() + "'" +
             ", caratula=" + getCaratula() +
-            ", compannia=" + getCompanniaId() +
+            ", compannia=" + getCompannia() +
             "}";
     }
 }

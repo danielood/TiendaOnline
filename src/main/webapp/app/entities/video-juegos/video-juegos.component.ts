@@ -118,7 +118,11 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
   }
 
   openModalCreate() {
-    this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg' });
+    this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg' }).result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
+    });
   }
 
   protected paginateVideoJuegos(data: IJuegoTabla[], headers: HttpHeaders) {
