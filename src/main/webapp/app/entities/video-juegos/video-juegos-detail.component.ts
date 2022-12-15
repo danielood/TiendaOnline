@@ -5,7 +5,8 @@ import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
 
 @Component({
   selector: 'jhi-video-juegos-detail',
-  templateUrl: './video-juegos-detail.component.html'
+  templateUrl: './video-juegos-detail.component.html',
+  styleUrls: ['./videojuegos-detail.scss']
 })
 export class VideoJuegosDetailComponent implements OnInit {
   videoJuegos: IVideoJuegos;

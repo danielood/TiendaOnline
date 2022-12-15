@@ -12,6 +12,7 @@ import {
   ventaRoute,
   ventaPopupRoute
 } from './';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 import { VistaVentaComponent } from './vista-venta/vista-venta.component';
 const ENTITY_STATES = [...ventaRoute, ...ventaPopupRoute];
 @NgModule({
@@ -22,9 +23,17 @@ const ENTITY_STATES = [...ventaRoute, ...ventaPopupRoute];
     VentaUpdateComponent,
     VentaDeleteDialogComponent,
     VentaDeletePopupComponent,
+    CrearEditarDialogComponent,
     VistaVentaComponent
   ],
-  entryComponents: [VentaComponent, VentaUpdateComponent, VentaDeleteDialogComponent, VentaDeletePopupComponent, VistaVentaComponent],
+  entryComponents: [
+    VentaComponent,
+    VentaUpdateComponent,
+    VentaDeleteDialogComponent,
+    VentaDeletePopupComponent,
+    CrearEditarDialogComponent,
+    VistaVentaComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

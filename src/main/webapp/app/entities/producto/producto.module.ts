@@ -13,6 +13,7 @@ import {
   productoRoute,
   productoPopupRoute
 } from './';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 import { VistaProductoComponent } from './vista-producto/vista-producto.component';
 const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
 
@@ -24,6 +25,7 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
     ProductoUpdateComponent,
     ProductoDeleteDialogComponent,
     ProductoDeletePopupComponent,
+    CrearEditarDialogComponent
     VistaProductoComponent
   ],
   entryComponents: [
@@ -31,6 +33,7 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
     ProductoUpdateComponent,
     ProductoDeleteDialogComponent,
     ProductoDeletePopupComponent,
+    CrearEditarDialogComponent
     VistaProductoComponent
   ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],

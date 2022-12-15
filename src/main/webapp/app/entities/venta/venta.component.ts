@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { VentaService } from './venta.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 
 @Component({
   selector: 'jhi-venta',
@@ -31,6 +33,7 @@ export class VentaComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected ventaService: VentaService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -46,6 +49,16 @@ export class VentaComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+  }
+  open(venta: IVenta) {
+    if (!venta) {
+      venta = {};
+      const modalRef = this.modalService.open(CrearEditarDialogComponent);
+      modalRef.componentInstance.venta = venta;
+    } else {
+      const modalRef = this.modalService.open(CrearEditarDialogComponent);
+      modalRef.componentInstance.venta = venta;
+    }
   }
 
   loadAll() {
