@@ -1,10 +1,14 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.AuxRepository;
+import com.mycompany.myapp.domain.Fichero;
+import com.mycompany.myapp.service.FileService;
 import com.mycompany.myapp.service.ImagenService;
 import com.mycompany.myapp.domain.Imagen;
 import com.mycompany.myapp.repository.ImagenRepository;
 import com.mycompany.myapp.service.dto.ImagenDTO;
 import com.mycompany.myapp.service.mapper.ImagenMapper;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +17,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.*;
 
 /**
  * Service Implementation for managing {@link Imagen}.
@@ -24,13 +31,16 @@ public class ImagenServiceImpl implements ImagenService {
 
     private final Logger log = LoggerFactory.getLogger(ImagenServiceImpl.class);
 
+    private final FileService fileService;
+
     private final ImagenRepository imagenRepository;
 
     private final ImagenMapper imagenMapper;
 
-    public ImagenServiceImpl(ImagenRepository imagenRepository, ImagenMapper imagenMapper) {
+    public ImagenServiceImpl(ImagenRepository imagenRepository, ImagenMapper imagenMapper,FileService fileService) {
         this.imagenRepository = imagenRepository;
         this.imagenMapper = imagenMapper;
+        this.fileService = fileService;
     }
 
     /**
@@ -40,8 +50,16 @@ public class ImagenServiceImpl implements ImagenService {
      * @return the persisted entity.
      */
     @Override
+    public Imagen save(Fichero fichero) {
+        Imagen imagenToSave = new Imagen();
+        imagenToSave.setPath(fileService.saveFile(fichero));
+        Imagen imagen = imagenRepository.save(imagenToSave);
+        log.debug("Request to save Imagen : {}",imagen);
+        return imagen;
+    }
+
+    @Override
     public ImagenDTO save(ImagenDTO imagenDTO) {
-        log.debug("Request to save Imagen : {}", imagenDTO);
         Imagen imagen = imagenMapper.toEntity(imagenDTO);
         imagen = imagenRepository.save(imagen);
         return imagenMapper.toDto(imagen);
@@ -59,6 +77,17 @@ public class ImagenServiceImpl implements ImagenService {
         log.debug("Request to get all Imagens");
         return imagenRepository.findAll(pageable)
             .map(imagenMapper::toDto);
+    }
+
+    @Override
+    public Map<Long, Fichero> findCaratulas(List<Long> ids) {
+        Map<Long, Fichero> map = new HashMap<>();
+        List<AuxRepository> result = imagenRepository.findCaratulas(ids);
+        for(AuxRepository row : result){
+            Fichero fichero = convertPathToFichero(row.getAuxString());
+            map.put(row.getId(),fichero);
+        }
+        return map;
     }
 
 
@@ -85,5 +114,33 @@ public class ImagenServiceImpl implements ImagenService {
     public void delete(Long id) {
         log.debug("Request to delete Imagen : {}", id);
         imagenRepository.deleteById(id);
+    }
+
+    private Fichero convertPathToFichero(String path){
+        Fichero fichero = new Fichero();
+        File file = new File(path);
+        fichero.setFileName(file.getName());
+        fichero.setFileType(getContentType(file));
+        fichero.setFileBase64(getBase64(file));
+        return fichero;
+    }
+
+    private String getBase64(File file){
+        byte[] fileContent = new byte[0];
+        try {
+            fileContent = FileUtils.readFileToByteArray(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Base64.getEncoder().encodeToString(fileContent);
+    }
+
+    private String getContentType(File file){
+        try {
+            return Files.probeContentType(file.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

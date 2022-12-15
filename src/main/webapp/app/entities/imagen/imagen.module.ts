@@ -4,22 +4,11 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
 import { TiendaOnlineSharedModule } from 'app/shared';
-import {
-  ImagenComponent,
-  ImagenDetailComponent,
-  ImagenUpdateComponent,
-  ImagenDeletePopupComponent,
-  ImagenDeleteDialogComponent,
-  imagenRoute,
-  imagenPopupRoute
-} from './';
-
-const ENTITY_STATES = [...imagenRoute, ...imagenPopupRoute];
+import {} from './';
 
 @NgModule({
-  imports: [TiendaOnlineSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [ImagenComponent, ImagenDetailComponent, ImagenUpdateComponent, ImagenDeleteDialogComponent, ImagenDeletePopupComponent],
-  entryComponents: [ImagenComponent, ImagenUpdateComponent, ImagenDeleteDialogComponent, ImagenDeletePopupComponent],
+  declarations: [],
+  entryComponents: [],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -46,12 +46,10 @@ export interface IVideoJuegos {
   precio?: number;
   stock?: number;
   destacado?: boolean;
-  caratulaId?: number;
+  caratula?: Fichero;
   companniaId?: number;
-  valoraciones?: IValoraciones[];
   plataformas?: IPlataforma[];
   categorias?: ICategoria[];
-  ventas?: IVenta[];
 }
 
 export class VideoJuegos implements IVideoJuegos {
@@ -64,12 +62,10 @@ export class VideoJuegos implements IVideoJuegos {
     public precio?: number,
     public stock?: number,
     public destacado?: boolean,
-    public caratulaId?: number,
+    public caratula?: Fichero,
     public companniaId?: number,
-    public valoraciones?: IValoraciones[],
     public plataformas?: IPlataforma[],
-    public categorias?: ICategoria[],
-    public ventas?: IVenta[]
+    public categorias?: ICategoria[]
   ) {
     this.destacado = this.destacado || false;
   }

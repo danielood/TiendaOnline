@@ -1,29 +1,40 @@
-<div class="row justify-content-right">
-    <div class="col-8">
-        <h3>{{juego.id}}</h3>
-        <img [src]="url">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <h3>
-                    <dl>
-                        <dt>
-                            <span><strong>{{juego.titulo}}</strong></span>
-                        </dt>
-                        <dd>
-                            <span>{{juego.compannia}}</span>
-                        </dd>
-                    </dl>
-                </h3>
-                <dd class="col-8">
-                    <span *ngFor="let plat of juego.plataformas">{{plat}}, </span>
-                </dd>
-                <div class="text-left">
-                    <dd>
-                        <span><strong>{{juego.precio | currency:'EUR':true}}</strong></span>
-                        <span class="col-10 text-right">{{juego.stock}}</span>
-                    </dd>
+<div class="container d-flex justify-content-center">
+    <figure class="card card-product-grid card-lg"><a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="img-wrap" data-abc="true"><span class="title row d-flex col-4">{{juego.id}}</span><img alt="{{juego.titulo}}" *ngIf="juego.caratula" [src]="url"> <img alt="{{juego.titulo}}" *ngIf="!juego.caratula" src="https://as01.epimg.net/img/meristation/placeholder-cover.png"> </a>
+        <figcaption class="info-wrap">
+            <div class="row">
+                <div class="col-md-9 col-xs-9"> <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title d-block text-truncate" data-abc="true">{{juego.titulo}}</a> <span class="rated">{{juego.compannia}}</span> </div>
+                <div class="col-md-3 col-xs-3">
+                    <div class="rating text-right d-block text-truncate"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="rated row">{{juego.plataformas}}</span> </div>
                 </div>
             </div>
+        </figcaption>
+        <div class="bottom-wrap-payment">
+            <figcaption class="info-wrap">
+                <div class="row">
+                    <div class="col-md-9 col-xs-9"> <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title d-block text-truncate" data-abc="true">{{juego.precio | currency:'EUR':true}}</a> <span class="rated">{{juego.stock}} Disponibles</span> </div>
+                    <div class="col-md-3 col-xs-3">
+                        <div class="rating text-right" [ngSwitch]="juego.pegi">
+                            <img *ngSwitchCase="'PEGI3'" alt="PEGI3" src="../../../../content/images/PEGI3.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI7'" alt="PEGI7" src="../../../../content/images/PEGI7.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI12'" alt="PEGI12" src="../../../../content/images/PEGI12.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI16'" alt="PEGI16" src="../../../../content/images/PEGI16.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI18'" alt="PEGI18" src="../../../../content/images/PEGI18.png" width="55px" height="64px">
+                        </div>
+                    </div>
+                </div>
+            </figcaption>
         </div>
-    </div>
+        <div class="bottom-wrap"> <a href="#" class="btn btn-primary float-right" data-abc="true"> Editar </a>
+            <div class="price-wrap">
+                <button type="submit"
+                [routerLink]="['/', 'video-juegos', { outlets: { popup: juego.id + '/delete'} }]"
+                replaceUrl="true"
+                queryParamsHandling="merge"
+                class="btn-danger btn-sm">
+                <fa-icon [icon]="'times'"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+        </div>
+    </figure>
 </div>

@@ -2,14 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { IVideoJuegos, JuegoTabla, Pegi } from 'app/shared/model/video-juegos.model';
+import { IJuegoTabla, IVideoJuegos, JuegoTabla, Pegi } from 'app/shared/model/video-juegos.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { VideoJuegosService } from './video-juegos.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VideoJuegosUpdateComponent } from './video-juegos-update.component';
 
 @Component({
   selector: 'jhi-video-juegos',
@@ -17,7 +18,7 @@ import { VideoJuegosService } from './video-juegos.service';
 })
 export class VideoJuegosComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  videoJuegos: IVideoJuegos[];
+  videoJuegos: IJuegoTabla[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -37,7 +38,8 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    private modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -56,7 +58,7 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IVideoJuegos[]>) => this.paginateVideoJuegos(res.body, res.headers),
+        (res: HttpResponse<IJuegoTabla[]>) => this.paginateVideoJuegos(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -103,10 +105,6 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IVideoJuegos) {
-    return item.id;
-  }
-
   registerChangeInVideoJuegos() {
     this.eventSubscriber = this.eventManager.subscribe('videoJuegosListModification', response => this.loadAll());
   }
@@ -119,7 +117,11 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateVideoJuegos(data: IVideoJuegos[], headers: HttpHeaders) {
+  openModalCreate() {
+    this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg' });
+  }
+
+  protected paginateVideoJuegos(data: IJuegoTabla[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.videoJuegos = data;

@@ -18,7 +18,11 @@ h4 {
   padding-right: 0px;
   padding-left: 0px;
 }
-
+.grande {
+  font-size: larger;
+  text-align: center;
+  justify-content: center;
+}
 a {
   color: #533f03;
   font-weight: bold;
@@ -185,3 +189,6 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+.modal-xl .modal-lg {
+  max-width: 90%;
+}
