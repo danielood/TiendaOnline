@@ -116,6 +116,18 @@ public class ImagenServiceImpl implements ImagenService {
         imagenRepository.deleteById(id);
     }
 
+    @Override
+    public void delete(ImagenDTO imagenDTO) {
+        this.fileService.deleteFile(imagenDTO.getPath());
+        this.imagenRepository.deleteById(imagenDTO.getId());
+    }
+
+    @Override
+    public void delete(Imagen imagen) {
+        this.fileService.deleteFile(imagen.getPath());
+        this.imagenRepository.deleteById(imagen.getId());
+    }
+
     private Fichero convertPathToFichero(String path){
         Fichero fichero = new Fichero();
         File file = new File(path);
@@ -142,5 +154,20 @@ public class ImagenServiceImpl implements ImagenService {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @Override
+    public Fichero getFicheroFromImagen(ImagenDTO imagenDTO) {
+        return this.fileService.getFicheroFromImagen(imagenDTO.getPath());
+    }
+
+    @Override
+    public Fichero getFicheroFromImagen(Imagen imagen) {
+        return this.fileService.getFicheroFromImagen(imagen.getPath());
+    }
+
+    @Override
+    public Optional<Imagen> findImagenFromVideoJuegoId(Long id) {
+        return this.imagenRepository.findImagenFromVideoJuegoId(id);
     }
 }

@@ -13,20 +13,12 @@ import { RouterModule } from '@angular/router';
         loadChildren: './cliente/cliente.module#TiendaOnlineClienteModule'
       },
       {
-        path: 'direccion',
-        loadChildren: './direccion/direccion.module#TiendaOnlineDireccionModule'
-      },
-      {
         path: 'venta',
         loadChildren: './venta/venta.module#TiendaOnlineVentaModule'
       },
       {
         path: 'video-juegos',
         loadChildren: './video-juegos/video-juegos.module#TiendaOnlineVideoJuegosModule'
-      },
-      {
-        path: 'imagen',
-        loadChildren: './imagen/imagen.module#TiendaOnlineImagenModule'
       },
       {
         path: 'compannia',
@@ -39,10 +31,6 @@ import { RouterModule } from '@angular/router';
       {
         path: 'plataforma',
         loadChildren: './plataforma/plataforma.module#TiendaOnlinePlataformaModule'
-      },
-      {
-        path: 'valoraciones',
-        loadChildren: './valoraciones/valoraciones.module#TiendaOnlineValoracionesModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

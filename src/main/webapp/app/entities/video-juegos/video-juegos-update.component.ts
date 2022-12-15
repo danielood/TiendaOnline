@@ -6,24 +6,25 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IVideoJuegos, Pegi, VideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from './video-juegos.service';
-import { ImagenService } from 'app/entities/imagen';
-import { ICompannia } from 'app/shared/model/compannia.model';
+import { Compannia, ICompannia } from 'app/shared/model/compannia.model';
 import { CompanniaService } from 'app/entities/compannia';
 import { IPlataforma, Plataforma } from 'app/shared/model/plataforma.model';
 import { PlataformaService } from 'app/entities/plataforma';
-import { ICategoria } from 'app/shared/model/categoria.model';
+import { Categoria, ICategoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from 'app/entities/categoria';
 import { Fichero } from 'app/core/fichero.model';
+import { FileService } from 'app/core/file.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'jhi-video-juegos-update',
   templateUrl: './video-juegos-update.component.html',
   styleUrls: ['./video-juegos-update.component.scss']
 })
 export class VideoJuegosUpdateComponent implements OnInit {
-  @Input() videoJuegos: IVideoJuegos;
+  @Input() videoJuego: IVideoJuegos;
   isSaving: boolean;
 
-  compannias: ICompannia[];
+  compannias: Array<ICompannia>;
 
   plataformas: Array<IPlataforma>;
 
@@ -31,6 +32,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
 
   fechaLanzamientoDp: any;
   caratula;
+  portadaFile;
 
   isPegi3: boolean;
   isPegi7: boolean;
@@ -46,6 +48,9 @@ export class VideoJuegosUpdateComponent implements OnInit {
   selectedCatObj: ICategoria;
   listCat: Array<ICategoria>;
 
+  selectedComp: string;
+  selectedCompObj: ICompannia;
+
   selectedPegi: Pegi;
 
   caratulaFichero: Fichero;
@@ -58,7 +63,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
     fechaLanzamiento: [],
     precio: [],
     stock: [],
-    companniaId: [],
+    compannia: [],
     plataformas: [],
     categorias: []
   });
@@ -66,15 +71,17 @@ export class VideoJuegosUpdateComponent implements OnInit {
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected videoJuegosService: VideoJuegosService,
-    protected imagenService: ImagenService,
     protected companniaService: CompanniaService,
     protected plataformaService: PlataformaService,
     protected categoriaService: CategoriaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private fileService: FileService,
+    private activeModal: NgbActiveModal
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
+    this.compannias = new Array<ICompannia>();
     this.companniaService
       .query()
       .pipe(
@@ -106,43 +113,54 @@ export class VideoJuegosUpdateComponent implements OnInit {
     this.selectedPlatObj = {};
     this.selectedCat = '';
     this.selectedCatObj = {};
-    if (!this.videoJuegos) {
-      this.videoJuegos = new VideoJuegos();
+    if (!this.videoJuego) {
+      this.videoJuego = new VideoJuegos();
+    } else {
+      this.updateForm(this.videoJuego);
     }
-    if (this.videoJuegos.plataformas) {
-      this.listPlat = this.videoJuegos.plataformas;
+    if (this.videoJuego.plataformas) {
+      this.listPlat = this.videoJuego.plataformas;
     } else {
       this.listPlat = new Array<IPlataforma>();
     }
-    if (this.videoJuegos.categorias) {
-      this.listCat = this.videoJuegos.categorias;
+    if (this.videoJuego.categorias) {
+      this.listCat = this.videoJuego.categorias;
     } else {
       this.listCat = new Array<ICategoria>();
     }
+    if (this.videoJuego.caratula) {
+      this.portadaFile = this.fileService.ficheroToFile(this.videoJuego.caratula);
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.caratula = event.target.result;
+      };
+      if (this.portadaFile) {
+        reader.readAsDataURL(this.portadaFile);
+      } else {
+        this.caratula = '';
+      }
+    }
   }
 
-  updateForm(videoJuegos: IVideoJuegos) {
+  updateForm(videoJuego: IVideoJuegos) {
     this.editForm.patchValue({
-      id: videoJuegos.id,
-      titulo: videoJuegos.titulo,
-      sinopsis: videoJuegos.sinopsis,
-      pegi: videoJuegos.pegi,
-      fechaLanzamiento: videoJuegos.fechaLanzamiento,
-      precio: videoJuegos.precio,
-      stock: videoJuegos.stock,
-      companniaId: videoJuegos.companniaId,
-      categorias: videoJuegos.categorias
+      id: videoJuego.id,
+      titulo: videoJuego.titulo,
+      sinopsis: videoJuego.sinopsis,
+      fechaLanzamiento: videoJuego.fechaLanzamiento,
+      precio: videoJuego.precio,
+      stock: videoJuego.stock
     });
-  }
-
-  previousState() {
-    window.history.back();
+    if (videoJuego.compannia) {
+      this.selectedComp = videoJuego.compannia.nombre;
+    }
+    this.selectPegi(videoJuego.pegi);
   }
 
   save() {
     this.isSaving = true;
     const videoJuegos = this.createFromForm();
-    if (videoJuegos.id !== undefined) {
+    if (videoJuegos.id != undefined || videoJuegos.id != null) {
       this.subscribeToSaveResponse(this.videoJuegosService.update(videoJuegos));
     } else {
       this.subscribeToSaveResponse(this.videoJuegosService.create(videoJuegos));
@@ -159,7 +177,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
       fechaLanzamiento: this.editForm.get(['fechaLanzamiento']).value,
       precio: this.editForm.get(['precio']).value,
       stock: this.editForm.get(['stock']).value,
-      companniaId: this.editForm.get(['companniaId']).value,
+      compannia: this.selectedCompObj,
       plataformas: this.listPlat,
       categorias: this.listCat,
       caratula: this.caratulaFichero
@@ -173,7 +191,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
 
   protected onSaveSuccess() {
     this.isSaving = false;
-    this.previousState();
+    this.activeModal.close(0);
   }
 
   protected onSaveError() {
@@ -181,10 +199,6 @@ export class VideoJuegosUpdateComponent implements OnInit {
   }
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackCompanniaById(index: number, item: ICompannia) {
-    return item.id;
   }
 
   selectPegi(pegi: String) {
@@ -265,14 +279,21 @@ export class VideoJuegosUpdateComponent implements OnInit {
   }
 
   onSelectCategoria() {
-    this.selectedCatObj = this.plataformas.find(p => p.nombre == this.selectedCat);
+    this.selectedCatObj = this.categorias.find(p => p.nombre == this.selectedCat);
     if (!this.listCat.find(p => p.nombre.toLocaleLowerCase() == this.selectedCat.toLocaleLowerCase())) {
       if (this.selectedCatObj) {
         this.listCat.push(this.selectedCatObj);
       } else {
-        const newPlat: IPlataforma = { ...new Plataforma(), nombre: this.selectedCat };
-        this.listCat.push(newPlat);
+        const newCat: ICategoria = { ...new Categoria(), nombre: this.selectedCat };
+        this.listCat.push(newCat);
       }
+    }
+  }
+
+  onSelectCompannia() {
+    this.selectedCompObj = this.compannias.find(c => c.nombre == this.selectedComp);
+    if (!this.selectedCompObj) {
+      this.selectedCompObj = { ...new Compannia(), nombre: this.selectedComp };
     }
   }
 

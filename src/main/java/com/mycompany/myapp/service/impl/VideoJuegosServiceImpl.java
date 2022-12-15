@@ -1,15 +1,18 @@
 package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.domain.AuxRepository;
-import com.mycompany.myapp.domain.Categoria;
 import com.mycompany.myapp.domain.Fichero;
+import com.mycompany.myapp.domain.Imagen;
 import com.mycompany.myapp.service.CategoriaService;
+import com.mycompany.myapp.service.CompanniaService;
 import com.mycompany.myapp.service.ImagenService;
 import com.mycompany.myapp.service.PlataformaService;
 import com.mycompany.myapp.service.VideoJuegosService;
 import com.mycompany.myapp.domain.VideoJuegos;
 import com.mycompany.myapp.repository.VideoJuegosRepository;
 import com.mycompany.myapp.service.dto.CategoriaDTO;
+import com.mycompany.myapp.service.dto.CompanniaDTO;
+import com.mycompany.myapp.service.dto.ImagenDTO;
 import com.mycompany.myapp.service.dto.JuegoTablaDTO;
 import com.mycompany.myapp.service.dto.PlataformaDTO;
 import com.mycompany.myapp.service.dto.VideoJuegosDTO;
@@ -45,14 +48,17 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
 
     private final CategoriaService categoriaService;
 
+    private final CompanniaService companniaService;
+
     private final JuegoTablaMapper juegoTablaMapper;
 
-    public VideoJuegosServiceImpl(VideoJuegosRepository videoJuegosRepository, VideoJuegosMapper videoJuegosMapper, ImagenService imagenService,PlataformaService plataformaService,CategoriaService categoriaService) {
+    public VideoJuegosServiceImpl(VideoJuegosRepository videoJuegosRepository, VideoJuegosMapper videoJuegosMapper, ImagenService imagenService,PlataformaService plataformaService,CategoriaService categoriaService,CompanniaService companniaService) {
         this.videoJuegosRepository = videoJuegosRepository;
         this.videoJuegosMapper = videoJuegosMapper;
         this.imagenService = imagenService;
         this.plataformaService = plataformaService;
         this.categoriaService = categoriaService;
+        this.companniaService = companniaService;
         this.juegoTablaMapper = new JuegoTablaMapper();
     }
 
@@ -105,8 +111,16 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
     @Transactional(readOnly = true)
     public Optional<VideoJuegosDTO> findOne(Long id) {
         log.debug("Request to get VideoJuegos : {}", id);
-        return videoJuegosRepository.findOneWithEagerRelationships(id)
-            .map(videoJuegosMapper::toDto);
+        Optional<VideoJuegos> videoJuego = videoJuegosRepository.findById(id);
+        VideoJuegosDTO videoJuegosDTO = videoJuegosMapper.toDto(videoJuego.get());
+        if(videoJuego.isPresent()){
+            Optional<ImagenDTO> imagenDTO = imagenService.findOne(videoJuego.get().getCaratula().getId());
+            if(imagenDTO.isPresent()){
+                Fichero caratula = imagenService.getFicheroFromImagen(imagenDTO.get());
+                videoJuegosDTO.setCaratula(caratula);
+            }
+        }
+        return Optional.of(videoJuegosDTO);
     }
 
     /**
@@ -174,7 +188,22 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
         setPlataforma.removeAll(setEliminadosPlataforma);
         setPlataforma.addAll(listNuevosPlataforma);
         videoJuegosDTO.setPlataformas(setPlataforma);
+
+        CompanniaDTO companniaDTO = videoJuegosDTO.getCompannia();
+        if(companniaDTO.getId()==null){
+            companniaDTO = this.companniaService.save(companniaDTO);
+            videoJuegosDTO.setCompannia(companniaDTO);
+        }
         VideoJuegos videoJuegos = videoJuegosMapper.toEntity(videoJuegosDTO);
+        Optional<Imagen> opImagen = this.imagenService.findImagenFromVideoJuegoId(videoJuegos.getId());
+        if(opImagen.isPresent()){
+            Imagen imagen = opImagen.get();
+            Fichero ficheroBBDD = this.imagenService.getFicheroFromImagen(imagen);
+            Fichero ficheroCaratula = videoJuegosDTO.getCaratula();
+            if(!ficheroBBDD.getFileBase64().equals(ficheroCaratula.getFileBase64())){
+                this.imagenService.delete(imagen);
+            }
+        }
         videoJuegos.setCaratula(imagenService.save(videoJuegosDTO.getCaratula()));
         return videoJuegos;
     }

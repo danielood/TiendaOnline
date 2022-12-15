@@ -24,7 +24,7 @@ public interface VideoJuegosRepository extends JpaRepository<VideoJuegos, Long> 
     @Query("select distinct videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.valoraciones left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias")
     List<VideoJuegos> findAllWithEagerRelationships();
 
-    @Query("select videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.valoraciones left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias where videoJuegos.id =:id")
+    @Query("select videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias where videoJuegos.id =:id")
     Optional<VideoJuegos> findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query("select new com.mycompany.myapp.domain.AuxRepository(v.id, c.nombre) from VideoJuegos v, Compannia c where v.id in (:ids) and c.id = v.compannia.id")

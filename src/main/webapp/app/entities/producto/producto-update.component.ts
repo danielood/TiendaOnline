@@ -8,7 +8,6 @@ import { JhiAlertService } from 'ng-jhipster';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
 import { IImagen } from 'app/shared/model/imagen.model';
-import { ImagenService } from 'app/entities/imagen';
 import { IPlataforma } from 'app/shared/model/plataforma.model';
 import { PlataformaService } from 'app/entities/plataforma';
 import { IVenta } from 'app/shared/model/venta.model';
@@ -41,7 +40,6 @@ export class ProductoUpdateComponent implements OnInit {
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected productoService: ProductoService,
-    protected imagenService: ImagenService,
     protected plataformaService: PlataformaService,
     protected ventaService: VentaService,
     protected activatedRoute: ActivatedRoute,
@@ -54,31 +52,6 @@ export class ProductoUpdateComponent implements OnInit {
       this.updateForm(producto);
       this.producto = producto;
     });
-    this.imagenService
-      .query({ filter: 'producto-is-null' })
-      .pipe(
-        filter((mayBeOk: HttpResponse<IImagen[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IImagen[]>) => response.body)
-      )
-      .subscribe(
-        (res: IImagen[]) => {
-          if (!this.producto.imagenId) {
-            this.imagens = res;
-          } else {
-            this.imagenService
-              .find(this.producto.imagenId)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IImagen>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IImagen>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IImagen) => (this.imagens = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
     this.plataformaService
       .query()
       .pipe(
