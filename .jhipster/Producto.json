@@ -1,23 +1,6 @@
 {
-    "name": "Producto",
-    "fields": [
-        {
-            "fieldName": "nombre",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "descripcion",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "precio",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "stock",
-            "fieldType": "Integer"
-        }
-    ],
+    "fluentMethods": true,
+    "clientRootFolder": "",
     "relationships": [
         {
             "relationshipType": "one-to-one",
@@ -42,15 +25,39 @@
             "relationshipName": "venta",
             "otherEntityField": "id",
             "ownerSide": false
+        },
+        {
+            "relationshipName": "carrito",
+            "otherEntityName": "carrito",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "producto"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "stock",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20221205085423",
-    "entityTableName": "producto",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "producto",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

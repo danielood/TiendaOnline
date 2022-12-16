@@ -1,11 +1,13 @@
-import { IVenta } from 'app/shared/model/venta.model';
+import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
+import { IProducto } from 'app/shared/model/producto.model';
 
 export interface ICarrito {
   id?: number;
   clienteId?: number;
-  ventas?: IVenta[];
+  videoJuegos?: IVideoJuegos[];
+  productos?: IProducto[];
 }
 
 export class Carrito implements ICarrito {
-  constructor(public id?: number, public clienteId?: number, public ventas?: IVenta[]) {}
+  constructor(public id?: number, public clienteId?: number, public videoJuegos?: IVideoJuegos[], public productos?: IProducto[]) {}
 }

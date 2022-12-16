@@ -54,6 +54,11 @@ public class Producto implements Serializable {
     @JsonIgnore
     private Set<Venta> ventas = new HashSet<>();
 
+    @ManyToMany(mappedBy = "productos")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonIgnore
+    private Set<Carrito> carritos = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -176,6 +181,31 @@ public class Producto implements Serializable {
 
     public void setVentas(Set<Venta> ventas) {
         this.ventas = ventas;
+    }
+
+    public Set<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public Producto carritos(Set<Carrito> carritos) {
+        this.carritos = carritos;
+        return this;
+    }
+
+    public Producto addCarrito(Carrito carrito) {
+        this.carritos.add(carrito);
+        carrito.getProductos().add(this);
+        return this;
+    }
+
+    public Producto removeCarrito(Carrito carrito) {
+        this.carritos.remove(carrito);
+        carrito.getProductos().remove(this);
+        return this;
+    }
+
+    public void setCarritos(Set<Carrito> carritos) {
+        this.carritos = carritos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

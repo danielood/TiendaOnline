@@ -16,18 +16,16 @@ import com.mycompany.myapp.service.dto.ImagenDTO;
 import com.mycompany.myapp.service.dto.JuegoTablaDTO;
 import com.mycompany.myapp.service.dto.PlataformaDTO;
 import com.mycompany.myapp.service.dto.VideoJuegosDTO;
-import com.mycompany.myapp.service.mapper.JuegoTablaMapper;
 import com.mycompany.myapp.service.mapper.VideoJuegosMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link VideoJuegos}.
@@ -71,7 +69,7 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
     @Override
     public VideoJuegosDTO save(VideoJuegosDTO videoJuegosDTO) {
         log.debug("Request to save VideoJuegos : {}", videoJuegosDTO);
-        VideoJuegos videoJuegos = setToSave(videoJuegosDTO);
+        VideoJuegos videoJuegos = videoJuegosMapper.toEntity(videoJuegosDTO);
         videoJuegos = videoJuegosRepository.save(videoJuegos);
         return videoJuegosMapper.toDto(videoJuegos);
     }
@@ -84,11 +82,10 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<JuegoTablaDTO> findAll(Pageable pageable) {
+    public Page<VideoJuegosDTO> findAll(Pageable pageable) {
         log.debug("Request to get all VideoJuegos");
-        Page<VideoJuegos> videoJuegosPage = videoJuegosRepository.findAll(pageable);
-        List<JuegoTablaDTO> juegosTablaDTO = getJuegoTablaDTOS(videoJuegosPage);
-        return new PageImpl<>(juegosTablaDTO,pageable,videoJuegosPage.getTotalElements());
+        return videoJuegosRepository.findAll(pageable)
+            .map(videoJuegosMapper::toDto);
     }
 
     /**
@@ -96,10 +93,10 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
      *
      * @return the list of entities.
      */
-    public Page<JuegoTablaDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return null;
+    public Page<VideoJuegosDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return videoJuegosRepository.findAllWithEagerRelationships(pageable).map(videoJuegosMapper::toDto);
     }
-
+    
 
     /**
      * Get one videoJuegos by id.

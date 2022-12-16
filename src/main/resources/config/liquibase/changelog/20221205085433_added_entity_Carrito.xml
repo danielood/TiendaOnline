@@ -49,8 +49,8 @@
 
     <changeSet id="20221205085433-1-relations" author="jhipster">
 
-        <createTable tableName="carrito_venta">
-            <column name="venta_id" type="bigint">
+        <createTable tableName="carrito_video_juegos">
+            <column name="video_juegos_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="carrito_id" type="bigint">
@@ -58,7 +58,18 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="carrito_id, venta_id" tableName="carrito_venta"/>
+        <addPrimaryKey columnNames="carrito_id, video_juegos_id" tableName="carrito_video_juegos"/>
+        
+        <createTable tableName="carrito_producto">
+            <column name="producto_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="carrito_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="carrito_id, producto_id" tableName="carrito_producto"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

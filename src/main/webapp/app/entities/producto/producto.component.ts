@@ -19,7 +19,7 @@ import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-d
 })
 export class ProductoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  productos: IProductoTabla[];
+  productos: IProducto[];
   error: any;
   success: any;
   eventSubscriber: Subscription;

@@ -14,30 +14,6 @@ export const enum Pegi {
   PEGI18 = 'PEGI18'
 }
 
-export interface IJuegoTabla {
-  id?: number;
-  titulo?: string;
-  pegi?: Pegi;
-  precio?: number;
-  stock?: number;
-  caratula?: Fichero;
-  compannia?: string;
-  plataformas?: string[];
-}
-
-export class JuegoTabla implements IJuegoTabla {
-  constructor(
-    public id?: number,
-    public titulo?: string,
-    public pegi?: Pegi,
-    public precio?: number,
-    public stock?: number,
-    public caratula?: Fichero,
-    public compannia?: string,
-    public plataformas?: string[]
-  ) {}
-}
-
 export interface IVideoJuegos {
   id?: number;
   titulo?: string;
@@ -51,6 +27,8 @@ export interface IVideoJuegos {
   compannia?: ICompannia;
   plataformas?: IPlataforma[];
   categorias?: ICategoria[];
+  ventas?: IVenta[];
+  carritos?: ICarrito[];
 }
 
 export class VideoJuegos implements IVideoJuegos {
@@ -66,7 +44,9 @@ export class VideoJuegos implements IVideoJuegos {
     public caratula?: Fichero,
     public compannia?: ICompannia,
     public plataformas?: IPlataforma[],
-    public categorias?: ICategoria[]
+    public categorias?: ICategoria[],
+    public ventas?: IVenta[],
+    public carritos?: ICarrito[]
   ) {
     this.destacado = this.destacado || false;
   }

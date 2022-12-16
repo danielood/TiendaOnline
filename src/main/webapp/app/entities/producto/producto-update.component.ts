@@ -12,6 +12,8 @@ import { IPlataforma } from 'app/shared/model/plataforma.model';
 import { PlataformaService } from 'app/entities/plataforma';
 import { IVenta } from 'app/shared/model/venta.model';
 import { VentaService } from 'app/entities/venta';
+import { ICarrito } from 'app/shared/model/carrito.model';
+import { CarritoService } from 'app/entities/carrito';
 
 @Component({
   selector: 'jhi-producto-update',
@@ -26,6 +28,8 @@ export class ProductoUpdateComponent implements OnInit {
   plataformas: IPlataforma[];
 
   ventas: IVenta[];
+
+  carritos: ICarrito[];
 
   editForm = this.fb.group({
     id: [],
@@ -42,6 +46,7 @@ export class ProductoUpdateComponent implements OnInit {
     protected productoService: ProductoService,
     protected plataformaService: PlataformaService,
     protected ventaService: VentaService,
+    protected carritoService: CarritoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -66,6 +71,13 @@ export class ProductoUpdateComponent implements OnInit {
         map((response: HttpResponse<IVenta[]>) => response.body)
       )
       .subscribe((res: IVenta[]) => (this.ventas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.carritoService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ICarrito[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ICarrito[]>) => response.body)
+      )
+      .subscribe((res: ICarrito[]) => (this.carritos = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(producto: IProducto) {
@@ -133,6 +145,10 @@ export class ProductoUpdateComponent implements OnInit {
   }
 
   trackVentaById(index: number, item: IVenta) {
+    return item.id;
+  }
+
+  trackCarritoById(index: number, item: ICarrito) {
     return item.id;
   }
 

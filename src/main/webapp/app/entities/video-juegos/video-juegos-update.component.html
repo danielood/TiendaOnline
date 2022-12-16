@@ -20,25 +20,13 @@
             <div class="text-right">
               <span class="btn btn-primary" (click)="onSelectPlataforma()">></span>
             </div>
-          </div>
-          <table class="table table-bordered" *ngIf="listPlat.length>0">
-                <tr *ngFor="let plat of listPlat; let i = index" class="">
-                    <span>{{plat.nombre}}</span>
-                    <a (click)="deletePlat(i)">
-                        <fa-icon [icon]="'times'" class="fa"></fa-icon>
-                    </a>
-                </tr>
-        </table>
-        </div>
-        <div class="form-group">
-          <label jhiTranslate="tiendaOnlineApp.videoJuegos.categoria" for="field_categorias">Categoria</label>
-          <div class="d-flex">
-            <input class="form-control" formControlName="categorias" type="text" list="cats" value="{{selectedCat}}" [(ngModel)]="selectedCat"/>
-            <datalist id="cats">
-              <option *ngFor="let c of categorias" [value]="c.nombre">{{c.nombre}}</option>
-            </datalist>
-            <div class="text-right">
-              <span class="btn btn-primary" (click)="onSelectCategoria()">></span>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
             </div>
           </div>
           <table class="table table-bordered" *ngIf="listCat.length>0">
@@ -163,5 +151,4 @@
         </div>
       </div>
     </div>
-  </div>
-</form>
+</div>

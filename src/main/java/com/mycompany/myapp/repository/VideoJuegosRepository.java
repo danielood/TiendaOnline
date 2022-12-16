@@ -1,6 +1,5 @@
 package com.mycompany.myapp.repository;
 
-import com.mycompany.myapp.domain.AuxRepository;
 import com.mycompany.myapp.domain.VideoJuegos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +26,4 @@ public interface VideoJuegosRepository extends JpaRepository<VideoJuegos, Long> 
     @Query("select videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias where videoJuegos.id =:id")
     Optional<VideoJuegos> findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query("select new com.mycompany.myapp.domain.AuxRepository(v.id, c.nombre) from VideoJuegos v, Compannia c where v.id in (:ids) and c.id = v.compannia.id")
-    List<AuxRepository> finCompannies(@Param("ids")List<Long> ids);
 }

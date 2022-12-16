@@ -1,24 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
-import { Observable, ReplaySubject } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { IVideoJuegos, Pegi, VideoJuegos } from 'app/shared/model/video-juegos.model';
+import { IVideoJuegos, VideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from './video-juegos.service';
 import { Compannia, ICompannia } from 'app/shared/model/compannia.model';
 import { CompanniaService } from 'app/entities/compannia';
-import { IPlataforma, Plataforma } from 'app/shared/model/plataforma.model';
+import { IValoraciones } from 'app/shared/model/valoraciones.model';
+import { ValoracionesService } from 'app/entities/valoraciones';
+import { IPlataforma } from 'app/shared/model/plataforma.model';
 import { PlataformaService } from 'app/entities/plataforma';
 import { Categoria, ICategoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from 'app/entities/categoria';
 import { Fichero } from 'app/core/fichero.model';
 import { FileService } from 'app/core/file.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { IVenta } from 'app/shared/model/venta.model';
+import { VentaService } from 'app/entities/venta';
+import { ICarrito } from 'app/shared/model/carrito.model';
+import { CarritoService } from 'app/entities/carrito';
 @Component({
   selector: 'jhi-video-juegos-update',
-  templateUrl: './video-juegos-update.component.html',
-  styleUrls: ['./video-juegos-update.component.scss']
+  templateUrl: './video-juegos-update.component.html'
 })
 export class VideoJuegosUpdateComponent implements OnInit {
   @Input() videoJuego: IVideoJuegos;
@@ -34,26 +41,19 @@ export class VideoJuegosUpdateComponent implements OnInit {
   caratula;
   portadaFile;
 
-  isPegi3: boolean;
-  isPegi7: boolean;
-  isPegi12: boolean;
-  isPegi16: boolean;
-  isPegi18: boolean;
+  valoraciones: IValoraciones[];
 
-  selectedPlat: string;
-  selectedPlatObj: IPlataforma;
-  listPlat: Array<IPlataforma>;
+  plataformas: IPlataforma[];
 
-  selectedCat: string;
-  selectedCatObj: ICategoria;
-  listCat: Array<ICategoria>;
+  categorias: ICategoria[];
 
   selectedComp: string;
   selectedCompObj: ICompannia;
 
   selectedPegi: Pegi;
 
-  caratulaFichero: Fichero;
+  carritos: ICarrito[];
+  fechaLanzamientoDp: any;
 
   editForm = this.fb.group({
     id: [],
@@ -72,6 +72,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected videoJuegosService: VideoJuegosService,
     protected companniaService: CompanniaService,
+    protected valoracionesService: ValoracionesService,
     protected plataformaService: PlataformaService,
     protected categoriaService: CategoriaService,
     private fb: FormBuilder,
@@ -89,6 +90,13 @@ export class VideoJuegosUpdateComponent implements OnInit {
         map((response: HttpResponse<ICompannia[]>) => response.body)
       )
       .subscribe((res: ICompannia[]) => (this.compannias = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.valoracionesService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IValoraciones[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IValoraciones[]>) => response.body)
+      )
+      .subscribe((res: IValoraciones[]) => (this.valoraciones = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.plataformaService
       .query()
       .pipe(
@@ -173,7 +181,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       titulo: this.editForm.get(['titulo']).value,
       sinopsis: this.editForm.get(['sinopsis']).value,
-      pegi: this.selectedPegi,
+      pegi: this.editForm.get(['pegi']).value,
       fechaLanzamiento: this.editForm.get(['fechaLanzamiento']).value,
       precio: this.editForm.get(['precio']).value,
       stock: this.editForm.get(['stock']).value,
@@ -246,36 +254,16 @@ export class VideoJuegosUpdateComponent implements OnInit {
     }
   }
 
-  onChangeCaratula(event) {
-    const file: File = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.caratula = event.target.result;
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-      this.convertFile(file).subscribe(base64 => {
-        this.caratulaFichero = new Fichero(file.name, file.type, base64);
-      });
-    } else {
-      this.caratula = '';
-    }
+  trackValoracionesById(index: number, item: IValoraciones) {
+    return item.id;
   }
 
-  onSelectPlataforma() {
-    this.selectedPlatObj = this.plataformas.find(p => p.nombre == this.selectedPlat);
-    if (!this.listPlat.find(p => p.nombre.toLocaleLowerCase() == this.selectedPlat.toLocaleLowerCase())) {
-      if (this.selectedPlatObj) {
-        this.listPlat.push(this.selectedPlatObj);
-      } else {
-        const newPlat: IPlataforma = { ...new Plataforma(), nombre: this.selectedPlat };
-        this.listPlat.push(newPlat);
-      }
-    }
+  trackPlataformaById(index: number, item: IPlataforma) {
+    return item.id;
   }
 
-  deletePlat(index: number) {
-    this.listPlat.splice(index, 1);
+  trackCategoriaById(index: number, item: ICategoria) {
+    return item.id;
   }
 
   onSelectCategoria() {
@@ -301,11 +289,14 @@ export class VideoJuegosUpdateComponent implements OnInit {
     this.listCat.splice(index, 1);
   }
 
-  private convertFile(file: File): Observable<string> {
-    const result = new ReplaySubject<string>(1);
-    const reader = new FileReader();
-    reader.readAsBinaryString(file);
-    reader.onload = event => result.next(btoa(event.target.result.toString()));
-    return result;
+  getSelected(selectedVals: Array<any>, option: any) {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

@@ -36,6 +36,7 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
     CrearEditarDialogComponent
     VistaProductoComponent
   ],
+  entryComponents: [ProductoComponent, ProductoUpdateComponent, ProductoDeleteDialogComponent, ProductoDeletePopupComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

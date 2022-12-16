@@ -14,7 +14,9 @@ public class CarritoDTO implements Serializable {
 
     private Long clienteId;
 
-    private Set<VentaDTO> ventas = new HashSet<>();
+    private Set<VideoJuegosDTO> videoJuegos = new HashSet<>();
+
+    private Set<ProductoDTO> productos = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -32,12 +34,20 @@ public class CarritoDTO implements Serializable {
         this.clienteId = clienteId;
     }
 
-    public Set<VentaDTO> getVentas() {
-        return ventas;
+    public Set<VideoJuegosDTO> getVideoJuegos() {
+        return videoJuegos;
     }
 
-    public void setVentas(Set<VentaDTO> ventas) {
-        this.ventas = ventas;
+    public void setVideoJuegos(Set<VideoJuegosDTO> videoJuegos) {
+        this.videoJuegos = videoJuegos;
+    }
+
+    public Set<ProductoDTO> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(Set<ProductoDTO> productos) {
+        this.productos = productos;
     }
 
     @Override
