@@ -38,18 +38,6 @@ public class CarritoDTO implements Serializable {
         return videoJuegos;
     }
 
-    public void setVideoJuegos(Set<VideoJuegosDTO> videoJuegos) {
-        this.videoJuegos = videoJuegos;
-    }
-
-    public Set<ProductoDTO> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(Set<ProductoDTO> productos) {
-        this.productos = productos;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
