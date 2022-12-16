@@ -16,14 +16,14 @@ import java.util.Optional;
 @Repository
 public interface CarritoRepository extends JpaRepository<Carrito, Long> {
 
-    @Query(value = "select distinct carrito from Carrito carrito left join fetch carrito.ventas",
+    @Query(value = "select distinct carrito from Carrito carrito left join fetch carrito.videoJuegos left join fetch carrito.productos",
         countQuery = "select count(distinct carrito) from Carrito carrito")
     Page<Carrito> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct carrito from Carrito carrito left join fetch carrito.ventas")
+    @Query("select distinct carrito from Carrito carrito left join fetch carrito.videoJuegos left join fetch carrito.productos")
     List<Carrito> findAllWithEagerRelationships();
 
-    @Query("select carrito from Carrito carrito left join fetch carrito.ventas where carrito.id =:id")
+    @Query("select carrito from Carrito carrito left join fetch carrito.videoJuegos left join fetch carrito.productos where carrito.id =:id")
     Optional<Carrito> findOneWithEagerRelationships(@Param("id") Long id);
 
 }

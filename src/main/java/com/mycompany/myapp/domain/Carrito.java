@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Carrito.
@@ -31,10 +30,17 @@ public class Carrito implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "carrito_venta",
+    @JoinTable(name = "carrito_video_juegos",
                joinColumns = @JoinColumn(name = "carrito_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "venta_id", referencedColumnName = "id"))
-    private Set<Venta> ventas = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name = "video_juegos_id", referencedColumnName = "id"))
+    private Set<VideoJuegos> videoJuegos = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "carrito_producto",
+               joinColumns = @JoinColumn(name = "carrito_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id"))
+    private Set<Producto> productos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -58,29 +64,30 @@ public class Carrito implements Serializable {
         this.cliente = cliente;
     }
 
-    public Set<Venta> getVentas() {
-        return ventas;
+    public Set<VideoJuegos> getVideoJuegos() {
+        return videoJuegos;
     }
 
-    public Carrito ventas(Set<Venta> ventas) {
-        this.ventas = ventas;
+    public Carrito videoJuegos(Set<VideoJuegos> videoJuegos) {
+        this.videoJuegos = videoJuegos;
         return this;
     }
 
-    public Carrito addVenta(Venta venta) {
-        this.ventas.add(venta);
-        venta.getCarritos().add(this);
+    public void setVideoJuegos(Set<VideoJuegos> videoJuegos) {
+        this.videoJuegos = videoJuegos;
+    }
+
+    public Set<Producto> getProductos() {
+        return productos;
+    }
+
+    public Carrito productos(Set<Producto> productos) {
+        this.productos = productos;
         return this;
     }
 
-    public Carrito removeVenta(Venta venta) {
-        this.ventas.remove(venta);
-        venta.getCarritos().remove(this);
-        return this;
-    }
-
-    public void setVentas(Set<Venta> ventas) {
-        this.ventas = ventas;
+    public void setProductos(Set<Producto> productos) {
+        this.productos = productos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
