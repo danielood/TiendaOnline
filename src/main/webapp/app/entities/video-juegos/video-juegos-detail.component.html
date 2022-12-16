@@ -1,149 +1,57 @@
-<!-- <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="videoJuegos">
-            <h2><span jhiTranslate="tiendaOnlineApp.videoJuegos.detail.title">Video Juegos</span> {{videoJuegos.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.titulo">Titulo</span></dt>
-                <dd>
-                    <span>{{videoJuegos.titulo}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.sinopsis">Sinopsis</span></dt>
-                <dd>
-                    <span>{{videoJuegos.sinopsis}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.pegi">Pegi</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'tiendaOnlineApp.Pegi.' + videoJuegos.pegi}}">{{videoJuegos.pegi}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.fechaLanzamiento">Fecha Lanzamiento</span></dt>
-                <dd>
-                    <span>{{videoJuegos.fechaLanzamiento}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.precio">Precio</span></dt>
-                <dd>
-                    <span>{{videoJuegos.precio}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.stock">Stock</span></dt>
-                <dd>
-                    <span>{{videoJuegos.stock}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.destacado">Destacado</span></dt>
-                <dd>
-                    <span>{{videoJuegos.destacado}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.caratula">Caratula</span></dt>
-                <dd>
-                    <div *ngIf="videoJuegos.caratulaId">
-                        {{videoJuegos.caratulaId}}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.compannia">Compannia</span></dt>
-                <dd>
-                    <div *ngIf="videoJuegos.companniaId">
-                        <a [routerLink]="['/compannia', videoJuegos.companniaId, 'view']">{{videoJuegos.companniaId}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.valoraciones">Valoraciones</span></dt>
-                <dd>
-                    <span *ngFor="let valoraciones of videoJuegos.valoraciones; let last = last">
-                        <a [routerLink]="['/valoraciones', valoraciones?.id, 'view' ]">{{valoraciones.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma">Plataforma</span></dt>
-                <dd>
-                    <span *ngFor="let plataforma of videoJuegos.plataformas; let last = last">
-                        <a [routerLink]="['/plataforma', plataforma?.id, 'view' ]">{{plataforma.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.videoJuegos.categoria">Categoria</span></dt>
-                <dd>
-                    <span *ngFor="let categoria of videoJuegos.categorias; let last = last">
-                        <a [routerLink]="['/categoria', categoria?.id, 'view' ]">{{categoria.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-            <button type="button"
-                    [routerLink]="['/video-juegos', videoJuegos.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
+<div class="d-flex">
+    <div class="">
+        <button class="btn btn-info" routerLink="/video-juegos">
+            <fa-icon [icon]="'arrow-left'">
+            <span jhiTranslate="entity.action.back">Back</span>
+        </button>
     </div>
-</div> -->
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>eCommerce Product Detail</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-	<div class="container">
-		<div class="card">
-			<div class="container-fliud">
-				<div class="wrapper row">
-					<div class="preview col-md-6">
-
-						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
-						</div>
-						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						</ul>
-
-					</div>
-					<div class="details col-md-6">
-						<h3 class="product-title">{{videoJuegos.nombre}}</h3>
-						<div class="rating">
-							<div class="stars">
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-							<span class="review-no">41 reviews</span>
-						</div>
-						<p class="product-description">{{videoJuegos.descripcion}}</p>
-						<h4 class="price">current price: <span>{{videoJuegos.precio}}</span></h4>
-						<p class="vote">Stock disponible: <strong>{{videoJuegos.stock}}</strong></p>
-
-						<h5 *ngFor="let plataforma of videoJuegos.plataformas; let last = last"  class="colors">Platafomas:
-							<span >{{plataforma.nombre}}</span>
-
-						</h5>
-						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-  </body>
-</html>
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active"><img class="img-fluid" alt="{{videoJuegos.titulo}}" [src]="url" /></div>
+                        </div>
+                    </div>
+                    <div class="details col-6">
+                        <h3 class="product-title">{{videoJuegos.titulo}}</h3>
+                        <span class="small">{{videoJuegos.compannia.nombre}}</span>
+                        <p class="product-description">{{videoJuegos.sinopsis}}</p>
+                        <div class="rating">
+                            <div class="stars">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                            <span class="review-no">41 reviews</span>
+                        </div>
+                        <div class="rating text-right" [ngSwitch]="videoJuegos.pegi">
+                            <img *ngSwitchCase="'PEGI3'" alt="PEGI3" src="../../../content/images/PEGI3.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI7'" alt="PEGI7" src="../../../content/images/PEGI7.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI12'" alt="PEGI12" src="../../../content/images/PEGI12.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI16'" alt="PEGI16" src="../../../content/images/PEGI16.png" width="55px" height="64px">
+                            <img *ngSwitchCase="'PEGI18'" alt="PEGI18" src="../../../content/images/PEGI18.png" width="55px" height="64px">
+                        </div>
+                        <h5 class="product-description"><b>Platafomas:</b>
+                            <span *ngFor="let plat of videoJuegos.plataformas" class="small"><i>{{plat.nombre}}, </i></span>
+                        </h5>
+                        <h5 class="product-description"><b>Categorias:</b>
+                            <span *ngFor="let cat of videoJuegos.categorias" class="small"><i>{{cat.nombre}}, </i></span>
+                        </h5>
+                        <p class="product-description"><b>Stock disponible: </b>{{videoJuegos.stock}}</p>
+                        <h4 class="price text-right"><span>{{videoJuegos.precio | currency:'EUR':true}}</span></h4>
+                        <div class="action">
+                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
