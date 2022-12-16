@@ -15,16 +15,28 @@
                                  referencedTableName="cliente"/>
 
         <addForeignKeyConstraint baseColumnNames="carrito_id"
-                                 baseTableName="carrito_venta"
-                                 constraintName="fk_carrito_venta_carrito_id"
+                                 baseTableName="carrito_video_juegos"
+                                 constraintName="fk_carrito_video_juegos_carrito_id"
                                  referencedColumnNames="id"
                                  referencedTableName="carrito"/>
 
-        <addForeignKeyConstraint baseColumnNames="venta_id"
-                                 baseTableName="carrito_venta"
-                                 constraintName="fk_carrito_venta_venta_id"
+        <addForeignKeyConstraint baseColumnNames="video_juegos_id"
+                                 baseTableName="carrito_video_juegos"
+                                 constraintName="fk_carrito_video_juegos_video_juegos_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="venta"/>
+                                 referencedTableName="video_juegos"/>
+        
+        <addForeignKeyConstraint baseColumnNames="carrito_id"
+                                 baseTableName="carrito_producto"
+                                 constraintName="fk_carrito_producto_carrito_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="carrito"/>
+
+        <addForeignKeyConstraint baseColumnNames="producto_id"
+                                 baseTableName="carrito_producto"
+                                 constraintName="fk_carrito_producto_producto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
         
     </changeSet>
 </databaseChangeLog>

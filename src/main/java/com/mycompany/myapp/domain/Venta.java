@@ -1,7 +1,6 @@
 package com.mycompany.myapp.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,7 +11,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Venta.
@@ -51,11 +49,6 @@ public class Venta implements Serializable {
                joinColumns = @JoinColumn(name = "venta_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "video_juegos_id", referencedColumnName = "id"))
     private Set<VideoJuegos> videoJuegos = new HashSet<>();
-
-    @ManyToMany(mappedBy = "ventas")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<Carrito> carritos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -153,31 +146,6 @@ public class Venta implements Serializable {
 
     public void setVideoJuegos(Set<VideoJuegos> videoJuegos) {
         this.videoJuegos = videoJuegos;
-    }
-
-    public Set<Carrito> getCarritos() {
-        return carritos;
-    }
-
-    public Venta carritos(Set<Carrito> carritos) {
-        this.carritos = carritos;
-        return this;
-    }
-
-    public Venta addCarrito(Carrito carrito) {
-        this.carritos.add(carrito);
-        carrito.getVentas().add(this);
-        return this;
-    }
-
-    public Venta removeCarrito(Carrito carrito) {
-        this.carritos.remove(carrito);
-        carrito.getVentas().remove(this);
-        return this;
-    }
-
-    public void setCarritos(Set<Carrito> carritos) {
-        this.carritos = carritos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
