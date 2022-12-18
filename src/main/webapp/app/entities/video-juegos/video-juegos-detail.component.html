@@ -22,13 +22,13 @@
                         <p class="product-description">{{videoJuegos.sinopsis}}</p>
                         <div class="rating">
                             <div class="stars">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star" [ngClass]="videoJuegos.valoracion>=1 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="videoJuegos.valoracion>=2 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="videoJuegos.valoracion>=3 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="videoJuegos.valoracion>=4 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="videoJuegos.valoracion>=5 ? 'checked' : '' "></span>
                             </div>
-                            <span class="review-no">41 reviews</span>
+                            <!--<span class="review-no">41 reviews</span>-->
                         </div>
                         <div class="rating text-right" [ngSwitch]="videoJuegos.pegi">
                             <img *ngSwitchCase="'PEGI3'" alt="PEGI3" src="../../../content/images/PEGI3.png" width="55px" height="64px">
@@ -45,9 +45,8 @@
                         </h5>
                         <p class="product-description"><b>Stock disponible: </b>{{videoJuegos.stock}}</p>
                         <h4 class="price text-right"><span>{{videoJuegos.precio | currency:'EUR':true}}</span></h4>
-                        <div class="action">
-                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                        <div class="action text-right">
+                            <button class="add-to-cart btn btn-default" jhiTranslate="entity.action.edit" type="button" (click)="openEditModal()">Edit</button>
                         </div>
                     </div>
                 </div>

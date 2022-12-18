@@ -1,8 +1,12 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileService } from 'app/core/file.service';
 
 import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
+import { VideoJuegosUpdateComponent } from './video-juegos-update.component';
+import { VideoJuegosService } from './video-juegos.service';
 
 @Component({
   selector: 'jhi-video-juegos-detail',
@@ -14,7 +18,12 @@ export class VideoJuegosDetailComponent implements OnInit {
   portada;
   url;
 
-  constructor(protected activatedRoute: ActivatedRoute, private fileService: FileService) {}
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    private fileService: FileService,
+    private videoJuegoService: VideoJuegosService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ videoJuegos }) => {
@@ -36,5 +45,17 @@ export class VideoJuegosDetailComponent implements OnInit {
 
   previousState() {
     window.history.back();
+  }
+
+  openEditModal() {
+    this.videoJuegoService.find(this.videoJuegos.id).subscribe((res: HttpResponse<IVideoJuegos>) => {
+      const modal = this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg', backdrop: 'static', keyboard: false });
+      modal.componentInstance.videoJuego = res.body;
+      modal.result.then(res => {
+        if (res == 0) {
+          window.location.reload();
+        }
+      });
+    });
   }
 }

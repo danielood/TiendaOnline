@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Objects;
 
 import com.mycompany.myapp.domain.enumeration.Pegi;
 
@@ -59,13 +58,6 @@ public class VideoJuegos implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("videoJuegos")
     private Compannia compannia;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "video_juegos_valoraciones",
-               joinColumns = @JoinColumn(name = "video_juegos_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "valoraciones_id", referencedColumnName = "id"))
-    private Set<Valoraciones> valoraciones = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -210,31 +202,6 @@ public class VideoJuegos implements Serializable {
 
     public void setCompannia(Compannia compannia) {
         this.compannia = compannia;
-    }
-
-    public Set<Valoraciones> getValoraciones() {
-        return valoraciones;
-    }
-
-    public VideoJuegos valoraciones(Set<Valoraciones> valoraciones) {
-        this.valoraciones = valoraciones;
-        return this;
-    }
-
-    public VideoJuegos addValoraciones(Valoraciones valoraciones) {
-        this.valoraciones.add(valoraciones);
-        valoraciones.getVideoJuegos().add(this);
-        return this;
-    }
-
-    public VideoJuegos removeValoraciones(Valoraciones valoraciones) {
-        this.valoraciones.remove(valoraciones);
-        valoraciones.getVideoJuegos().remove(this);
-        return this;
-    }
-
-    public void setValoraciones(Set<Valoraciones> valoraciones) {
-        this.valoraciones = valoraciones;
     }
 
     public Set<Plataforma> getPlataformas() {

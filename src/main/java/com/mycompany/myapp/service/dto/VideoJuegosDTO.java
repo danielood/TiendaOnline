@@ -2,9 +2,7 @@ package com.mycompany.myapp.service.dto;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Objects;
 
 import com.mycompany.myapp.domain.Fichero;
@@ -27,6 +25,7 @@ public class VideoJuegosDTO implements Serializable {
     private CompanniaDTO compannia;
     private List<PlataformaDTO> plataformas = new ArrayList<>();
     private List<CategoriaDTO> categorias = new ArrayList<>();
+    private Double valoracion;
 
     public Long getId() {
         return id;
@@ -122,6 +121,18 @@ public class VideoJuegosDTO implements Serializable {
 
     public void setCategorias(List<CategoriaDTO> categorias) {
         this.categorias = categorias;
+    }
+
+    public Boolean getDestacado() {
+        return destacado;
+    }
+
+    public Double getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(Double valoracion) {
+        this.valoracion = valoracion;
     }
 
     @Override

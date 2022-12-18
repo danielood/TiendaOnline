@@ -88,17 +88,6 @@
 
     <changeSet id="20221205085427-1-relations" author="jhipster">
 
-        <createTable tableName="video_juegos_valoraciones">
-            <column name="valoraciones_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="video_juegos_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="video_juegos_id, valoraciones_id" tableName="video_juegos_valoraciones"/>
-
         <createTable tableName="video_juegos_plataforma">
             <column name="plataforma_id" type="bigint">
                 <constraints nullable="false"/>

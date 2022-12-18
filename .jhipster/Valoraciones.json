@@ -1,5 +1,22 @@
 {
-    "name": "Valoraciones",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "cliente",
+            "otherEntityRelationshipName": "valoraciones",
+            "relationshipName": "cliente",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "videoJuegos",
+            "otherEntityName": "videoJuegos",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "valoraciones"
+        }
+    ],
     "fields": [
         {
             "fieldName": "puntuacion",
@@ -10,30 +27,12 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "cliente",
-            "otherEntityRelationshipName": "valoraciones",
-            "relationshipName": "cliente",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "videoJuegos",
-            "otherEntityRelationshipName": "valoraciones",
-            "relationshipName": "videoJuegos",
-            "otherEntityField": "id",
-            "ownerSide": false
-        }
-    ],
     "changelogDate": "20221205085432",
-    "entityTableName": "valoraciones",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "valoraciones",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }
