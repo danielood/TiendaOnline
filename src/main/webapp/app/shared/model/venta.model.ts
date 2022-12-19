@@ -3,6 +3,22 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
 import { ICarrito } from 'app/shared/model/carrito.model';
 
+export interface IVentaTabla {
+  id?: number;
+  fechaVenta?: Moment;
+  precioVenta?: number;
+  clienteId?: number;
+}
+
+export class VentaTabla implements IVentaTabla {
+  constructor(
+    public id?: number, 
+    public fechaVenta?: Moment, 
+    public precioVenta?: number, 
+    public clienteId?: number
+    ) {}
+}
+
 export interface IVenta {
   id?: number;
   fechaVenta?: Moment;
