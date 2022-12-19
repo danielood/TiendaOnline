@@ -170,4 +170,13 @@ public class ImagenServiceImpl implements ImagenService {
     public Optional<Imagen> findImagenFromVideoJuegoId(Long id) {
         return this.imagenRepository.findImagenFromVideoJuegoId(id);
     }
+
+    @Override
+    public void deleteByVideoJuego(Long id) {
+        Optional<Imagen> imagenOpt = this.imagenRepository.findImagenFromVideoJuegoId(id);
+        if(imagenOpt.isPresent()){
+            this.fileService.deleteFile(imagenOpt.get().getPath());
+            this.delete(imagenOpt.get());
+        }
+    }
 }
