@@ -11,7 +11,12 @@ export interface IVentaTabla {
 }
 
 export class VentaTabla implements IVentaTabla {
-  constructor(public id?: number, public fechaVenta?: Moment, public precioVenta?: number, public clienteId?: number) {}
+  constructor(
+    public id?: number, 
+    public fechaVenta?: Moment, 
+    public precioVenta?: number, 
+    public clienteId?: number
+    ) {}
 }
 
 export interface IVenta {

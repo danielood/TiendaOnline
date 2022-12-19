@@ -44,6 +44,10 @@ export class VideoJuegosService {
     return this.http.get<IJuegoTabla[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  findAll(req?: any): Observable<EntityArrayResponseType> {
+    return this.http.get<IVideoJuegos[]>(`${this.resourceUrl}/all`, { observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
