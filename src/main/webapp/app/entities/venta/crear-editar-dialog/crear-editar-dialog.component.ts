@@ -30,6 +30,14 @@ export class CrearEditarDialogComponent implements OnInit {
   videojuegos: IVideoJuegos[];
   fechaVentaDp: any;
 
+  selectedProd: string;
+  selectedProdObj: IProducto;
+  listProd: Array<IProducto>;
+
+  selectedVid: string;
+  selectedVidObj: IVideoJuegos;
+  listVid: Array<IVideoJuegos>;
+
   editForm = this.fb.group({
     id: [],
     fechaVenta: [],
@@ -49,13 +57,34 @@ export class CrearEditarDialogComponent implements OnInit {
     public activeModal: NgbActiveModal
   ) {}
 
+  onSelectProd() {
+    this.selectedProdObj = this.productos.find(p => p.nombre == this.selectedProd);
+
+    if (this.selectedProdObj) {
+      this.listProd.push(this.selectedProdObj);
+      this.selectedProd = '';
+    } else {
+      alert('El producto no existe');
+    }
+  }
+
+  onSelectVid() {
+    this.selectedVidObj = this.videojuegos.find(p => p.titulo == this.selectedVid);
+
+    if (this.selectedVidObj) {
+      this.listVid.push(this.selectedVidObj);
+      this.selectedVid = '';
+    } else {
+      alert('El videojuego no existe');
+    }
+  }
+
   ngOnInit() {
     this.isSaving = false;
     // this.activatedRoute.data.subscribe(({ venta }) => {
     //   this.updateForm(venta);
     //   this.venta = venta;
     // });
-    this.updateForm(this.venta);
 
     this.clienteService
       .query()
@@ -71,13 +100,29 @@ export class CrearEditarDialogComponent implements OnInit {
         map((response: HttpResponse<IProducto[]>) => response.body)
       )
       .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.videoJuegosService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVideoJuegos[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVideoJuegos[]>) => response.body)
-      )
-      .subscribe((res: IVideoJuegos[]) => (this.videojuegos = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.videoJuegosService.findAll().subscribe(res => (this.videojuegos = res.body));
+
+    this.selectedProd = '';
+    this.selectedProdObj = {};
+
+    this.selectedVid = '';
+    this.selectedVidObj = {};
+
+    if (!this.venta) {
+      this.venta = new Venta();
+    } else {
+      this.updateForm(this.venta);
+    }
+    if (this.venta.productos) {
+      this.listProd = this.venta.productos;
+    } else {
+      this.listProd = new Array<IProducto>();
+    }
+    if (this.venta.videoJuegos) {
+      this.listVid = this.venta.videoJuegos;
+    } else {
+      this.listVid = new Array<IVideoJuegos>();
+    }
   }
 
   updateForm(venta: IVenta) {
@@ -112,7 +157,7 @@ export class CrearEditarDialogComponent implements OnInit {
       fechaVenta: this.editForm.get(['fechaVenta']).value,
       precioVenta: this.editForm.get(['precioVenta']).value,
       clienteId: this.editForm.get(['clienteId']).value,
-      productos: this.editForm.get(['productos']).value,
+      productos: this.listProd,
       videoJuegos: this.editForm.get(['videoJuegos']).value
     };
     return entity;

@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center p-4">
   <div class="col-8">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
           <h2 id="jhi-venta-heading" jhiTranslate="tiendaOnlineApp.venta.home.createOrEditLabel">Create or edit a Venta</h2>
@@ -24,28 +24,74 @@
                          formControlName="precioVenta"/>
               </div>
 
+
+
               <div class="form-group">
                   <label class="form-control-label" jhiTranslate="tiendaOnlineApp.venta.cliente" for="field_cliente">Cliente</label>
                   <select class="form-control" id="field_cliente" name="cliente" formControlName="clienteId">
                       <option [ngValue]="null"></option>
-                      <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.id}}</option>
+                      <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.email}}</option>
                   </select>
               </div>
               <div class="form-group">
-                  <label jhiTranslate="tiendaOnlineApp.venta.producto" for="field_productos">Producto</label>
+                  <!-- <label jhiTranslate="tiendaOnlineApp.venta.producto" for="field_productos">Producto</label>
                   <select class="form-control" id="field_productos" multiple name="productos" formControlName="productos">
                       <option [ngValue]="getSelected(editForm.get('productos').value, productoOption)" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.id}}</option>
-                  </select>
+                  </select> -->
+
+                  <label class="form-control-label" for="field_productos">Productos</label>
+                    <div class="d-flex ">
+                    <input class="form-control" formControlName="productos" type="text" list="listProd" value="{{selectedProd}}" [(ngModel)]="selectedProd" />
+                        <datalist id="listProd">
+                            <option *ngFor="let p of productos" [value]="p.nombre">{{p.nombre}}</option>
+                        </datalist>
+                        <div class="text-right">
+                            <span class="btn btn-primary" (click)="onSelectProd()">></span>
+                          </div>
+                    </div>
+                          <table class="table table-bordered" *ngIf="listProd.length>0">
+                            <tr *ngFor="let prod of listProd; let i = index" class="">
+                                <span>{{prod.nombre}}</span>
+
+                                <a (click)="deletePlat(i)">
+                                    <fa-icon [icon]="'times'" class="fa"></fa-icon>
+                                </a>
+                            </tr>
+
+                      </table>
               </div>
               <div class="form-group">
-                  <label jhiTranslate="tiendaOnlineApp.venta.videoJuegos" for="field_videoJuegos">Video Juegos</label>
+                  <!-- <label jhiTranslate="tiendaOnlineApp.venta.videoJuegos" for="field_videoJuegos">Video Juegos</label>
                   <select class="form-control" id="field_videoJuegos" multiple name="videoJuegos" formControlName="videoJuegos">
                       <option [ngValue]="getSelected(editForm.get('videoJuegos').value, videoJuegosOption)" *ngFor="let videoJuegosOption of videojuegos; trackBy: trackVideoJuegosById">{{videoJuegosOption.id}}</option>
-                  </select>
+                  </select> -->
+
+                  <label class="form-control-label" for="field_productos">Video Juegos</label>
+                    <div class="d-flex ">
+                    <input class="form-control" formControlName="productos" type="text" list="listVid" value="{{selectedVid}}" [(ngModel)]="selectedVid" />
+                        <datalist id="listVid">
+                            <option *ngFor="let v of videojuegos" [value]="v.titulo">{{v.titulo}}</option>
+                        </datalist>
+                        <div class="text-right">
+                            <span class="btn btn-primary" (click)="onSelectVid()">></span>
+                          </div>
+                    </div>
+                          <table class="table table-bordered" *ngIf="listVid.length>0">
+                            <tr *ngFor="let vid of listVid; let i = index" class="">
+                                <span>{{vid.titulo}}</span>
+                                <a (click)="deletePlat(i)">
+                                    <fa-icon [icon]="'times'" class="fa"></fa-icon>
+                                </a>
+                            </tr>
+                      </table>
+
               </div>
           </div>
+
+
+
           <div>
-              <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+              <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="clear()">
                   <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
               </button>
               <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">

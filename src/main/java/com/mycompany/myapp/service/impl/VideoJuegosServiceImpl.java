@@ -62,6 +62,11 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
         this.juegoTablaMapper = new JuegoTablaMapper();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<VideoJuegos> findAll2() {
+       return videoJuegosRepository.findAllWithEagerRelationships();
+    }
     /**
      * Save a videoJuegos.
      *

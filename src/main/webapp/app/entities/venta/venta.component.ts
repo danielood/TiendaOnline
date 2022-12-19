@@ -53,10 +53,10 @@ export class VentaComponent implements OnInit, OnDestroy {
   open(venta: IVenta) {
     if (!venta) {
       venta = {};
-      const modalRef = this.modalService.open(CrearEditarDialogComponent);
+      const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
       modalRef.componentInstance.venta = venta;
     } else {
-      const modalRef = this.modalService.open(CrearEditarDialogComponent);
+      const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
       modalRef.componentInstance.venta = venta;
     }
   }

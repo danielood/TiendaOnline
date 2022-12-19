@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.VideoJuegos;
 import com.mycompany.myapp.service.VideoJuegosService;
 import com.mycompany.myapp.service.dto.JuegoTablaDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
@@ -44,6 +45,15 @@ public class VideoJuegosResource {
 
     public VideoJuegosResource(VideoJuegosService videoJuegosService) {
         this.videoJuegosService = videoJuegosService;
+    }
+
+    @GetMapping("/video-juegos/all")
+    public ResponseEntity<List<VideoJuegos>> getAllVideoJuegos() {
+        log.debug("REST request to get a page of VideoJuegos");
+        List<VideoJuegos> lista = videoJuegosService.findAll2();
+
+
+        return ResponseEntity.ok().body(lista);
     }
 
     /**
