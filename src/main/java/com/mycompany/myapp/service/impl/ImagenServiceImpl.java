@@ -90,6 +90,17 @@ public class ImagenServiceImpl implements ImagenService {
         return map;
     }
 
+    @Override
+    public Map<Long, Fichero> findImagenes(List<Long> ids) {
+        Map<Long, Fichero> map = new HashMap<>();
+        List<AuxRepository> result = imagenRepository.findImagenes(ids);
+        for(AuxRepository row : result){
+            Fichero fichero = convertPathToFichero(row.getAuxString());
+            map.put(row.getId(),fichero);
+        }
+        return map;
+    }
+
 
     /**
      * Get one imagen by id.
@@ -169,6 +180,11 @@ public class ImagenServiceImpl implements ImagenService {
     @Override
     public Optional<Imagen> findImagenFromVideoJuegoId(Long id) {
         return this.imagenRepository.findImagenFromVideoJuegoId(id);
+    }
+
+    @Override
+    public Optional<Imagen> findImagenFromProductoId(Long id) {
+        return this.imagenRepository.findImagenFromProductoId(id);
     }
 
     @Override

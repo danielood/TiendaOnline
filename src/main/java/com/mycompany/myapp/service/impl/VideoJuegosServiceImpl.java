@@ -158,7 +158,7 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
         List<JuegoTablaDTO> juegosTablaDTO = new ArrayList<>();
         Map<Long,String> compannies = covertAuxToMap(videoJuegosRepository.finCompannies(idVideoJuegos));
         Map<Long, Fichero> caratulas = imagenService.findCaratulas(idVideoJuegos);
-        Map<Long,List<String>> plataforma = plataformaService.findAllById(idVideoJuegos);
+        Map<Long,List<String>> plataforma = plataformaService.findAllByVideoJuegoId(idVideoJuegos);
         for(VideoJuegos videoJuego : videoJuegos){
             String compannie = compannies.get(videoJuego.getId());
             Fichero fichero = caratulas.get(videoJuego.getId());

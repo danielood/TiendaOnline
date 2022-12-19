@@ -1,8 +1,10 @@
 package com.mycompany.myapp.service.dto;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.mycompany.myapp.domain.Fichero;
 
 /**
  * A DTO for the {@link com.mycompany.myapp.domain.Producto} entity.
@@ -20,9 +22,9 @@ public class ProductoDTO implements Serializable {
     private Integer stock;
 
 
-    private Long imagenId;
+    private Fichero imagen;
 
-    private Set<PlataformaDTO> plataformas = new HashSet<>();
+    private List<PlataformaDTO> plataformas = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -64,19 +66,19 @@ public class ProductoDTO implements Serializable {
         this.stock = stock;
     }
 
-    public Long getImagenId() {
-        return imagenId;
+    public Fichero getImagen() {
+        return imagen;
     }
 
-    public void setImagenId(Long imagenId) {
-        this.imagenId = imagenId;
+    public void setImagen(Fichero imagen) {
+        this.imagen = imagen;
     }
 
-    public Set<PlataformaDTO> getPlataformas() {
+    public List<PlataformaDTO> getPlataformas() {
         return plataformas;
     }
 
-    public void setPlataformas(Set<PlataformaDTO> plataformas) {
+    public void setPlataformas(List<PlataformaDTO> plataformas) {
         this.plataformas = plataformas;
     }
 
@@ -109,7 +111,7 @@ public class ProductoDTO implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             ", precio=" + getPrecio() +
             ", stock=" + getStock() +
-            ", imagen=" + getImagenId() +
+            ", imagen=" + getImagen() +
             "}";
     }
 }

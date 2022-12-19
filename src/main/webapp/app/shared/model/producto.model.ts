@@ -1,3 +1,4 @@
+import { Fichero } from 'app/core/fichero.model';
 import { IPlataforma } from 'app/shared/model/plataforma.model';
 import { IVenta } from 'app/shared/model/venta.model';
 export interface IProductoTabla {
@@ -5,7 +6,7 @@ export interface IProductoTabla {
   nombre?: string;
   precio?: number;
   stock?: number;
-  imagenId?: number;
+  imagen?: Fichero;
   plataformas?: IPlataforma[];
 }
 
@@ -15,7 +16,7 @@ export class ProductoTabla implements IProductoTabla {
     public nombre?: string,
     public precio?: number,
     public stock?: number,
-    public imagenId?: number,
+    public imagen?: Fichero,
     public plataformas?: IPlataforma[]
   ) {}
 }
@@ -25,9 +26,8 @@ export interface IProducto {
   descripcion?: string;
   precio?: number;
   stock?: number;
-  imagenId?: number;
+  imagen?: Fichero;
   plataformas?: IPlataforma[];
-  ventas?: IVenta[];
 }
 
 export class Producto implements IProducto {
@@ -37,8 +37,7 @@ export class Producto implements IProducto {
     public descripcion?: string,
     public precio?: number,
     public stock?: number,
-    public imagenId?: number,
-    public plataformas?: IPlataforma[],
-    public ventas?: IVenta[]
+    public imagen?: Fichero,
+    public plataformas?: IPlataforma[]
   ) {}
 }

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Venta.
@@ -49,6 +50,10 @@ public class Venta implements Serializable {
                joinColumns = @JoinColumn(name = "venta_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "video_juegos_id", referencedColumnName = "id"))
     private Set<VideoJuegos> videoJuegos = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("ventas")
+    private Direccion direccion;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -146,6 +151,19 @@ public class Venta implements Serializable {
 
     public void setVideoJuegos(Set<VideoJuegos> videoJuegos) {
         this.videoJuegos = videoJuegos;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public Venta direccion(Direccion direccion) {
+        this.direccion = direccion;
+        return this;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

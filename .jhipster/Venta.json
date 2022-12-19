@@ -24,6 +24,13 @@
             "relationshipName": "videoJuegos",
             "otherEntityField": "id",
             "ownerSide": true
+        },
+        {
+            "relationshipName": "direccion",
+            "otherEntityName": "direccion",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "venta"
         }
     ],
     "fields": [

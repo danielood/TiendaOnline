@@ -3,14 +3,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Fichero } from 'app/core/fichero.model';
+import { FileService } from 'app/core/file.service';
 import { PlataformaService } from 'app/entities/plataforma';
 import { VentaService } from 'app/entities/venta';
 import { IImagen } from 'app/shared/model/imagen.model';
-import { IPlataforma } from 'app/shared/model/plataforma.model';
+import { IPlataforma, Plataforma } from 'app/shared/model/plataforma.model';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { IVenta } from 'app/shared/model/venta.model';
 import { JhiAlertService } from 'ng-jhipster';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ProductoService } from '../producto.service';
 
@@ -23,11 +25,15 @@ export class CrearEditarDialogComponent implements OnInit {
   @Input() producto: IProducto;
   isSaving: boolean;
 
-  imagens: IImagen[];
-
   plataformas: IPlataforma[];
 
-  ventas: IVenta[];
+  selectedPlat: string;
+  selectedPlatObj: IPlataforma;
+  listPlat: Array<IPlataforma>;
+
+  imagenFichero: Fichero;
+  imagenUrl;
+  imagenFile: File;
 
   editForm = this.fb.group({
     id: [],
@@ -35,7 +41,6 @@ export class CrearEditarDialogComponent implements OnInit {
     descripcion: [],
     precio: [],
     stock: [],
-    imagenId: [],
     plataformas: []
   });
 
@@ -44,20 +49,11 @@ export class CrearEditarDialogComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected productoService: ProductoService,
     protected plataformaService: PlataformaService,
-    protected ventaService: VentaService,
-    protected activatedRoute: ActivatedRoute,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private fileService: FileService
   ) {}
   ngOnInit(): void {
     this.isSaving = false;
-    this.updateForm(this.producto);
-
-    console.log(this.producto);
-    // this.activatedRoute.data.subscribe(({ producto }) => {
-    //   this.updateForm(producto);
-    //   this.producto = producto;
-
-    // });
     this.plataformaService
       .query()
       .pipe(
@@ -65,13 +61,32 @@ export class CrearEditarDialogComponent implements OnInit {
         map((response: HttpResponse<IPlataforma[]>) => response.body)
       )
       .subscribe((res: IPlataforma[]) => (this.plataformas = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.ventaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVenta[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVenta[]>) => response.body)
-      )
-      .subscribe((res: IVenta[]) => (this.ventas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.selectedPlat = '';
+    this.selectedPlatObj = {};
+    this.imagenFichero = {};
+    this.imagenUrl = '';
+    if (!this.producto) {
+      this.producto = new Producto();
+    } else {
+      this.updateForm(this.producto);
+    }
+    if (this.producto.plataformas) {
+      this.listPlat = this.producto.plataformas;
+    } else {
+      this.listPlat = new Array<IPlataforma>();
+    }
+    if (this.producto.imagen) {
+      this.imagenFile = this.fileService.ficheroToFile(this.producto.imagen);
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imagenUrl = event.target.result;
+      };
+      if (this.imagenFile) {
+        reader.readAsDataURL(this.imagenFile);
+      } else {
+        this.imagenUrl = '';
+      }
+    }
   }
 
   updateForm(producto: IProducto) {
@@ -80,20 +95,17 @@ export class CrearEditarDialogComponent implements OnInit {
       nombre: producto.nombre,
       descripcion: producto.descripcion,
       precio: producto.precio,
-      stock: producto.stock,
-      imagenId: producto.imagenId,
-      plataformas: producto.plataformas
+      stock: producto.stock
     });
-  }
-
-  previousState() {
-    window.history.back();
+    if (producto.imagen) {
+      this.imagenFichero = producto.imagen;
+    }
   }
 
   save() {
     this.isSaving = true;
     const producto = this.createFromForm();
-    if (producto.id !== undefined) {
+    if (producto.id != undefined || producto.id != null) {
       this.subscribeToSaveResponse(this.productoService.update(producto));
     } else {
       this.subscribeToSaveResponse(this.productoService.create(producto));
@@ -108,8 +120,8 @@ export class CrearEditarDialogComponent implements OnInit {
       descripcion: this.editForm.get(['descripcion']).value,
       precio: this.editForm.get(['precio']).value,
       stock: this.editForm.get(['stock']).value,
-      imagenId: this.editForm.get(['imagenId']).value,
-      plataformas: this.editForm.get(['plataformas']).value
+      plataformas: this.listPlat,
+      imagen: this.imagenFichero
     };
     return entity;
   }
@@ -120,7 +132,7 @@ export class CrearEditarDialogComponent implements OnInit {
 
   protected onSaveSuccess() {
     this.isSaving = false;
-    this.previousState();
+    this.activeModal.close(0);
   }
 
   protected onSaveError() {
@@ -130,31 +142,46 @@ export class CrearEditarDialogComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackImagenById(index: number, item: IImagen) {
-    return item.id;
-  }
-
-  trackPlataformaById(index: number, item: IPlataforma) {
-    return item.id;
-  }
-
-  trackVentaById(index: number, item: IVenta) {
-    return item.id;
-  }
-
-  getSelected(selectedVals: Array<any>, option: any) {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
-  }
-
   clear() {
     this.activeModal.dismiss('cancel');
-    window.location.reload();
+  }
+
+  onSelectPlataforma() {
+    this.selectedPlatObj = this.plataformas.find(p => p.nombre == this.selectedPlat);
+    if (!this.listPlat.find(p => p.nombre.toLocaleLowerCase() == this.selectedPlat.toLocaleLowerCase())) {
+      if (this.selectedPlatObj) {
+        this.listPlat.push(this.selectedPlatObj);
+      } else {
+        const newPlat: IPlataforma = { ...new Plataforma(), nombre: this.selectedPlat };
+        this.listPlat.push(newPlat);
+      }
+    }
+  }
+
+  deletePlat(index: number) {
+    this.listPlat.splice(index, 1);
+  }
+
+  onChangeCaratula(event) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.imagenUrl = event.target.result;
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+      this.convertFile(file).subscribe(base64 => {
+        this.imagenFichero = new Fichero(file.name, file.type, base64);
+      });
+    } else {
+      this.imagenUrl = '';
+    }
+  }
+  private convertFile(file: File): Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = event => result.next(btoa(event.target.result.toString()));
+    return result;
   }
 }

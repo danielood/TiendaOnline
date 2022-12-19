@@ -19,7 +19,8 @@
       "precioVenta": "Precio Venta",
       "cliente": "Cliente",
       "producto": "Producto",
-      "videoJuegos": "Video Juegos"
+      "videoJuegos": "Video Juegos",
+      "direccion": "Direccion"
     }
   }
 }

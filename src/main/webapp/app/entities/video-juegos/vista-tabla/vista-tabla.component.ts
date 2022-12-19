@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileService } from 'app/core/file.service';
 import { IJuegoTabla, IVideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosUpdateComponent } from '../video-juegos-update.component';
+import { VideoJuegosComponent } from '../video-juegos.component';
 import { VideoJuegosService } from '../video-juegos.service';
 
 @Component({
@@ -17,7 +18,12 @@ export class VistaTablaComponent implements OnInit {
   portada: File;
   url;
 
-  constructor(private fileService: FileService, private modalService: NgbModal, private videoJuegoService: VideoJuegosService) {
+  constructor(
+    private fileService: FileService,
+    private modalService: NgbModal,
+    private videoJuegoService: VideoJuegosService,
+    private videoJuegoComponent: VideoJuegosComponent
+  ) {
     this.url = '';
   }
 
@@ -42,7 +48,7 @@ export class VistaTablaComponent implements OnInit {
       modal.componentInstance.videoJuego = res.body;
       modal.result.then(res => {
         if (res == 0) {
-          window.location.reload();
+          this.videoJuegoComponent.loadAll();
         }
       });
     });
