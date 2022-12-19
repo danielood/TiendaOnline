@@ -17,11 +17,11 @@ import java.util.Optional;
 @Repository
 public interface VideoJuegosRepository extends JpaRepository<VideoJuegos, Long> {
 
-    @Query(value = "select distinct videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.valoraciones left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias",
+    @Query(value = "select distinct videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias",
         countQuery = "select count(distinct videoJuegos) from VideoJuegos videoJuegos")
     Page<VideoJuegos> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.valoraciones left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias")
+    @Query("select distinct videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias")
     List<VideoJuegos> findAllWithEagerRelationships();
 
     @Query("select videoJuegos from VideoJuegos videoJuegos left join fetch videoJuegos.plataformas left join fetch videoJuegos.categorias where videoJuegos.id =:id")

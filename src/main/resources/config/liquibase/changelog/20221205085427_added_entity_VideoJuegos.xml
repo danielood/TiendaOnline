@@ -7,7 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-    
+
     <property name="now" value="now()" dbms="mysql"/>
     <property name="autoIncrement" value="true"/>
 
@@ -26,7 +26,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="sinopsis" type="varchar(255)">
+            <column name="sinopsis" type="varchar(1000)">
                 <constraints nullable="true" />
             </column>
 
@@ -88,17 +88,6 @@
 
     <changeSet id="20221205085427-1-relations" author="jhipster">
 
-        <createTable tableName="video_juegos_valoraciones">
-            <column name="valoraciones_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="video_juegos_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="video_juegos_id, valoraciones_id" tableName="video_juegos_valoraciones"/>
-        
         <createTable tableName="video_juegos_plataforma">
             <column name="plataforma_id" type="bigint">
                 <constraints nullable="false"/>
@@ -109,7 +98,7 @@
         </createTable>
 
         <addPrimaryKey columnNames="video_juegos_id, plataforma_id" tableName="video_juegos_plataforma"/>
-        
+
         <createTable tableName="video_juegos_categoria">
             <column name="categoria_id" type="bigint">
                 <constraints nullable="false"/>
@@ -120,7 +109,7 @@
         </createTable>
 
         <addPrimaryKey columnNames="video_juegos_id, categoria_id" tableName="video_juegos_categoria"/>
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

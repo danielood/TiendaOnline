@@ -1,6 +1,8 @@
 package com.mycompany.myapp.domain;
 
-public class Fichero {
+import java.io.Serializable;
+
+public class Fichero implements Serializable {
 
     private String fileName;
     private String fileType;

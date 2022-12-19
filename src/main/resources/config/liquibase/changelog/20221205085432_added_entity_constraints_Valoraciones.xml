@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="cliente"/>
 
+        <addForeignKeyConstraint baseColumnNames="video_juegos_id"
+                                 baseTableName="valoraciones"
+                                 constraintName="fk_valoraciones_video_juegos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="video_juegos"/>
+
     </changeSet>
 </databaseChangeLog>

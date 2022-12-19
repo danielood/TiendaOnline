@@ -118,7 +118,7 @@ export class VideoJuegosComponent implements OnInit, OnDestroy {
   }
 
   openModalCreate() {
-    this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg' }).result.then(res => {
+    this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg', backdrop: 'static', keyboard: false }).result.then(res => {
       if (res == 0) {
         this.loadAll();
       }

@@ -11,20 +11,21 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.io.Files;
 import com.mycompany.myapp.config.ApplicationProperties;
 import com.mycompany.myapp.domain.Fichero;
 import com.mycompany.myapp.service.FileService;
-import com.mycompany.myapp.service.dto.ImagenDTO;
+import com.mycompany.myapp.service.MimeTypeService;
 
 @Service
 @Transactional
 public class FileServiceImpl implements FileService {
 
     private final ApplicationProperties applicationProperties;
+    private final MimeTypeService mimeTypeService;
 
-    public FileServiceImpl(ApplicationProperties applicationProperties){
+    public FileServiceImpl(ApplicationProperties applicationProperties,MimeTypeService mimeTypeService){
         this.applicationProperties = applicationProperties;
+        this.mimeTypeService = mimeTypeService;
     }
 
 
@@ -38,9 +39,7 @@ public class FileServiceImpl implements FileService {
         File file = new File(path);
         Fichero fichero = new Fichero();
         fichero.setFileName(file.getName());
-        if((Files.getFileExtension(file.getName())=="jpg" || (Files.getFileExtension(file.getName())=="jpeg"))){
-            fichero.setFileType("image/jpeg");
-        }
+        fichero.setFileType(this.mimeTypeService.findMimeType(file.getName()));
         fichero.setFileBase64(encodeBase64(file));
         return fichero;
     }

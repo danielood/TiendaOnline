@@ -38,7 +38,7 @@ export class VistaTablaComponent implements OnInit {
 
   openEditModal() {
     this.videoJuegoService.find(this.juego.id).subscribe((res: HttpResponse<IVideoJuegos>) => {
-      const modal = this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg' });
+      const modal = this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg', backdrop: 'static', keyboard: false });
       modal.componentInstance.videoJuego = res.body;
       modal.result.then(res => {
         if (res == 0) {
