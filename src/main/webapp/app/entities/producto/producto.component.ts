@@ -54,7 +54,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
   open() {
     const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
     modalRef.result.then(res => {
-      if (res == 'Save') {
+      if (res == 0) {
         this.loadAll();
       }
     });

@@ -7,10 +7,11 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IVenta } from 'app/shared/model/venta.model';
+import { IVenta, IVentaTabla } from 'app/shared/model/venta.model';
 
 type EntityResponseType = HttpResponse<IVenta>;
 type EntityArrayResponseType = HttpResponse<IVenta[]>;
+type EntityArrayResponseVentaTabla = HttpResponse<IVentaTabla[]>;
 
 @Injectable({ providedIn: 'root' })
 export class VentaService {
@@ -38,11 +39,11 @@ export class VentaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any): Observable<EntityArrayResponseVentaTabla> {
     const options = createRequestOption(req);
     return this.http
       .get<IVenta[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      .pipe(map((res: EntityArrayResponseVentaTabla) => this.convertDateArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

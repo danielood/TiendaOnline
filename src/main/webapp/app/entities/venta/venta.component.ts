@@ -69,7 +69,7 @@ export class VentaComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IVenta[]>) => this.paginateVentas(res.body, res.headers),
+        (res: HttpResponse<IVentaTabla[]>) => this.paginateVentas(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }

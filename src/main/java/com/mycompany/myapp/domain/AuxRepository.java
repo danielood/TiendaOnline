@@ -5,6 +5,7 @@ public class AuxRepository {
     private Long id;
     private String auxString;
     private Double auxDouble;
+    private Long auxLong;
 
     public AuxRepository(Long id,String auxString){
         this.id = id;
@@ -14,6 +15,11 @@ public class AuxRepository {
     public AuxRepository(Long id,Double auxDouble){
         this.id = id;
         this.auxDouble = auxDouble;
+    }
+
+    public AuxRepository(Long id,Long auxLong){
+        this.id = id;
+        this.auxLong = auxLong;
     }
 
     public Long getId() {
@@ -38,6 +44,14 @@ public class AuxRepository {
 
     public void setAuxDouble(Double auxDouble) {
         this.auxDouble = auxDouble;
+    }
+
+    public Long getAuxLong() {
+        return auxLong;
+    }
+
+    public void setAuxLong(Long auxLong) {
+        this.auxLong = auxLong;
     }
 
 }

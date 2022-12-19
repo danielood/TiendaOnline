@@ -1,5 +1,6 @@
 package com.mycompany.myapp.repository;
 
+import com.mycompany.myapp.domain.AuxRepository;
 import com.mycompany.myapp.domain.Venta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,6 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     @Query("select venta from Venta venta left join fetch venta.productos left join fetch venta.videoJuegos where venta.id =:id")
     Optional<Venta> findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select new com.mycompany.myapp.domain.AuxRepository(v.id,c.id) from Venta v, Cliente c where v.cliente.id = c.id and v.id in (:ids)")
+    List<AuxRepository> findAllClientes(@Param("ids")List<Long> ids);
 }

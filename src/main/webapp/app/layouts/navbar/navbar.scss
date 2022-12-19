@@ -15,8 +15,8 @@ Navbar
   height: 1.75em;
   width: 1.75em;
 }
-.bg-blue {
-  background-color: #4267b2;
+.bg-nav {
+  background-color: #ee6d0a;
 }
 .white {
   a {
@@ -40,6 +40,19 @@ Navbar
     font-weight: 400;
   }
 }
+
+.dropdown-item:hover {
+  color: #ee6d0a;
+  background-color: #343a40 !important;
+}
+.dropdown-item.active {
+  background-color: #343a40;
+}
+
+//.navbar .navbar-nav .show > .nav-link,
+//.navbar .navbar-nav .active > .nav-link,
+//.navbar .navbar-nav .nav-link.show,
+//.navbar .navbar-nav .nav-link.active {}
 
 /* ==========================================================================
 Logo styles
