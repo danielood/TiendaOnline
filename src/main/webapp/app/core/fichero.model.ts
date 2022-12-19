@@ -5,5 +5,5 @@ export interface IFichero {
 }
 
 export class Fichero implements IFichero {
-  constructor(public fileName?: string, public fileContentType?: string, public fileBase64?: string) {}
+  constructor(public fileName?: string, public fileType?: string, public fileBase64?: string) {}
 }

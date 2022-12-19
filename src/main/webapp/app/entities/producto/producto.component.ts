@@ -51,15 +51,13 @@ export class ProductoComponent implements OnInit, OnDestroy {
     });
   }
 
-  open(producto: IProducto) {
-    if (!producto) {
-      producto = {};
-      const modalRef = this.modalService.open(CrearEditarDialogComponent);
-      modalRef.componentInstance.producto = producto;
-    } else {
-      const modalRef = this.modalService.open(CrearEditarDialogComponent);
-      modalRef.componentInstance.producto = producto;
-    }
+  open() {
+    const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
+    modalRef.result.then(res => {
+      if (res == 'Save') {
+        this.loadAll();
+      }
+    });
   }
 
   loadAll() {
@@ -133,7 +131,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateProductos(data: IProducto[], headers: HttpHeaders) {
+  protected paginateProductos(data: IProductoTabla[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.productos = data;

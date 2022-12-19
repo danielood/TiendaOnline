@@ -36,7 +36,11 @@ public interface ImagenService {
 
     Map<Long, Fichero> findCaratulas(List<Long> ids);
 
+    Map<Long, Fichero> findImagenes(List<Long> ids);
+
     Optional<Imagen> findImagenFromVideoJuegoId(Long id);
+
+    Optional<Imagen> findImagenFromProductoId(Long id);
     /**
      * Get the "id" imagen.
      *
@@ -59,4 +63,6 @@ public interface ImagenService {
     void delete(ImagenDTO imagenDTO);
 
     void delete(Imagen imagen);
+
+    void deleteByVideoJuego(Long id);
 }

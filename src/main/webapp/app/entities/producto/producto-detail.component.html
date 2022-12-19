@@ -1,122 +1,45 @@
-<!-- <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="producto">
-            <h2><span jhiTranslate="tiendaOnlineApp.producto.detail.title">Producto</span> {{producto.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.nombre">Nombre</span></dt>
-                <dd>
-                    <span>{{producto.nombre}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.descripcion">Descripcion</span></dt>
-                <dd>
-                    <span>{{producto.descripcion}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.precio">Precio</span></dt>
-                <dd>
-                    <span>{{producto.precio}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.stock">Stock</span></dt>
-                <dd>
-                    <span>{{producto.stock}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.imagen">Imagen</span></dt>
-                <dd>
-                    <div *ngIf="producto.imagenId">
-                        <a [routerLink]="['/imagen', producto.imagenId, 'view']">{{producto.imagenId}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.plataforma">Plataforma</span></dt>
-                <dd>
-                    <span *ngFor="let plataforma of producto.plataformas; let last = last">
-                        <a [routerLink]="['/plataforma', plataforma?.id, 'view' ]">{{plataforma.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/producto', producto.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
+<div class="d-flex">
+    <div class="">
+        <button class="btn btn-info" routerLink="/video-juegos">
+            <fa-icon [icon]="'arrow-left'">
+            <span jhiTranslate="entity.action.back">Back</span>
+        </button>
     </div>
-</div> -->
-
-<!------ Include the above in your HEAD tag ---------->
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>eCommerce Product Detail</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-	<div class="container">
-		<div class="card">
-			<div class="container-fliud">
-				<div class="wrapper row">
-					<div class="preview col-md-6">
-
-						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
-						</div>
-						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						</ul>
-
-					</div>
-					<div class="details col-md-6">
-						<h3 class="product-title">{{producto.nombre}}</h3>
-						<div class="rating">
-							<div class="stars">
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-							<span class="review-no">41 reviews</span>
-						</div>
-						<p class="product-description">{{producto.descripcion}}</p>
-						<h4 class="price">current price: <span>{{producto.precio}}</span></h4>
-						<p class="vote">Stock disponible: <strong>{{producto.stock}}</strong></p>
-
-						<h5 *ngFor="let plataforma of producto.plataformas; let last = last"  class="colors">Platafomas:
-							<span >{{plataforma.nombre}}</span>
-
-						</h5>
-						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-  </body>
-</html>
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active"><img class="img-fluid" alt="{{producto.nombre}}" [src]="url" /></div>
+                        </div>
+                    </div>
+                    <div class="details col-6">
+                        <h3 class="product-title">{{producto.nombre}}</h3>
+                        <p class="product-description">{{producto.descripcion}}</p>
+                        <div class="rating">
+                            <div class="stars">
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=1 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=2 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=3 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=4 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=5 ? 'checked' : '' "></span>
+                            </div>
+                            <!--<span class="review-no">41 reviews</span>-->
+                        </div>
+                        <h5 class="product-description"><b>Platafomas:</b>
+                            <span *ngFor="let plat of producto.plataformas" class="small"><i>{{plat.nombre}}, </i></span>
+                        </h5>
+                        <p class="product-description"><b>Stock disponible: </b>{{producto.stock}}</p>
+                        <h4 class="price text-right"><span>{{producto.precio | currency:'EUR':true}}</span></h4>
+                        <div class="action text-right">
+                            <button class="add-to-cart btn btn-default" jhiTranslate="entity.action.edit" type="button" (click)="openEditModal()">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

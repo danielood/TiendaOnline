@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import java.util.Objects;
 
 /**
@@ -22,6 +23,8 @@ public class VentaDTO implements Serializable {
     private Set<ProductoDTO> productos = new HashSet<>();
 
     private Set<VideoJuegosDTO> videoJuegos = new HashSet<>();
+
+    private DireccionDTO direccion;
 
     public Long getId() {
         return id;
@@ -71,6 +74,14 @@ public class VentaDTO implements Serializable {
         this.videoJuegos = videoJuegos;
     }
 
+    public DireccionDTO getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(DireccionDTO direccion) {
+        this.direccion = direccion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -99,6 +110,7 @@ public class VentaDTO implements Serializable {
             ", fechaVenta='" + getFechaVenta() + "'" +
             ", precioVenta=" + getPrecioVenta() +
             ", cliente=" + getClienteId() +
+            ", direccion=" + getDireccion() +
             "}";
     }
 }

@@ -155,6 +155,9 @@ export class VideoJuegosUpdateComponent implements OnInit {
       this.selectedComp = videoJuego.compannia.nombre;
     }
     this.selectPegi(videoJuego.pegi);
+    if (videoJuego.caratula) {
+      this.caratulaFichero = videoJuego.caratula;
+    }
   }
 
   save() {
@@ -299,6 +302,10 @@ export class VideoJuegosUpdateComponent implements OnInit {
 
   deleteCat(index: number) {
     this.listCat.splice(index, 1);
+  }
+
+  cancel() {
+    this.activeModal.dismiss();
   }
 
   private convertFile(file: File): Observable<string> {

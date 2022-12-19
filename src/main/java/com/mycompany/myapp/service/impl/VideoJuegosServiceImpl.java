@@ -7,6 +7,7 @@ import com.mycompany.myapp.service.CategoriaService;
 import com.mycompany.myapp.service.CompanniaService;
 import com.mycompany.myapp.service.ImagenService;
 import com.mycompany.myapp.service.PlataformaService;
+import com.mycompany.myapp.service.ValoracionesService;
 import com.mycompany.myapp.service.VideoJuegosService;
 import com.mycompany.myapp.domain.VideoJuegos;
 import com.mycompany.myapp.repository.VideoJuegosRepository;
@@ -50,15 +51,25 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
 
     private final CompanniaService companniaService;
 
+    private final ValoracionesService valoracionesService;
+
     private final JuegoTablaMapper juegoTablaMapper;
 
-    public VideoJuegosServiceImpl(VideoJuegosRepository videoJuegosRepository, VideoJuegosMapper videoJuegosMapper, ImagenService imagenService,PlataformaService plataformaService,CategoriaService categoriaService,CompanniaService companniaService) {
+    public VideoJuegosServiceImpl(VideoJuegosRepository videoJuegosRepository,
+    VideoJuegosMapper videoJuegosMapper,
+    ImagenService imagenService,
+    PlataformaService plataformaService,
+    CategoriaService categoriaService,
+    CompanniaService companniaService,
+    ValoracionesService valoracionesService
+    ) {
         this.videoJuegosRepository = videoJuegosRepository;
         this.videoJuegosMapper = videoJuegosMapper;
         this.imagenService = imagenService;
         this.plataformaService = plataformaService;
         this.categoriaService = categoriaService;
         this.companniaService = companniaService;
+        this.valoracionesService = valoracionesService;
         this.juegoTablaMapper = new JuegoTablaMapper();
     }
 
@@ -120,6 +131,8 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
         VideoJuegosDTO videoJuegosDTO = videoJuegosMapper.toDto(videoJuego.get());
         if(videoJuego.isPresent()){
             Optional<ImagenDTO> imagenDTO = imagenService.findOne(videoJuego.get().getCaratula().getId());
+            Double valoracion = this.valoracionesService.getValoracionFromVideoJuegos(id);
+            videoJuegosDTO.setValoracion(valoracion);
             if(imagenDTO.isPresent()){
                 Fichero caratula = imagenService.getFicheroFromImagen(imagenDTO.get());
                 videoJuegosDTO.setCaratula(caratula);
@@ -136,6 +149,7 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete VideoJuegos : {}", id);
+        this.imagenService.deleteByVideoJuego(id);
         videoJuegosRepository.deleteById(id);
     }
 
@@ -149,7 +163,7 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
         List<JuegoTablaDTO> juegosTablaDTO = new ArrayList<>();
         Map<Long,String> compannies = covertAuxToMap(videoJuegosRepository.finCompannies(idVideoJuegos));
         Map<Long, Fichero> caratulas = imagenService.findCaratulas(idVideoJuegos);
-        Map<Long,List<String>> plataforma = plataformaService.findAllById(idVideoJuegos);
+        Map<Long,List<String>> plataforma = plataformaService.findAllByVideoJuegoId(idVideoJuegos);
         for(VideoJuegos videoJuego : videoJuegos){
             String compannie = compannies.get(videoJuego.getId());
             Fichero fichero = caratulas.get(videoJuego.getId());

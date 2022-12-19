@@ -1,5 +1,10 @@
 <div class="container d-flex justify-content-center">
-    <figure class="card card-product-grid card-lg"><a [routerLink]="['/producto', producto.id, 'view' ]" class="img-wrap" data-abc="true"><span class="title row d-flex col-4">{{producto.id}}</span><img class="imagen" alt="{{producto.nombre}}" src="https://images.alphacoders.com/596/596639.jpg"> </a>
+    <figure class="card card-product-grid card-lg">
+        <a [routerLink]="['/producto', producto.id, 'view' ]" class="img-wrap" data-abc="true">
+            <span class="title row d-flex col-4">{{producto.id}}</span>
+            <img class="imagen" alt="{{producto.nombre}}" *ngIf="producto.imagen" [src]="url">
+            <img class="imagen" alt="{{producto.nombre}}" *ngIf="!producto.imagen" src="https://as01.epimg.net/img/meristation/placeholder-cover.png">
+        </a>
         <figcaption class="info-wrap">
             <div class="row">
                 <div class="col-md-9 col-xs-9 "> <a [routerLink]="['/producto', producto.id, 'view' ]" class="title d-block text-truncate" data-abc="true">{{producto.nombre}}</a></div>
@@ -27,7 +32,7 @@
                 </button>
             <div class="price-wrap ">
                 <button type="submit"
-                    [routerLink]="['/producto', producto.id, 'edit' ]"
+                    (click)="openEditModal()"
                     replaceUrl="true"
                     queryParamsHandling="merge"
                     class="btn-primary btn-sm">

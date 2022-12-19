@@ -3,6 +3,7 @@ package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.service.ProductoService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.service.dto.ProductoDTO;
+import com.mycompany.myapp.service.dto.ProductoTablaDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -93,14 +94,10 @@ public class ProductoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productos in body.
      */
     @GetMapping("/productos")
-    public ResponseEntity<List<ProductoDTO>> getAllProductos(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<ProductoTablaDTO>> getAllProductos(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Productos");
-        Page<ProductoDTO> page;
-        if (eagerload) {
-            page = productoService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = productoService.findAll(pageable);
-        }
+        Page<ProductoTablaDTO> page;
+        page = productoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

@@ -4,12 +4,7 @@ import { Fichero } from './fichero.model';
 @Injectable({ providedIn: 'root' })
 export class FileService {
   ficheroToFile(fichero: Fichero): File {
-    let i = fichero.fileName.lastIndexOf('.');
-    let ext = fichero.fileName.substring(i);
-    if (ext == '.jpg' || ext == '.jpeg') {
-      fichero.fileContentType = 'image/jpeg';
-    }
-    const dataUrl = 'data:' + fichero.fileContentType + ';base64,' + fichero.fileBase64;
+    const dataUrl = 'data:' + fichero.fileType + ';base64,' + fichero.fileBase64;
     return this.dataURLtoFile(dataUrl, fichero.fileName);
   }
 
@@ -19,7 +14,7 @@ export class FileService {
     reader.readAsDataURL(file);
     reader.onload = () => {
       fichero.fileName = file.name;
-      fichero.fileContentType = file.type;
+      fichero.fileType = file.type;
       fichero.fileBase64 = reader.result as string;
       return fichero;
     };

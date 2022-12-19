@@ -1,7 +1,6 @@
 package com.mycompany.myapp.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,9 +8,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Valoraciones.
@@ -37,10 +33,9 @@ public class Valoraciones implements Serializable {
     @JsonIgnoreProperties("valoraciones")
     private Cliente cliente;
 
-    @ManyToMany(mappedBy = "valoraciones")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<VideoJuegos> videoJuegos = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("valoraciones")
+    private VideoJuegos videoJuegos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -90,28 +85,16 @@ public class Valoraciones implements Serializable {
         this.cliente = cliente;
     }
 
-    public Set<VideoJuegos> getVideoJuegos() {
+    public VideoJuegos getVideoJuegos() {
         return videoJuegos;
     }
 
-    public Valoraciones videoJuegos(Set<VideoJuegos> videoJuegos) {
+    public Valoraciones videoJuegos(VideoJuegos videoJuegos) {
         this.videoJuegos = videoJuegos;
         return this;
     }
 
-    public Valoraciones addVideoJuegos(VideoJuegos videoJuegos) {
-        this.videoJuegos.add(videoJuegos);
-        videoJuegos.getValoraciones().add(this);
-        return this;
-    }
-
-    public Valoraciones removeVideoJuegos(VideoJuegos videoJuegos) {
-        this.videoJuegos.remove(videoJuegos);
-        videoJuegos.getValoraciones().remove(this);
-        return this;
-    }
-
-    public void setVideoJuegos(Set<VideoJuegos> videoJuegos) {
+    public void setVideoJuegos(VideoJuegos videoJuegos) {
         this.videoJuegos = videoJuegos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

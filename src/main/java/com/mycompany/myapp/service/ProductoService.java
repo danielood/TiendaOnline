@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.service.dto.ProductoDTO;
+import com.mycompany.myapp.service.dto.ProductoTablaDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public interface ProductoService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<ProductoDTO> findAll(Pageable pageable);
+    Page<ProductoTablaDTO> findAll(Pageable pageable);
 
     /**
      * Get all the productos with eager load of many-to-many relationships.
@@ -34,7 +35,7 @@ public interface ProductoService {
      * @return the list of entities.
      */
     Page<ProductoDTO> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" producto.
      *

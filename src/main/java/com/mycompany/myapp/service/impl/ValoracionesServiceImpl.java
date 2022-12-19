@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.service.ValoracionesService;
+import com.mycompany.myapp.domain.AuxRepository;
 import com.mycompany.myapp.domain.Valoraciones;
 import com.mycompany.myapp.repository.ValoracionesRepository;
 import com.mycompany.myapp.service.dto.ValoracionesDTO;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +87,10 @@ public class ValoracionesServiceImpl implements ValoracionesService {
     public void delete(Long id) {
         log.debug("Request to delete Valoraciones : {}", id);
         valoracionesRepository.deleteById(id);
+    }
+
+    @Override
+    public Double getValoracionFromVideoJuegos(Long id){
+        return this.valoracionesRepository.findAverageFromVideoJuegos(id);
     }
 }

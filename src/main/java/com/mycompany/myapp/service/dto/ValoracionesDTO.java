@@ -16,6 +16,8 @@ public class ValoracionesDTO implements Serializable {
 
     private Long clienteId;
 
+    private Long videoJuegosId;
+
     public Long getId() {
         return id;
     }
@@ -48,6 +50,14 @@ public class ValoracionesDTO implements Serializable {
         this.clienteId = clienteId;
     }
 
+    public Long getVideoJuegosId() {
+        return videoJuegosId;
+    }
+
+    public void setVideoJuegosId(Long videoJuegosId) {
+        this.videoJuegosId = videoJuegosId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -76,6 +86,7 @@ public class ValoracionesDTO implements Serializable {
             ", puntuacion=" + getPuntuacion() +
             ", comentario='" + getComentario() + "'" +
             ", cliente=" + getClienteId() +
+            ", videoJuegos=" + getVideoJuegosId() +
             "}";
     }
 }

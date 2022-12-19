@@ -38,5 +38,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="video_juegos"/>
         
+        <addForeignKeyConstraint baseColumnNames="direccion_id"
+                                 baseTableName="venta"
+                                 constraintName="fk_venta_direccion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="direccion"/>
+
     </changeSet>
 </databaseChangeLog>

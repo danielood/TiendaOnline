@@ -51,6 +51,7 @@ export interface IVideoJuegos {
   compannia?: ICompannia;
   plataformas?: IPlataforma[];
   categorias?: ICategoria[];
+  valoracion?: number;
 }
 
 export class VideoJuegos implements IVideoJuegos {
@@ -66,8 +67,10 @@ export class VideoJuegos implements IVideoJuegos {
     public caratula?: Fichero,
     public compannia?: ICompannia,
     public plataformas?: IPlataforma[],
-    public categorias?: ICategoria[]
+    public categorias?: ICategoria[],
+    public valoracion?: number
   ) {
     this.destacado = this.destacado || false;
+    this.valoracion = this.valoracion || 0;
   }
 }
