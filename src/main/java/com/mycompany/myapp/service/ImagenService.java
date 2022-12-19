@@ -59,4 +59,6 @@ public interface ImagenService {
     void delete(ImagenDTO imagenDTO);
 
     void delete(Imagen imagen);
+
+    void deleteByVideoJuego(Long id);
 }

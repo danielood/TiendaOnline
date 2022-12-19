@@ -131,6 +131,7 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete VideoJuegos : {}", id);
+        this.imagenService.deleteByVideoJuego(id);
         videoJuegosRepository.deleteById(id);
     }
 
