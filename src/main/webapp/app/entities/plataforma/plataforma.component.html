@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.plataforma.home.title">Plataformas</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-plataforma" [routerLink]="['/plataforma/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-plataforma" (click)="open()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.plataforma.home.createLabel">
             Create new Plataforma
@@ -32,7 +32,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/plataforma', plataforma.id, 'edit']"
+                            (click)="open(plataforma)"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>

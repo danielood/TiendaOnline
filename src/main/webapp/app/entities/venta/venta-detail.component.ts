@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICliente } from 'app/shared/model/cliente.model';
+import jsPDF from 'jspdf';
+
+import * as _html2canvas from 'html2canvas';
+const html2canvas: any = _html2canvas;
 
 import { IVenta } from 'app/shared/model/venta.model';
 import { ClienteService } from '../cliente';
@@ -11,12 +15,27 @@ import { ClienteService } from '../cliente';
 })
 export class VentaDetailComponent implements OnInit {
   venta: IVenta;
+  @ViewChild('html-data') htmlData!: ElementRef;
 
   subTotal: number = 0;
   total: number = 0;
   cliente: ICliente = {};
 
   constructor(protected activatedRoute: ActivatedRoute, protected clienteService: ClienteService) {}
+
+  downloadPdf() {
+    let DATA: any = document.getElementById('html-data');
+    html2canvas(DATA).then(canvas => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 10;
+      let posIzq = 10;
+      PDF.addImage(FILEURI, 'PNG', posIzq, position, fileWidth, fileHeight);
+      PDF.save('Factura.pdf');
+    });
+  }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ venta }) => {
