@@ -69,7 +69,7 @@ public class VentaServiceImpl implements VentaService {
     public Page<VentaDTO> findAllWithEagerRelationships(Pageable pageable) {
         return ventaRepository.findAllWithEagerRelationships(pageable).map(ventaMapper::toDto);
     }
-    
+
 
     /**
      * Get one venta by id.

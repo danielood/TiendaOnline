@@ -8,9 +8,11 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IVenta } from 'app/shared/model/venta.model';
+import { IDireccion } from 'app/shared/model/direccion.model';
 
 type EntityResponseType = HttpResponse<IVenta>;
 type EntityArrayResponseType = HttpResponse<IVenta[]>;
+type EntityArrayResponseType2 = HttpResponse<IDireccion[]>;
 
 @Injectable({ providedIn: 'root' })
 export class VentaService {
@@ -43,6 +45,12 @@ export class VentaService {
     return this.http
       .get<IVenta[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  findDireccionesByClientId(id: number): Observable<EntityArrayResponseType2> {
+    return this.http
+      .get<IDireccion[]>(`api/direccions/c/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType2) => this.convertDateArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

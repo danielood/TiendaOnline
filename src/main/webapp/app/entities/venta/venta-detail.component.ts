@@ -22,7 +22,7 @@ export class VentaDetailComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ venta }) => {
       this.venta = venta;
 
-      this.clienteService.find(this.venta.clienteId).subscribe(res => {
+      this.clienteService.find(this.venta.cliente.id).subscribe(res => {
         this.cliente = res.body;
       });
     });

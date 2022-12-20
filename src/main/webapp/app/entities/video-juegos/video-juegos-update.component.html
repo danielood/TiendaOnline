@@ -13,7 +13,7 @@
         <div class="form-group">
           <label jhiTranslate="tiendaOnlineApp.videoJuegos.plataforma" for="field_plataformas">Plataforma</label>
           <div class="d-flex">
-            <input class="form-control" formControlName="plataformas" type="text" list="plats" value="{{selectedPlat}}" [(ngModel)]="selectedPlat"/>
+            <input class="form-control" formControlName="plataformas" type="text" list="plats" value="{{selectedPlat}}" [(ngModel)]="selectedDire"/>
             <datalist id="plats">
               <option *ngFor="let p of plataformas" [value]="p.nombre">{{p.nombre}}</option>
             </datalist>

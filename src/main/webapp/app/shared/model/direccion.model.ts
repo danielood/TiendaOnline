@@ -1,3 +1,5 @@
+import { ICliente } from './cliente.model';
+
 export interface IDireccion {
   id?: number;
   pais?: string;
@@ -8,7 +10,7 @@ export interface IDireccion {
   escalera?: string;
   piso?: string;
   letra?: string;
-  clienteId?: number;
+  cliente?: ICliente;
 }
 
 export class Direccion implements IDireccion {
@@ -22,6 +24,6 @@ export class Direccion implements IDireccion {
     public escalera?: string,
     public piso?: string,
     public letra?: string,
-    public clienteId?: number
+    public cliente?: ICliente
   ) {}
 }

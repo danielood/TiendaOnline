@@ -7,7 +7,7 @@
         </a>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Fecha: {{venta.fechaVenta | date:'mediumDate'}}</li>
-          <li class="list-group-item">Cliente: 3{{venta.clienteId}}</li>
+          <li class="list-group-item">Cliente: {{venta.cliente.id}}</li>
           <li class="list-group-item">Precio total: {{venta.precioVenta| currency:'EUR'}}</li>
           <li class="list-group-item"><button type="submit"
             [routerLink]="['/', 'venta', { outlets: { popup: venta.id + '/delete'} }]"
