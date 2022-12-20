@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.categoria.home.title">Categorias</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-categoria" [routerLink]="['/categoria/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-categoria" (click)="open()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.categoria.home.createLabel">
             Create new Categoria
@@ -32,7 +32,7 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/categoria', categoria.id, 'edit']"
+                        (click)="open(categoria)"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>

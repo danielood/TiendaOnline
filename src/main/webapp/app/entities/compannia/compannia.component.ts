@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { CompanniaService } from './compannia.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CompanniaUpdateComponent } from './compannia-update.component';
 
 @Component({
   selector: 'jhi-compannia',
@@ -31,6 +33,7 @@ export class CompanniaComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected companniaService: CompanniaService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -46,6 +49,17 @@ export class CompanniaComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+  }
+
+  open(compannia: ICompannia) {
+    if (!compannia) {
+      compannia = {};
+      const modalRef = this.modalService.open(CompanniaUpdateComponent, { size: 'lg' });
+      modalRef.componentInstance.compannia = compannia;
+    } else {
+      const modalRef = this.modalService.open(CompanniaUpdateComponent, { size: 'lg' });
+      modalRef.componentInstance.compannia = compannia;
+    }
   }
 
   loadAll() {

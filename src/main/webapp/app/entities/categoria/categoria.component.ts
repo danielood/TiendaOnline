@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { CategoriaService } from './categoria.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CategoriaUpdateComponent } from '.';
 
 @Component({
   selector: 'jhi-categoria',
@@ -31,6 +33,7 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected categoriaService: CategoriaService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -46,6 +49,17 @@ export class CategoriaComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+  }
+
+  open(categoria: ICategoria) {
+    if (!categoria) {
+      categoria = {};
+      const modalRef = this.modalService.open(CategoriaUpdateComponent, { size: 'lg' });
+      modalRef.componentInstance.categoria = categoria;
+    } else {
+      const modalRef = this.modalService.open(CategoriaUpdateComponent, { size: 'lg' });
+      modalRef.componentInstance.categoria = categoria;
+    }
   }
 
   loadAll() {
