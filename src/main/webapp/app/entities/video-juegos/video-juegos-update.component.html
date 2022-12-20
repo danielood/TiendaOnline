@@ -21,11 +21,11 @@
               <span class="btn btn-primary" (click)="onSelectPlataforma()">></span>
             </div>
           </div>
-          <table class="table table-bordered" *ngIf="listPlat.length>0">
+          <table class="table" *ngIf="listPlat.length>0">
                 <tr *ngFor="let plat of listPlat; let i = index" class="">
                     <span>{{plat.nombre}}</span>
                     <a (click)="deletePlat(i)">
-                        <fa-icon [icon]="'times'" class="fa"></fa-icon>
+                        <fa-icon [icon]="'times'" class="red"></fa-icon>
                     </a>
                 </tr>
           </table>
@@ -41,11 +41,11 @@
               <span class="btn btn-primary" (click)="onSelectCategoria()">></span>
             </div>
           </div>
-          <table class="table table-bordered" *ngIf="listCat.length>0">
+          <table class="table" *ngIf="listCat.length>0">
                 <tr *ngFor="let cat of listCat; let i = index">
                     <span>{{cat.nombre}}</span>
-                    <a (click)="deleteCat(i)">
-                        <fa-icon [icon]="'times'" class="fa"></fa-icon>
+                    <a (click)="deleteCat(i)" class="text-right">
+                        <fa-icon [icon]="'times'" class="red"></fa-icon>
                     </a>
                 </tr>
         </table>

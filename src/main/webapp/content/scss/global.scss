@@ -204,7 +204,12 @@ ui bootstrap tweaks
   background-color: #343a40;
   border-color: #ee6d0a;
 }
-
+.btn-primary:active {
+  color: #fff !important;
+  background-color: #343a40 !important;
+  border-color: #ee6d0a !important;
+  box-shadow: #ee6d0a !important;
+}
 .btn-primary:hover {
   color: #fff !important;
   background-color: #ee6d0a;
@@ -215,7 +220,29 @@ ui bootstrap tweaks
   background-color: #ee6d0a;
   border-color: #343a40;
 }
+.btn-info:active {
+  color: #fff !important;
+  background-color: #ee6d0a !important;
+  border-color: #343a40 !important;
+  box-shadow: #343a40 !important;
+}
 .btn-info:hover {
+  color: #fff !important;
+  background-color: #343a40;
+  border-color: #ee6d0a;
+}
+.btn-secondary {
+  color: #fff !important;
+  background-color: #ee6d0a;
+  border-color: #343a40;
+}
+.btn-secondary:active {
+  color: #fff !important;
+  background-color: #ee6d0a !important;
+  border-color: #343a40 !important;
+  box-shadow: #343a40 !important;
+}
+.btn-secondary:hover {
   color: #fff !important;
   background-color: #343a40;
   border-color: #ee6d0a;
@@ -274,4 +301,9 @@ th {
 }
 tr:hover {
   background-color: #bbbbbb;
+}
+/*Color*/
+.red {
+  padding-left: 2%;
+  color: $danger;
 }
