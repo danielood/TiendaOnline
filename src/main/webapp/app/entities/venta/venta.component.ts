@@ -50,9 +50,8 @@ export class VentaComponent implements OnInit, OnDestroy {
       this.predicate = data.pagingParams.predicate;
     });
   }
-  open(venta: IVenta) {
+  open() {
     const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
-    modalRef.componentInstance.venta = venta;
     modalRef.result.then(res => {
       if (res == 0) {
         this.loadAll();

@@ -164,7 +164,7 @@ export class CrearEditarDialogComponent implements OnInit {
   save() {
     this.isSaving = true;
     const venta = this.createFromForm();
-    if (venta.id !== undefined) {
+    if (venta.id != undefined || venta.id != null) {
       this.subscribeToSaveResponse(this.ventaService.update(venta));
     } else {
       this.subscribeToSaveResponse(this.ventaService.create(venta));
