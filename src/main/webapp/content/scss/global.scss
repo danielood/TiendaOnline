@@ -196,3 +196,82 @@ ui bootstrap tweaks
 .mh-img {
   height: 24em;
 }
+
+/*Botones, Buttons*/
+
+.btn-primary {
+  color: #fff !important;
+  background-color: #343a40;
+  border-color: #ee6d0a;
+}
+
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: #ee6d0a;
+  border-color: #343a40;
+}
+.btn-info {
+  color: #fff !important;
+  background-color: #ee6d0a;
+  border-color: #343a40;
+}
+.btn-info:hover {
+  color: #fff !important;
+  background-color: #343a40;
+  border-color: #ee6d0a;
+}
+/*Paginacion*/
+ngb-pagination {
+  margin-top: 6rem;
+}
+ngb-pagination ul > li.active > a {
+  margin: 0 5px 0 5px;
+  background-color: #ee6d0a !important;
+  border-radius: 0.25rem;
+  border: none;
+  box-shadow: 1px 1px 4px #d3d3d3;
+}
+ngb-pagination ul > li.active > a:hover {
+  margin: 0 5px 0 5px;
+  background-color: #343a40 !important;
+  border-radius: 0.25rem;
+  border: none;
+  color: #ee6d0a !important;
+  box-shadow: 1px 1px 4px #d3d3d3;
+}
+ngb-pagination ul > li.disabled > a {
+  margin: 0 2px 0 2px;
+  background-color: rgba(0, 0, 0, 0.074) !important;
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 4px #d3d3d3;
+}
+a.page-link,
+a.page-item.disabled,
+a.page-link.disabled {
+  background-color: #343a40;
+  color: #ee6d0a;
+}
+li.page-item.disabled {
+  background-color: #343a40;
+  color: #ee6d0a !important;
+}
+a.page-link:hover,
+a.page-item:hover {
+  background-color: #ee6d0a;
+  color: #fff;
+}
+/*Tabla*/
+table {
+  background-color: #eee;
+}
+table a {
+  text-decoration: none !important;
+  color: #333;
+}
+th {
+  background-color: #343a40;
+  color: #fff;
+}
+tr:hover {
+  background-color: #bbbbbb;
+}

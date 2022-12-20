@@ -11,7 +11,7 @@
     <jhi-alert></jhi-alert>
     <br/>
     <div class="table-responsive" *ngIf="compannias">
-        <table class="table table-striped">
+        <table class="table">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -20,17 +20,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let compannia of compannias ;trackBy: trackId">
+            <tr *ngFor="let compannia of compannias ;trackBy: trackId" [routerLink]="['/compannia', compannia.id, 'view' ]">
                 <td><a [routerLink]="['/compannia', compannia.id, 'view' ]">{{compannia.id}}</a></td>
                 <td>{{compannia.nombre}}</td>
                 <td class="text-right">
                     <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/compannia', compannia.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
                         <button type="submit"
                                 [routerLink]="['/compannia', compannia.id, 'edit']"
                                 class="btn btn-primary btn-sm">
