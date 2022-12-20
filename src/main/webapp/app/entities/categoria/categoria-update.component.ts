@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -9,13 +9,14 @@ import { ICategoria, Categoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from './categoria.service';
 import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from 'app/entities/video-juegos';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-categoria-update',
   templateUrl: './categoria-update.component.html'
 })
 export class CategoriaUpdateComponent implements OnInit {
-  categoria: ICategoria;
+  @Input() categoria: ICategoria;
   isSaving: boolean;
 
   videojuegos: IVideoJuegos[];
@@ -26,6 +27,7 @@ export class CategoriaUpdateComponent implements OnInit {
   });
 
   constructor(
+    public activeModal: NgbActiveModal,
     protected jhiAlertService: JhiAlertService,
     protected categoriaService: CategoriaService,
     protected videoJuegosService: VideoJuegosService,
@@ -35,10 +37,11 @@ export class CategoriaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ categoria }) => {
-      this.updateForm(categoria);
-      this.categoria = categoria;
-    });
+    // this.activatedRoute.data.subscribe(({ categoria }) => {
+    //   this.updateForm(categoria);
+    //   this.categoria = categoria;
+    // });
+    this.updateForm(this.categoria);
     this.videoJuegosService
       .query()
       .pipe(
@@ -56,7 +59,8 @@ export class CategoriaUpdateComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    //window.history.back();
+    this.activeModal.dismiss();
   }
 
   save() {

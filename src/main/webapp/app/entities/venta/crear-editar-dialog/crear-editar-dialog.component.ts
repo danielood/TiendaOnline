@@ -3,10 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { ClienteService } from 'app/entities/cliente';
 import { ProductoService } from 'app/entities/producto';
 import { VideoJuegosService } from 'app/entities/video-juegos';
 import { ICliente } from 'app/shared/model/cliente.model';
+import { IDireccion } from 'app/shared/model/direccion.model';
 import { IProducto } from 'app/shared/model/producto.model';
 import { IVenta, Venta } from 'app/shared/model/venta.model';
 import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
@@ -38,13 +40,19 @@ export class CrearEditarDialogComponent implements OnInit {
   selectedVidObj: IVideoJuegos;
   listVid: Array<IVideoJuegos>;
 
+  selectedClient: ICliente = {};
+  dire: IDireccion[] = [];
+  selectedDire: IDireccion = {};
+  selectVisible: boolean = false;
+
   editForm = this.fb.group({
     id: [],
     fechaVenta: [],
     precioVenta: [],
     clienteId: [],
     productos: [],
-    videoJuegos: []
+    videoJuegos: [],
+    direccion: []
   });
   constructor(
     protected jhiAlertService: JhiAlertService,
@@ -66,6 +74,17 @@ export class CrearEditarDialogComponent implements OnInit {
     } else {
       alert('El producto no existe');
     }
+  }
+
+  ons(event) {
+    console.log(event);
+
+    this.ventaService.findDireccionesByClientId(parseInt(event)).subscribe(res => (this.dire = res.body));
+    this.selectVisible = true;
+  }
+
+  onChange(event) {
+    console.log(event);
   }
 
   onSelectVid() {
@@ -130,9 +149,10 @@ export class CrearEditarDialogComponent implements OnInit {
       id: venta.id,
       fechaVenta: venta.fechaVenta,
       precioVenta: venta.precioVenta,
-      clienteId: venta.clienteId,
+      clienteId: venta.cliente,
       productos: venta.productos,
-      videoJuegos: venta.videoJuegos
+      videoJuegos: venta.videoJuegos,
+      direccion: venta.direccion
     });
   }
 
@@ -156,9 +176,10 @@ export class CrearEditarDialogComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       fechaVenta: this.editForm.get(['fechaVenta']).value,
       precioVenta: this.editForm.get(['precioVenta']).value,
-      clienteId: this.editForm.get(['clienteId']).value,
+      cliente: this.editForm.get(['clienteId']).value,
       productos: this.listProd,
-      videoJuegos: this.editForm.get(['videoJuegos']).value
+      videoJuegos: this.listVid,
+      direccion: this.editForm.get(['direccion']).value
     };
     return entity;
   }
