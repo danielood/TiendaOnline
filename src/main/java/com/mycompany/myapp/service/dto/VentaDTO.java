@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.mycompany.myapp.domain.Cliente;
+
 import java.util.Objects;
 
 /**
@@ -18,7 +20,7 @@ public class VentaDTO implements Serializable {
     private Double precioVenta;
 
 
-    private Long clienteId;
+    private Cliente cliente;
 
     private Set<ProductoDTO> productos = new HashSet<>();
 
@@ -50,12 +52,12 @@ public class VentaDTO implements Serializable {
         this.precioVenta = precioVenta;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Set<ProductoDTO> getProductos() {
@@ -109,7 +111,7 @@ public class VentaDTO implements Serializable {
             "id=" + getId() +
             ", fechaVenta='" + getFechaVenta() + "'" +
             ", precioVenta=" + getPrecioVenta() +
-            ", cliente=" + getClienteId() +
+            ", cliente=" + getCliente() +
             ", direccion=" + getDireccion() +
             "}";
     }

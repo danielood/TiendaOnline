@@ -48,7 +48,7 @@
     </div>
 </div> -->
 <div class="container-fluid">
-
+<div id="html-data">
     <div class="container">
       <!-- Title -->
       <div class="d-flex justify-content-between align-items-center py-3">
@@ -64,12 +64,12 @@
               <div class="mb-3 d-flex justify-content-between">
                 <div>
                   <span class="me-3">{{venta.fechaVenta | date}}</span>
-                  <span class="me-3">#16123222</span>
+                  <span class="me-3">#{{venta.id}}</span>
                   <span class="me-3">Visa -1234</span>
                   <span class="badge rounded-pill bg-info">SHIPPING</span>
                 </div>
                 <div class="d-flex">
-                  <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i class="bi bi-download"></i> <span class="text">Invoice</span></button>
+                  <button class="btn btn-primary" (click)="downloadPdf()"><i class="bi bi-download"></i> <span class="text">Invoice</span></button>
 
                 </div>
               </div>
@@ -131,7 +131,7 @@
 
                   <tr class="fw-bold">
                     <td colspan="2">TOTAL</td>
-                    <td class="text-end">{{total | number}}</td>
+                    <td class="text-end">{{total | number}}€</td>
                   </tr>
                 </tfoot>
               </ng-container>
@@ -150,10 +150,10 @@
                 <div class="col-lg-6">
                   <h3 class="h6">Billing address</h3>
                   <address>
-                    <strong>John Doe</strong><br>
-                    1355 Market St, Suite 900<br>
-                    San Francisco, CA 94103<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                    <strong>Pais: {{venta.direccion.pais}}</strong><br>
+                    Calle: {{venta.direccion.calle}}<br>
+                    Ciudad: {{venta.direccion.ciudad}}<br>
+
                   </address>
                 </div>
               </div>
@@ -187,4 +187,5 @@
         </div>
       </div>
     </div>
+  </div>
       </div>

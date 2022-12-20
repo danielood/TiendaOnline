@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.plataforma.home.title">Plataformas</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-plataforma" [routerLink]="['/plataforma/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-plataforma" (click)="open()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.plataforma.home.createLabel">
             Create new Plataforma

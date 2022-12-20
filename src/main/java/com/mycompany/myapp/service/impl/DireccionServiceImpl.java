@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +87,19 @@ public class DireccionServiceImpl implements DireccionService {
     public void delete(Long id) {
         log.debug("Request to delete Direccion : {}", id);
         direccionRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DireccionDTO> findByClientId(Long id) {
+        List<DireccionDTO> diredto = new ArrayList<>();
+        log.debug("Request to delete Direccion : {}", id);
+        List<Direccion> dire = direccionRepository.findByClientId(id);
+        for (Direccion direccion : dire) {
+            DireccionDTO direDTO = direccionMapper.toDto(direccion);
+            diredto.add(direDTO);
+        }
+
+        return diredto;
     }
 }
