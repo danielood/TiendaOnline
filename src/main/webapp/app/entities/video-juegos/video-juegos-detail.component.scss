@@ -1,9 +1,4 @@
 /*****************globals*************/
-body {
-  font-family: 'open sans';
-  overflow-x: hidden;
-}
-
 img {
   max-width: 100%;
 }
@@ -107,7 +102,7 @@ img {
 
 .checked,
 .price span {
-  color: #ff9f1a;
+  color: #ee6d0a;
 }
 
 .product-title,
@@ -141,24 +136,6 @@ img {
 .color:first-of-type {
   margin-left: 20px;
 }
-
-.add-to-cart,
-.like {
-  background: #ff9f1a;
-  padding: 1.2em 1.5em;
-  border: none;
-  text-transform: UPPERCASE;
-  font-weight: bold;
-  color: #fff;
-  -webkit-transition: background 0.3s ease;
-  transition: background 0.3s ease;
-}
-.add-to-cart:hover,
-.like:hover {
-  background: #b36800;
-  color: #fff;
-}
-
 .not-available {
   text-align: center;
   line-height: 2em;

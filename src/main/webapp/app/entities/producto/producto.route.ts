@@ -9,7 +9,6 @@ import { Producto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
 import { ProductoComponent } from './producto.component';
 import { ProductoDetailComponent } from './producto-detail.component';
-import { ProductoUpdateComponent } from './producto-update.component';
 import { ProductoDeletePopupComponent } from './producto-delete-dialog.component';
 import { IProducto } from 'app/shared/model/producto.model';
 
@@ -46,30 +45,6 @@ export const productoRoute: Routes = [
   {
     path: ':id/view',
     component: ProductoDetailComponent,
-    resolve: {
-      producto: ProductoResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'tiendaOnlineApp.producto.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: 'new',
-    component: ProductoUpdateComponent,
-    resolve: {
-      producto: ProductoResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'tiendaOnlineApp.producto.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':id/edit',
-    component: ProductoUpdateComponent,
     resolve: {
       producto: ProductoResolve
     },

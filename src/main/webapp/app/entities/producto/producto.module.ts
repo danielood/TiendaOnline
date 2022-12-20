@@ -7,7 +7,6 @@ import { TiendaOnlineSharedModule } from 'app/shared';
 import {
   ProductoComponent,
   ProductoDetailComponent,
-  ProductoUpdateComponent,
   ProductoDeletePopupComponent,
   ProductoDeleteDialogComponent,
   productoRoute,
@@ -22,7 +21,6 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
   declarations: [
     ProductoComponent,
     ProductoDetailComponent,
-    ProductoUpdateComponent,
     ProductoDeleteDialogComponent,
     ProductoDeletePopupComponent,
     CrearEditarDialogComponent,
@@ -30,7 +28,6 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
   ],
   entryComponents: [
     ProductoComponent,
-    ProductoUpdateComponent,
     ProductoDeleteDialogComponent,
     ProductoDeletePopupComponent,
     CrearEditarDialogComponent,
