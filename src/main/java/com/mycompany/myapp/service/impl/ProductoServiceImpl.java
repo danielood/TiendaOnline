@@ -86,7 +86,7 @@ public class ProductoServiceImpl implements ProductoService {
         log.debug("Request to get all Productos");
         Page<Producto> productoPage = productoRepository.findAll(pageable);
         List<ProductoTablaDTO> productoTablaDTOs = getProductoTabla(productoPage);
-        return new PageImpl<>(productoTablaDTOs,pageable,productoPage.getSize());
+        return new PageImpl<>(productoTablaDTOs,pageable,productoPage.getTotalElements());
     }
 
     /**

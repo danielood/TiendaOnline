@@ -10,7 +10,8 @@ import { ProductoService } from './producto.service';
 
 @Component({
   selector: 'jhi-producto-detail',
-  templateUrl: './producto-detail.component.html'
+  templateUrl: './producto-detail.component.html',
+  styleUrls: ['./producto-detail.scss']
 })
 export class ProductoDetailComponent implements OnInit {
   producto: IProducto;

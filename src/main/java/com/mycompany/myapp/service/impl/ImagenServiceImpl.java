@@ -84,7 +84,7 @@ public class ImagenServiceImpl implements ImagenService {
         Map<Long, Fichero> map = new HashMap<>();
         List<AuxRepository> result = imagenRepository.findCaratulas(ids);
         for(AuxRepository row : result){
-            Fichero fichero = convertPathToFichero(row.getAuxString());
+            Fichero fichero = fileService.getFicheroFromImagen(row.getAuxString());
             map.put(row.getId(),fichero);
         }
         return map;
@@ -95,7 +95,7 @@ public class ImagenServiceImpl implements ImagenService {
         Map<Long, Fichero> map = new HashMap<>();
         List<AuxRepository> result = imagenRepository.findImagenes(ids);
         for(AuxRepository row : result){
-            Fichero fichero = convertPathToFichero(row.getAuxString());
+            Fichero fichero = fileService.getFicheroFromImagen(row.getAuxString());
             map.put(row.getId(),fichero);
         }
         return map;
