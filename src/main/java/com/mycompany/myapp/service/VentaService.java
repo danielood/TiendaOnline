@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.service.dto.VentaDTO;
+import com.mycompany.myapp.service.dto.VentaTablaDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public interface VentaService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<VentaDTO> findAll(Pageable pageable);
+    Page<VentaTablaDTO> findAll(Pageable pageable);
 
     /**
      * Get all the ventas with eager load of many-to-many relationships.
@@ -34,7 +35,7 @@ public interface VentaService {
      * @return the list of entities.
      */
     Page<VentaDTO> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" venta.
      *
