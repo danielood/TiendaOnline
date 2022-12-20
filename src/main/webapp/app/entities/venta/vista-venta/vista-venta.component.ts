@@ -9,7 +9,6 @@ import { IVentaTabla, IVenta } from 'app/shared/model/venta.model';
 })
 export class VistaVentaComponent implements OnInit {
   @Input('ventas') venta: IVentaTabla;
-  ngOnInit() {
-    console.log('loaded');
-  }
+
+  ngOnInit() {}
 }

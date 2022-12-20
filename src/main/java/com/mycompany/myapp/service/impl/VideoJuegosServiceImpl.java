@@ -75,8 +75,8 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<VideoJuegos> findAll2() {
-       return videoJuegosRepository.findAllWithEagerRelationships();
+    public List<VideoJuegosDTO> findAll() {
+       return Optional.of(videoJuegosRepository.findAllWithEagerRelationships()).map(videoJuegosMapper::toDto).get();
     }
     /**
      * Save a videoJuegos.
@@ -100,7 +100,7 @@ public class VideoJuegosServiceImpl implements VideoJuegosService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<JuegoTablaDTO> findAll(Pageable pageable) {
+    public Page<JuegoTablaDTO> findAllJuegoTabla(Pageable pageable) {
         log.debug("Request to get all VideoJuegos");
         Page<VideoJuegos> videoJuegosPage = videoJuegosRepository.findAll(pageable);
         List<JuegoTablaDTO> juegosTablaDTO = getJuegoTablaDTOS(videoJuegosPage);

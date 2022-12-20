@@ -71,7 +71,7 @@ public class VentaServiceImpl implements VentaService {
         log.debug("Request to get all Ventas");
         Page<Venta> ventasPage = ventaRepository.findAll(pageable);
         List<VentaTablaDTO> ventaTablaDTOs = getVentaTablaDTOs(ventasPage);
-        return new PageImpl<>(ventaTablaDTOs, pageable, ventasPage.getSize());
+        return new PageImpl<>(ventaTablaDTOs, pageable, ventasPage.getTotalElements());
     }
 
     /**

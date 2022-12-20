@@ -33,6 +33,10 @@ export class ProductoService {
     return this.http.get<IProductoTabla[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  findAll(): Observable<EntityArrayResponseType> {
+    return this.http.get<IProducto[]>(`${this.resourceUrl}/all`, { observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
