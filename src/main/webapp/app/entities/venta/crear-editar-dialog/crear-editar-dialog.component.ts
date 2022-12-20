@@ -32,6 +32,8 @@ export class CrearEditarDialogComponent implements OnInit {
   videojuegos: IVideoJuegos[];
   fechaVentaDp: any;
 
+  total: number = 0;
+
   selectedProd: string;
   selectedProdObj: IProducto;
   listProd: Array<IProducto>;
@@ -65,11 +67,22 @@ export class CrearEditarDialogComponent implements OnInit {
     public activeModal: NgbActiveModal
   ) {}
 
+  deleteProd(index: number) {
+    this.total = this.total - this.listProd[index].precio;
+    this.listProd.splice(index, 1);
+  }
+
+  deleteVid(index: number) {
+    this.total = this.total - this.listVid[index].precio;
+    this.listVid.splice(index, 1);
+  }
+
   onSelectProd() {
     this.selectedProdObj = this.productos.find(p => p.nombre == this.selectedProd);
 
     if (this.selectedProdObj) {
       this.listProd.push(this.selectedProdObj);
+      this.total = this.total + this.selectedProdObj.precio;
       this.selectedProd = '';
     } else {
       alert('El producto no existe');
@@ -92,6 +105,7 @@ export class CrearEditarDialogComponent implements OnInit {
 
     if (this.selectedVidObj) {
       this.listVid.push(this.selectedVidObj);
+      this.total = this.total + this.selectedVidObj.precio;
       this.selectedVid = '';
     } else {
       alert('El videojuego no existe');
@@ -175,7 +189,7 @@ export class CrearEditarDialogComponent implements OnInit {
       ...new Venta(),
       id: this.editForm.get(['id']).value,
       fechaVenta: this.editForm.get(['fechaVenta']).value,
-      precioVenta: this.editForm.get(['precioVenta']).value,
+      precioVenta: this.total,
       cliente: this.editForm.get(['clienteId']).value,
       productos: this.listProd,
       videoJuegos: this.listVid,

@@ -21,7 +21,7 @@
               <div class="form-group">
                   <label class="form-control-label" jhiTranslate="tiendaOnlineApp.venta.precioVenta" for="field_precioVenta">Precio Venta</label>
                   <input type="number" class="form-control" name="precioVenta" id="field_precioVenta"
-                         formControlName="precioVenta"/>
+                         formControlName="precioVenta" [(ngModel)]="total" disabled/>
               </div>
 
 
@@ -58,7 +58,7 @@
                             <tr *ngFor="let prod of listProd; let i = index" class="">
                                 <span>{{prod.nombre}}</span>
 
-                                <a (click)="deletePlat(i)">
+                                <a (click)="deleteProd(i)">
                                     <fa-icon [icon]="'times'" class="fa"></fa-icon>
                                 </a>
                             </tr>
@@ -84,7 +84,7 @@
                           <table class="table table-bordered" *ngIf="listVid.length>0">
                             <tr *ngFor="let vid of listVid; let i = index" class="">
                                 <span>{{vid.titulo}}</span>
-                                <a (click)="deletePlat(i)">
+                                <a (click)="deleteVid(i)">
                                     <fa-icon [icon]="'times'" class="fa"></fa-icon>
                                 </a>
                             </tr>
