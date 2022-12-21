@@ -1,6 +1,5 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.domain.VideoJuegos;
 import com.mycompany.myapp.service.dto.JuegoTablaDTO;
 import com.mycompany.myapp.service.dto.VideoJuegosDTO;
 
@@ -29,7 +28,7 @@ public interface VideoJuegosService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<JuegoTablaDTO> findAll(Pageable pageable);
+    Page<JuegoTablaDTO> findAllJuegoTabla(Pageable pageable);
 
     /**
      * Get all the videoJuegos with eager load of many-to-many relationships.
@@ -53,5 +52,5 @@ public interface VideoJuegosService {
      */
     void delete(Long id);
 
-    List<VideoJuegos> findAll2();
+    List<VideoJuegosDTO> findAll();
 }

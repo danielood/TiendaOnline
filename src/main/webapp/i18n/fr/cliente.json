@@ -15,7 +15,11 @@
       "detail": {
         "title": "Cliente"
       },
-      "email": "Email"
+      "email": "Email",
+      "dni": "Dni",
+      "nombre": "Nombre",
+      "apellido": "Apellido",
+      "telefono": "Telefono"
     }
   }
 }

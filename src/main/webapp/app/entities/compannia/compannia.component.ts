@@ -52,14 +52,13 @@ export class CompanniaComponent implements OnInit, OnDestroy {
   }
 
   open(compannia: ICompannia) {
-    if (!compannia) {
-      compannia = {};
-      const modalRef = this.modalService.open(CompanniaUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.compannia = compannia;
-    } else {
-      const modalRef = this.modalService.open(CompanniaUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.compannia = compannia;
-    }
+    const modalRef = this.modalService.open(CompanniaUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.compannia = compannia;
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
+    });
   }
 
   loadAll() {

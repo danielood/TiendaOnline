@@ -23,7 +23,7 @@ describe('Service Tests', () => {
       service = injector.get(ClienteService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Cliente(0, 'AAAAAAA');
+      elemDefault = new Cliente(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -59,7 +59,11 @@ describe('Service Tests', () => {
       it('should update a Cliente', async () => {
         const returnedFromService = Object.assign(
           {
-            email: 'BBBBBB'
+            email: 'BBBBBB',
+            dni: 'BBBBBB',
+            nombre: 'BBBBBB',
+            apellido: 'BBBBBB',
+            telefono: 'BBBBBB'
           },
           elemDefault
         );
@@ -77,7 +81,11 @@ describe('Service Tests', () => {
       it('should return a list of Cliente', async () => {
         const returnedFromService = Object.assign(
           {
-            email: 'BBBBBB'
+            email: 'BBBBBB',
+            dni: 'BBBBBB',
+            nombre: 'BBBBBB',
+            apellido: 'BBBBBB',
+            telefono: 'BBBBBB'
           },
           elemDefault
         );

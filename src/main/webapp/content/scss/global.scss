@@ -204,6 +204,11 @@ ui bootstrap tweaks
   background-color: #343a40;
   border-color: #ee6d0a;
 }
+.btn-primary:disabled {
+  color: #fff !important;
+  background-color: rgba(52, 58, 64, 0.65) !important;
+  border-color: #ee6d0a !important;
+}
 .btn-primary:active {
   color: #fff !important;
   background-color: #343a40 !important;
@@ -288,22 +293,27 @@ a.page-item:hover {
   color: #fff;
 }
 /*Tabla*/
-table {
+.table {
   background-color: #eee;
 }
-table a {
+.table a {
   text-decoration: none !important;
   color: #333;
 }
-th {
+.table th {
   background-color: #343a40;
   color: #fff;
 }
-tr:hover {
+.table tr:hover {
   background-color: #bbbbbb;
 }
 /*Color*/
 .red {
   padding-left: 2%;
   color: $danger;
+}
+/*Modal*/
+.modal-header {
+  background-color: #343a40;
+  color: #fff;
 }

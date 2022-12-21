@@ -97,9 +97,16 @@ public class ProductoResource {
     public ResponseEntity<List<ProductoTablaDTO>> getAllProductos(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Productos");
         Page<ProductoTablaDTO> page;
-        page = productoService.findAll(pageable);
+        page = productoService.findAllProductoTabla(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/productos/all")
+    public ResponseEntity<List<ProductoDTO>> getAllVideoJuegos() {
+        log.debug("REST request to get a page of VideoJuegos");
+        List<ProductoDTO> productos = productoService.findAll();
+        return ResponseEntity.ok().body(productos);
     }
 
     /**

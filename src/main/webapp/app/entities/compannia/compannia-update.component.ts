@@ -29,10 +29,9 @@ export class CompanniaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    // this.activatedRoute.data.subscribe(({ compannia }) => {
-    //   this.updateForm(compannia);
-    //   this.compannia = compannia;
-    // });
+    if (!this.compannia) {
+      this.compannia = new Compannia();
+    }
     this.updateForm(this.compannia);
   }
 
@@ -44,8 +43,7 @@ export class CompanniaUpdateComponent implements OnInit {
   }
 
   previousState() {
-    this.activeModal.dismiss();
-    //window.history.back();
+    this.activeModal.close(0);
   }
 
   save() {

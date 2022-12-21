@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ClienteService } from './cliente.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClienteUpdateComponent } from './cliente-update.component';
 
 @Component({
   selector: 'jhi-cliente',
@@ -31,6 +33,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected clienteService: ClienteService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -46,6 +49,27 @@ export class ClienteComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+  }
+
+  open(cliente: ICliente) {
+    if (!cliente) {
+      cliente = {};
+      const modalRef = this.modalService.open(ClienteUpdateComponent, { size: 'lg', backdrop: 'static', keyboard: false });
+      modalRef.componentInstance.cliente = cliente;
+      modalRef.result.then(res => {
+        if (res == 0) {
+          this.loadAll();
+        }
+      });
+    } else {
+      const modalRef = this.modalService.open(ClienteUpdateComponent, { size: 'lg' });
+      modalRef.componentInstance.cliente = cliente;
+      modalRef.result.then(res => {
+        if (res == 0) {
+          this.loadAll();
+        }
+      });
+    }
   }
 
   loadAll() {

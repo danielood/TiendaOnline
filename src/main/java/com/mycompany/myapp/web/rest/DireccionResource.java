@@ -80,6 +80,7 @@ public class DireccionResource {
         if (direccionDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        System.out.println(direccionDTO + "aaaaaaaaaaaaaa");
         DireccionDTO result = direccionService.save(direccionDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, direccionDTO.getId().toString()))

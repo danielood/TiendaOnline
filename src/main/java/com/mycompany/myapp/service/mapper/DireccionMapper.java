@@ -11,10 +11,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {ClienteMapper.class})
 public interface DireccionMapper extends EntityMapper<DireccionDTO, Direccion> {
 
-    @Mapping(source = "cliente.id", target = "clienteId")
+    @Mapping(source = "cliente.id", target = "cliente")
     DireccionDTO toDto(Direccion direccion);
 
-    @Mapping(source = "clienteId", target = "cliente")
+    @Mapping(source = "cliente", target = "cliente")
     Direccion toEntity(DireccionDTO direccionDTO);
 
     default Direccion fromId(Long id) {
