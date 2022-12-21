@@ -3,17 +3,17 @@
     "videoJuegos": {
       "home": {
         "title": "Video Juegos",
-        "createLabel": "Crear nuevo Video Juegos",
-        "createOrEditLabel": "Crear o editar Video Juegos"
+        "createLabel": "Crear un nuevo Video Juego",
+        "createOrEditLabel": "Crear o editar un Video Juego"
       },
-      "created": "Un nuevo Video Juegos ha sido creado con el identificador {{ param }}",
-      "updated": "Un Video Juegos ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Video Juegos ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Video Juego ha sido creado con el identificador {{ param }}",
+      "updated": "Un Video Juego ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Video Juego ha sido eliminado con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar el videojuego {{ param }}?"
       },
       "detail": {
-        "title": "Video Juegos"
+        "title": "Video Juego"
       },
       "titulo": "Titulo",
       "sinopsis": "Sinopsis",
