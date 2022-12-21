@@ -71,7 +71,7 @@ public class VentaServiceImpl implements VentaService {
         log.debug("Request to get all Ventas");
         Page<Venta> ventasPage = ventaRepository.findAll(pageable);
         List<VentaTablaDTO> ventaTablaDTOs = getVentaTablaDTOs(ventasPage);
-        return new PageImpl<>(ventaTablaDTOs, pageable, ventasPage.getSize());
+        return new PageImpl<>(ventaTablaDTOs, pageable, ventasPage.getTotalElements());
     }
 
     /**
@@ -117,7 +117,7 @@ public class VentaServiceImpl implements VentaService {
             ventaIds.add(venta.getId());
             ventas.add(venta);
         }
-        Map<Long,Long> clientMap = toMap(this.ventaRepository.findAllClientes(null));
+        Map<Long,Long> clientMap = toMap(this.ventaRepository.findAllClientes(ventaIds));
         for(Venta venta : ventas){
             Long clienteId = clientMap.get(venta.getId());
             ventaTablaDTOs.add(this.ventaTablaMapper.toDTO(venta,clienteId));

@@ -82,11 +82,16 @@ public class ProductoServiceImpl implements ProductoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ProductoTablaDTO> findAll(Pageable pageable) {
+    public Page<ProductoTablaDTO> findAllProductoTabla(Pageable pageable) {
         log.debug("Request to get all Productos");
         Page<Producto> productoPage = productoRepository.findAll(pageable);
         List<ProductoTablaDTO> productoTablaDTOs = getProductoTabla(productoPage);
         return new PageImpl<>(productoTablaDTOs,pageable,productoPage.getTotalElements());
+    }
+
+    @Override
+    public List<ProductoDTO> findAll(){
+        return Optional.of(this.productoRepository.findAllWithEagerRelationships()).map(productoMapper::toDto).get();
     }
 
     /**

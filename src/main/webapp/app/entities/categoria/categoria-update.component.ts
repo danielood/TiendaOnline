@@ -37,18 +37,10 @@ export class CategoriaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    // this.activatedRoute.data.subscribe(({ categoria }) => {
-    //   this.updateForm(categoria);
-    //   this.categoria = categoria;
-    // });
+    if (!this.categoria) {
+      this.categoria = new Categoria();
+    }
     this.updateForm(this.categoria);
-    this.videoJuegosService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVideoJuegos[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVideoJuegos[]>) => response.body)
-      )
-      .subscribe((res: IVideoJuegos[]) => (this.videojuegos = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(categoria: ICategoria) {
@@ -59,8 +51,7 @@ export class CategoriaUpdateComponent implements OnInit {
   }
 
   previousState() {
-    //window.history.back();
-    this.activeModal.dismiss();
+    this.activeModal.close(0);
   }
 
   save() {

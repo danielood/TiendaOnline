@@ -48,11 +48,9 @@ public class VideoJuegosResource {
     }
 
     @GetMapping("/video-juegos/all")
-    public ResponseEntity<List<VideoJuegos>> getAllVideoJuegos() {
+    public ResponseEntity<List<VideoJuegosDTO>> getAllVideoJuegos() {
         log.debug("REST request to get a page of VideoJuegos");
-        List<VideoJuegos> lista = videoJuegosService.findAll2();
-
-
+        List<VideoJuegosDTO> lista = videoJuegosService.findAll();
         return ResponseEntity.ok().body(lista);
     }
 
@@ -110,7 +108,7 @@ public class VideoJuegosResource {
         if (eagerload) {
             page = videoJuegosService.findAllWithEagerRelationships(pageable);
         } else {
-            page = videoJuegosService.findAll(pageable);
+            page = videoJuegosService.findAllJuegoTabla(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

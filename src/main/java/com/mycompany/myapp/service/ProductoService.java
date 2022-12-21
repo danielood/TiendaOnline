@@ -1,5 +1,7 @@
 package com.mycompany.myapp.service;
 
+import java.util.List;
+
 import com.mycompany.myapp.service.dto.ProductoDTO;
 import com.mycompany.myapp.service.dto.ProductoTablaDTO;
 
@@ -27,7 +29,9 @@ public interface ProductoService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<ProductoTablaDTO> findAll(Pageable pageable);
+    Page<ProductoTablaDTO> findAllProductoTabla(Pageable pageable);
+
+    List<ProductoDTO> findAll();
 
     /**
      * Get all the productos with eager load of many-to-many relationships.

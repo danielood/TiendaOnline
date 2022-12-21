@@ -52,14 +52,13 @@ export class PlataformaComponent implements OnInit, OnDestroy {
   }
 
   open(plat: IPlataforma) {
-    if (!plat) {
-      plat = {};
-      const modalRef = this.modalService.open(PlataformaUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.plataforma = plat;
-    } else {
-      const modalRef = this.modalService.open(PlataformaUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.plataforma = plat;
-    }
+    const modalRef = this.modalService.open(PlataformaUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.plataforma = plat;
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
+    });
   }
 
   loadAll() {
