@@ -1,7 +1,11 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FileService } from 'app/core/file.service';
 import { IJuegoTabla, IVideoJuegos } from 'app/shared/model/video-juegos.model';
-import { read } from 'fs';
+import { VideoJuegosUpdateComponent } from '../video-juegos-update.component';
+import { VideoJuegosComponent } from '../video-juegos.component';
+import { VideoJuegosService } from '../video-juegos.service';
 
 @Component({
   selector: 'jhi-vista-tabla',
@@ -14,15 +18,39 @@ export class VistaTablaComponent implements OnInit {
   portada: File;
   url;
 
-  constructor(private fileService: FileService) {}
+  constructor(
+    private fileService: FileService,
+    private modalService: NgbModal,
+    private videoJuegoService: VideoJuegosService,
+    private videoJuegoComponent: VideoJuegosComponent
+  ) {
+    this.url = '';
+  }
 
   ngOnInit() {
-    //TODO
-    //this.portada = this.fileService.ficheroToFile(this.juego.caratula);
-    // const reader = new FileReader();
-    // reader.onload = event => {
-    //   this.url = event.target.result;
-    //   reader.readAsDataURL(this.portada);
-    // };
+    if (this.juego.caratula) {
+      this.portada = this.fileService.ficheroToFile(this.juego.caratula);
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      };
+      if (this.portada) {
+        reader.readAsDataURL(this.portada);
+      } else {
+        this.url = '';
+      }
+    }
+  }
+
+  openEditModal() {
+    this.videoJuegoService.find(this.juego.id).subscribe((res: HttpResponse<IVideoJuegos>) => {
+      const modal = this.modalService.open(VideoJuegosUpdateComponent, { size: 'lg', backdrop: 'static', keyboard: false });
+      modal.componentInstance.videoJuego = res.body;
+      modal.result.then(res => {
+        if (res == 0) {
+          this.videoJuegoComponent.loadAll();
+        }
+      });
+    });
   }
 }

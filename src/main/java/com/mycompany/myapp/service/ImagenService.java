@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Fichero;
+import com.mycompany.myapp.domain.Imagen;
 import com.mycompany.myapp.service.dto.ImagenDTO;
 
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ public interface ImagenService {
      * @param imagenDTO the entity to save.
      * @return the persisted entity.
      */
+    Imagen save(Fichero fichero);
+
     ImagenDTO save(ImagenDTO imagenDTO);
 
     /**
@@ -33,6 +36,11 @@ public interface ImagenService {
 
     Map<Long, Fichero> findCaratulas(List<Long> ids);
 
+    Map<Long, Fichero> findImagenes(List<Long> ids);
+
+    Optional<Imagen> findImagenFromVideoJuegoId(Long id);
+
+    Optional<Imagen> findImagenFromProductoId(Long id);
     /**
      * Get the "id" imagen.
      *
@@ -41,10 +49,20 @@ public interface ImagenService {
      */
     Optional<ImagenDTO> findOne(Long id);
 
+    Fichero getFicheroFromImagen(ImagenDTO imagenDTO);
+
+    Fichero getFicheroFromImagen(Imagen imagen);
+
     /**
      * Delete the "id" imagen.
      *
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    void delete(ImagenDTO imagenDTO);
+
+    void delete(Imagen imagen);
+
+    void deleteByVideoJuego(Long id);
 }

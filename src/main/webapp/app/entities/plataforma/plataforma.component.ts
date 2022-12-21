@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { PlataformaService } from './plataforma.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PlataformaUpdateComponent } from './plataforma-update.component';
 
 @Component({
   selector: 'jhi-plataforma',
@@ -31,6 +33,7 @@ export class PlataformaComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected plataformaService: PlataformaService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -45,6 +48,16 @@ export class PlataformaComponent implements OnInit, OnDestroy {
       this.previousPage = data.pagingParams.page;
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
+    });
+  }
+
+  open(plat: IPlataforma) {
+    const modalRef = this.modalService.open(PlataformaUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.plataforma = plat;
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
     });
   }
 

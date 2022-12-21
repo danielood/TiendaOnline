@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -11,13 +11,14 @@ import { IVideoJuegos } from 'app/shared/model/video-juegos.model';
 import { VideoJuegosService } from 'app/entities/video-juegos';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-plataforma-update',
   templateUrl: './plataforma-update.component.html'
 })
 export class PlataformaUpdateComponent implements OnInit {
-  plataforma: IPlataforma;
+  @Input() plataforma: IPlataforma;
   isSaving: boolean;
 
   videojuegos: IVideoJuegos[];
@@ -30,6 +31,7 @@ export class PlataformaUpdateComponent implements OnInit {
   });
 
   constructor(
+    public activeModal: NgbActiveModal,
     protected jhiAlertService: JhiAlertService,
     protected plataformaService: PlataformaService,
     protected videoJuegosService: VideoJuegosService,
@@ -40,24 +42,10 @@ export class PlataformaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ plataforma }) => {
-      this.updateForm(plataforma);
-      this.plataforma = plataforma;
-    });
-    this.videoJuegosService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVideoJuegos[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVideoJuegos[]>) => response.body)
-      )
-      .subscribe((res: IVideoJuegos[]) => (this.videojuegos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.productoService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProducto[]>) => response.body)
-      )
-      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
+    if (!this.plataforma) {
+      this.plataforma = new Plataforma();
+    }
+    this.updateForm(this.plataforma);
   }
 
   updateForm(plataforma: IPlataforma) {
@@ -68,7 +56,7 @@ export class PlataformaUpdateComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    this.activeModal.close(0);
   }
 
   save() {

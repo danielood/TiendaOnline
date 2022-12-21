@@ -8,14 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Valoraciones} and its DTO {@link ValoracionesDTO}.
  */
-@Mapper(componentModel = "spring", uses = {ClienteMapper.class})
+@Mapper(componentModel = "spring", uses = {ClienteMapper.class, VideoJuegosMapper.class})
 public interface ValoracionesMapper extends EntityMapper<ValoracionesDTO, Valoraciones> {
 
     @Mapping(source = "cliente.id", target = "clienteId")
+    @Mapping(source = "videoJuegos.id", target = "videoJuegosId")
     ValoracionesDTO toDto(Valoraciones valoraciones);
 
     @Mapping(source = "clienteId", target = "cliente")
-    @Mapping(target = "videoJuegos", ignore = true)
+    @Mapping(source = "videoJuegosId", target = "videoJuegos")
     Valoraciones toEntity(ValoracionesDTO valoracionesDTO);
 
     default Valoraciones fromId(Long id) {

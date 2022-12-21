@@ -1,18 +1,27 @@
 package com.mycompany.myapp.service.impl;
 
 import com.mycompany.myapp.service.VentaService;
+import com.mycompany.myapp.domain.AuxRepository;
 import com.mycompany.myapp.domain.Venta;
 import com.mycompany.myapp.repository.VentaRepository;
 import com.mycompany.myapp.service.dto.VentaDTO;
+import com.mycompany.myapp.service.dto.VentaTablaDTO;
 import com.mycompany.myapp.service.mapper.VentaMapper;
+import com.mycompany.myapp.service.mapper.VentaTablaMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,9 +37,12 @@ public class VentaServiceImpl implements VentaService {
 
     private final VentaMapper ventaMapper;
 
+    private final VentaTablaMapper ventaTablaMapper;
+
     public VentaServiceImpl(VentaRepository ventaRepository, VentaMapper ventaMapper) {
         this.ventaRepository = ventaRepository;
         this.ventaMapper = ventaMapper;
+        this.ventaTablaMapper = new VentaTablaMapper();
     }
 
     /**
@@ -55,10 +67,11 @@ public class VentaServiceImpl implements VentaService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<VentaDTO> findAll(Pageable pageable) {
+    public Page<VentaTablaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Ventas");
-        return ventaRepository.findAll(pageable)
-            .map(ventaMapper::toDto);
+        Page<Venta> ventasPage = ventaRepository.findAll(pageable);
+        List<VentaTablaDTO> ventaTablaDTOs = getVentaTablaDTOs(ventasPage);
+        return new PageImpl<>(ventaTablaDTOs, pageable, ventasPage.getTotalElements());
     }
 
     /**
@@ -69,7 +82,7 @@ public class VentaServiceImpl implements VentaService {
     public Page<VentaDTO> findAllWithEagerRelationships(Pageable pageable) {
         return ventaRepository.findAllWithEagerRelationships(pageable).map(ventaMapper::toDto);
     }
-    
+
 
     /**
      * Get one venta by id.
@@ -94,5 +107,29 @@ public class VentaServiceImpl implements VentaService {
     public void delete(Long id) {
         log.debug("Request to delete Venta : {}", id);
         ventaRepository.deleteById(id);
+    }
+
+    private List<VentaTablaDTO> getVentaTablaDTOs(Page<Venta> ventasPage){
+        List<VentaTablaDTO> ventaTablaDTOs = new ArrayList<>();
+        List<Long> ventaIds = new ArrayList<>();
+        List<Venta> ventas = new ArrayList<>();
+        for(Venta venta : ventasPage){
+            ventaIds.add(venta.getId());
+            ventas.add(venta);
+        }
+        Map<Long,Long> clientMap = toMap(this.ventaRepository.findAllClientes(ventaIds));
+        for(Venta venta : ventas){
+            Long clienteId = clientMap.get(venta.getId());
+            ventaTablaDTOs.add(this.ventaTablaMapper.toDTO(venta,clienteId));
+        }
+        return ventaTablaDTOs;
+    }
+
+    private Map<Long,Long> toMap(List<AuxRepository> result){
+        Map<Long,Long> map = new HashMap<>();
+        for(AuxRepository row : result){
+            map.put(row.getId(), row.getAuxLong());
+        }
+        return map;
     }
 }

@@ -32,6 +32,10 @@ export class CompanniaService {
     return this.http.get<ICompannia[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  findAll(): Observable<EntityArrayResponseType> {
+    return this.http.get<ICompannia[]>(`${this.resourceUrl}/all`, { observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

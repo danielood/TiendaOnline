@@ -1,15 +1,6 @@
 {
-    "name": "Venta",
-    "fields": [
-        {
-            "fieldName": "fechaVenta",
-            "fieldType": "LocalDate"
-        },
-        {
-            "fieldName": "precioVenta",
-            "fieldType": "Double"
-        }
-    ],
+    "fluentMethods": true,
+    "clientRootFolder": "",
     "relationships": [
         {
             "relationshipType": "many-to-one",
@@ -35,21 +26,29 @@
             "ownerSide": true
         },
         {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "carrito",
-            "otherEntityRelationshipName": "venta",
-            "relationshipName": "carrito",
+            "relationshipName": "direccion",
+            "otherEntityName": "direccion",
+            "relationshipType": "many-to-one",
             "otherEntityField": "id",
-            "ownerSide": false
+            "otherEntityRelationshipName": "venta"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fechaVenta",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "precioVenta",
+            "fieldType": "Double"
         }
     ],
     "changelogDate": "20221205085426",
-    "entityTableName": "venta",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "venta",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

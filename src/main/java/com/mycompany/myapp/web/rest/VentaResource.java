@@ -3,6 +3,7 @@ package com.mycompany.myapp.web.rest;
 import com.mycompany.myapp.service.VentaService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.service.dto.VentaDTO;
+import com.mycompany.myapp.service.dto.VentaTablaDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -93,14 +94,10 @@ public class VentaResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of ventas in body.
      */
     @GetMapping("/ventas")
-    public ResponseEntity<List<VentaDTO>> getAllVentas(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<VentaTablaDTO>> getAllVentas(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Ventas");
-        Page<VentaDTO> page;
-        if (eagerload) {
-            page = ventaService.findAllWithEagerRelationships(pageable);
-        } else {
+        Page<VentaTablaDTO> page;
             page = ventaService.findAll(pageable);
-        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

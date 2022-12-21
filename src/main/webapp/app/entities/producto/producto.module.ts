@@ -7,13 +7,13 @@ import { TiendaOnlineSharedModule } from 'app/shared';
 import {
   ProductoComponent,
   ProductoDetailComponent,
-  ProductoUpdateComponent,
   ProductoDeletePopupComponent,
   ProductoDeleteDialogComponent,
   productoRoute,
   productoPopupRoute
 } from './';
-
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
+import { VistaProductoComponent } from './vista-producto/vista-producto.component';
 const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
 
 @NgModule({
@@ -21,11 +21,18 @@ const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
   declarations: [
     ProductoComponent,
     ProductoDetailComponent,
-    ProductoUpdateComponent,
     ProductoDeleteDialogComponent,
-    ProductoDeletePopupComponent
+    ProductoDeletePopupComponent,
+    CrearEditarDialogComponent,
+    VistaProductoComponent
   ],
-  entryComponents: [ProductoComponent, ProductoUpdateComponent, ProductoDeleteDialogComponent, ProductoDeletePopupComponent],
+  entryComponents: [
+    ProductoComponent,
+    ProductoDeleteDialogComponent,
+    ProductoDeletePopupComponent,
+    CrearEditarDialogComponent,
+    VistaProductoComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

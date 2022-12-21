@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="tiendaOnlineApp.plataforma.home.title">Plataformas</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-plataforma" [routerLink]="['/plataforma/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-plataforma" (click)="open()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="tiendaOnlineApp.plataforma.home.createLabel">
             Create new Plataforma
@@ -11,7 +11,7 @@
     <jhi-alert></jhi-alert>
     <br/>
     <div class="table-responsive" *ngIf="plataformas">
-        <table class="table table-striped">
+        <table class="table">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -22,17 +22,11 @@
             <tbody>
             <tr *ngFor="let plataforma of plataformas ;trackBy: trackId">
                 <td><a [routerLink]="['/plataforma', plataforma.id, 'view' ]">{{plataforma.id}}</a></td>
-                <td>{{plataforma.nombre}}</td>
+                <td [routerLink]="['/plataforma', plataforma.id, 'view' ]">{{plataforma.nombre}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
-                                [routerLink]="['/plataforma', plataforma.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/plataforma', plataforma.id, 'edit']"
+                                (click)="open(plataforma)"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.VideoJuegos;
 import com.mycompany.myapp.service.VideoJuegosService;
 import com.mycompany.myapp.service.dto.JuegoTablaDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
@@ -44,6 +45,13 @@ public class VideoJuegosResource {
 
     public VideoJuegosResource(VideoJuegosService videoJuegosService) {
         this.videoJuegosService = videoJuegosService;
+    }
+
+    @GetMapping("/video-juegos/all")
+    public ResponseEntity<List<VideoJuegosDTO>> getAllVideoJuegos() {
+        log.debug("REST request to get a page of VideoJuegos");
+        List<VideoJuegosDTO> lista = videoJuegosService.findAll();
+        return ResponseEntity.ok().body(lista);
     }
 
     /**
@@ -100,7 +108,7 @@ public class VideoJuegosResource {
         if (eagerload) {
             page = videoJuegosService.findAllWithEagerRelationships(pageable);
         } else {
-            page = videoJuegosService.findAll(pageable);
+            page = videoJuegosService.findAllJuegoTabla(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

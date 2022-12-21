@@ -26,6 +26,22 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="dni" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="nombre" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="apellido" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="telefono" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 
@@ -47,6 +63,10 @@
                   context="dev">
             <column name="id" type="numeric"/>
             <column name="email" type="string"/>
+            <column name="dni" type="string"/>
+            <column name="nombre" type="string"/>
+            <column name="apellido" type="string"/>
+            <column name="telefono" type="string"/>
         </loadData>
     </changeSet>
 

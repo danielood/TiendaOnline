@@ -99,6 +99,13 @@ public class PlataformaResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/plataformas/all")
+    public ResponseEntity<List<PlataformaDTO>> findAll() {
+        log.debug("REST request to get a page of Plataformas");
+        List<PlataformaDTO> page = plataformaService.getAll();
+        return ResponseEntity.ok().body(page);
+    }
+
     /**
      * {@code GET  /plataformas/:id} : get the "id" plataforma.
      *

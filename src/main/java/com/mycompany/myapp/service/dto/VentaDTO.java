@@ -3,6 +3,9 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.mycompany.myapp.domain.Cliente;
+
 import java.util.Objects;
 
 /**
@@ -17,11 +20,13 @@ public class VentaDTO implements Serializable {
     private Double precioVenta;
 
 
-    private Long clienteId;
+    private Cliente cliente;
 
     private Set<ProductoDTO> productos = new HashSet<>();
 
     private Set<VideoJuegosDTO> videoJuegos = new HashSet<>();
+
+    private DireccionDTO direccion;
 
     public Long getId() {
         return id;
@@ -47,12 +52,12 @@ public class VentaDTO implements Serializable {
         this.precioVenta = precioVenta;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Set<ProductoDTO> getProductos() {
@@ -69,6 +74,14 @@ public class VentaDTO implements Serializable {
 
     public void setVideoJuegos(Set<VideoJuegosDTO> videoJuegos) {
         this.videoJuegos = videoJuegos;
+    }
+
+    public DireccionDTO getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(DireccionDTO direccion) {
+        this.direccion = direccion;
     }
 
     @Override
@@ -98,7 +111,8 @@ public class VentaDTO implements Serializable {
             "id=" + getId() +
             ", fechaVenta='" + getFechaVenta() + "'" +
             ", precioVenta=" + getPrecioVenta() +
-            ", cliente=" + getClienteId() +
+            ", cliente=" + getCliente() +
+            ", direccion=" + getDireccion() +
             "}";
     }
 }

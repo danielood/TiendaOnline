@@ -1,51 +1,45 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="producto">
-            <h2><span jhiTranslate="tiendaOnlineApp.producto.detail.title">Producto</span> {{producto.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.nombre">Nombre</span></dt>
-                <dd>
-                    <span>{{producto.nombre}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.descripcion">Descripcion</span></dt>
-                <dd>
-                    <span>{{producto.descripcion}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.precio">Precio</span></dt>
-                <dd>
-                    <span>{{producto.precio}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.stock">Stock</span></dt>
-                <dd>
-                    <span>{{producto.stock}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.imagen">Imagen</span></dt>
-                <dd>
-                    <div *ngIf="producto.imagenId">
-                        <a [routerLink]="['/imagen', producto.imagenId, 'view']">{{producto.imagenId}}</a>
+<div class="d-flex">
+    <div class="">
+        <button class="btn btn-info" routerLink="/producto">
+            <fa-icon [icon]="'arrow-left'">
+            <span jhiTranslate="entity.action.back">Back</span>
+        </button>
+    </div>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active"><img class="img-fluid" alt="{{producto.nombre}}" [src]="url" /></div>
+                        </div>
                     </div>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.producto.plataforma">Plataforma</span></dt>
-                <dd>
-                    <span *ngFor="let plataforma of producto.plataformas; let last = last">
-                        <a [routerLink]="['/plataforma', plataforma?.id, 'view' ]">{{plataforma.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/producto', producto.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+                    <div class="details col-6">
+                        <h3 class="product-title">{{producto.nombre}}</h3>
+                        <p class="product-description">{{producto.descripcion}}</p>
+                        <div class="rating">
+                            <div class="stars">
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=1 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=2 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=3 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=4 ? 'checked' : '' "></span>
+                                <span class="fa fa-star" [ngClass]="producto.valoracion>=5 ? 'checked' : '' "></span>
+                            </div>
+                            <!--<span class="review-no">41 reviews</span>-->
+                        </div>
+                        <h5 class="product-description"><b>Platafomas:</b>
+                            <span *ngFor="let plat of producto.plataformas" class="small"><i>{{plat.nombre}}, </i></span>
+                        </h5>
+                        <p class="product-description"><b>Stock disponible: </b>{{producto.stock}}</p>
+                        <h4 class="price text-right"><span>{{producto.precio | currency:'EUR':true}}</span></h4>
+                        <div class="action text-right">
+                            <button class="btn btn-primary" jhiTranslate="entity.action.edit" type="button" (click)="openEditModal()">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

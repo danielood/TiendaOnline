@@ -39,6 +39,18 @@ public class ClienteResourceIT {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DNI = "AAAAAAAAAA";
+    private static final String UPDATED_DNI = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
+    private static final String UPDATED_NOMBRE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_APELLIDO = "AAAAAAAAAA";
+    private static final String UPDATED_APELLIDO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_TELEFONO = "AAAAAAAAAA";
+    private static final String UPDATED_TELEFONO = "BBBBBBBBBB";
+
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -87,7 +99,11 @@ public class ClienteResourceIT {
      */
     public static Cliente createEntity(EntityManager em) {
         Cliente cliente = new Cliente()
-            .email(DEFAULT_EMAIL);
+            .email(DEFAULT_EMAIL)
+            .dni(DEFAULT_DNI)
+            .nombre(DEFAULT_NOMBRE)
+            .apellido(DEFAULT_APELLIDO)
+            .telefono(DEFAULT_TELEFONO);
         return cliente;
     }
 
@@ -113,6 +129,10 @@ public class ClienteResourceIT {
         assertThat(clienteList).hasSize(databaseSizeBeforeCreate + 1);
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
         assertThat(testCliente.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testCliente.getDni()).isEqualTo(DEFAULT_DNI);
+        assertThat(testCliente.getNombre()).isEqualTo(DEFAULT_NOMBRE);
+        assertThat(testCliente.getApellido()).isEqualTo(DEFAULT_APELLIDO);
+        assertThat(testCliente.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
     }
 
     @Test
@@ -147,7 +167,11 @@ public class ClienteResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI.toString())))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
+            .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO.toString())))
+            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())));
     }
     
     @Test
@@ -161,7 +185,11 @@ public class ClienteResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(cliente.getId().intValue()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.dni").value(DEFAULT_DNI.toString()))
+            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
+            .andExpect(jsonPath("$.apellido").value(DEFAULT_APELLIDO.toString()))
+            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()));
     }
 
     @Test
@@ -185,7 +213,11 @@ public class ClienteResourceIT {
         // Disconnect from session so that the updates on updatedCliente are not directly saved in db
         em.detach(updatedCliente);
         updatedCliente
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .dni(UPDATED_DNI)
+            .nombre(UPDATED_NOMBRE)
+            .apellido(UPDATED_APELLIDO)
+            .telefono(UPDATED_TELEFONO);
         ClienteDTO clienteDTO = clienteMapper.toDto(updatedCliente);
 
         restClienteMockMvc.perform(put("/api/clientes")
@@ -198,6 +230,10 @@ public class ClienteResourceIT {
         assertThat(clienteList).hasSize(databaseSizeBeforeUpdate);
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
         assertThat(testCliente.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testCliente.getDni()).isEqualTo(UPDATED_DNI);
+        assertThat(testCliente.getNombre()).isEqualTo(UPDATED_NOMBRE);
+        assertThat(testCliente.getApellido()).isEqualTo(UPDATED_APELLIDO);
+        assertThat(testCliente.getTelefono()).isEqualTo(UPDATED_TELEFONO);
     }
 
     @Test

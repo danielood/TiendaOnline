@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IProducto } from 'app/shared/model/producto.model';
+import { IProducto, IProductoTabla } from 'app/shared/model/producto.model';
 
 type EntityResponseType = HttpResponse<IProducto>;
 type EntityArrayResponseType = HttpResponse<IProducto[]>;
+type EntityArrayResponseTabla = HttpResponse<IProductoTabla[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
@@ -27,9 +28,13 @@ export class ProductoService {
     return this.http.get<IProducto>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any): Observable<EntityArrayResponseTabla> {
     const options = createRequestOption(req);
-    return this.http.get<IProducto[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.get<IProductoTabla[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  findAll(): Observable<EntityArrayResponseType> {
+    return this.http.get<IProducto[]>(`${this.resourceUrl}/all`, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

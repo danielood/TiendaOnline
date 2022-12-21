@@ -3,14 +3,14 @@
     "compannia": {
       "home": {
         "title": "Compañias",
-        "createLabel": "Crear nuevo Compañia",
-        "createOrEditLabel": "Crear o editar Compañia"
+        "createLabel": "Crear una nueva Compañia",
+        "createOrEditLabel": "Crear o editar una Compañia"
       },
-      "created": "Un nuevo Compañia ha sido creado con el identificador {{ param }}",
-      "updated": "Un Compañia ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Compañia ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Compañia ha sido creado con el identificador {{ param }}",
+      "updated": "Una Compañia ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Compañia ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Compañia {{ id }}?"
+        "question": "¿Seguro que quieres eliminar la Compañia {{ id }}?"
       },
       "detail": {
         "title": "Compañia"

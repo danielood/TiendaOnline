@@ -30,6 +30,7 @@ public interface PlataformaService {
      */
     Page<PlataformaDTO> findAll(Pageable pageable);
 
+    List<PlataformaDTO> getAll();
 
     /**
      * Get the "id" plataforma.
@@ -39,7 +40,9 @@ public interface PlataformaService {
      */
     Optional<PlataformaDTO> findOne(Long id);
 
-    Map<Long,List<String>> findAllById(List<Long> ids);
+    Map<Long,List<String>> findAllByVideoJuegoId(List<Long> ids);
+
+    Map<Long,List<String>> findAllByProductoId(List<Long> ids);
 
     /**
      * Delete the "id" plataforma.

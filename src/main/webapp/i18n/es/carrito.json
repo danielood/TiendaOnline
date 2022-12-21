@@ -16,7 +16,8 @@
         "title": "Carrito"
       },
       "cliente": "Cliente",
-      "venta": "Venta"
+      "videoJuegos": "Video Juegos",
+      "producto": "Producto"
     }
   }
 }

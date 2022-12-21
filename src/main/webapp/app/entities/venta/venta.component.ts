@@ -4,12 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-
+import { IVentaTabla } from 'app/shared/model/venta.model';
 import { IVenta } from 'app/shared/model/venta.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { VentaService } from './venta.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 
 @Component({
   selector: 'jhi-venta',
@@ -17,7 +19,7 @@ import { VentaService } from './venta.service';
 })
 export class VentaComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  ventas: IVenta[];
+  ventas: IVentaTabla[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -31,6 +33,7 @@ export class VentaComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected ventaService: VentaService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -47,6 +50,14 @@ export class VentaComponent implements OnInit, OnDestroy {
       this.predicate = data.pagingParams.predicate;
     });
   }
+  open() {
+    const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
+    });
+  }
 
   loadAll() {
     this.ventaService
@@ -56,7 +67,7 @@ export class VentaComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IVenta[]>) => this.paginateVentas(res.body, res.headers),
+        (res: HttpResponse<IVentaTabla[]>) => this.paginateVentas(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -119,7 +130,7 @@ export class VentaComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateVentas(data: IVenta[], headers: HttpHeaders) {
+  protected paginateVentas(data: IVentaTabla[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.ventas = data;

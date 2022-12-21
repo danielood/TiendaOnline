@@ -1,11 +1,25 @@
-id;pais;provincia;ciudad;calle;portal;escalera;piso;letra
-1;payment;withdrawal COM;embrace Developer;synthesize Idaho compress;Sleek Metal Table Small;Intelligent Outdoors;Harbor Montana;Corporate Phased relationships
-2;white Brand Money Market Account;Salad Web virtual;Refined Squares;maroon;EXE projection Fresh;support Gorgeous;withdrawal;copying
-3;ability Hat Iraq;magenta Concrete;User-centric Gloves;Mauritania;facilitate Tasty Concrete Chips Exclusive;Buckinghamshire capability zero tolerance;mission-critical;Berkshire Small Plastic Pants Investor
-4;Canadian Dollar;Berkshire Designer;Credit Card Account;navigate;Re-contextualized;web-enabled invoice withdrawal;bypassing optical;installation
-5;Argentine Peso;Kentucky Algerian Dinar Clothing;open-source turn-key;Sausages;disintermediate Cambridgeshire hacking;bricks-and-clicks Concrete Global;Fiji Dollar Profound Bacon;Macao Equatorial Guinea Vision-oriented
-6;Agent;Human deposit;even-keeled Saint Helena Pound;Internal AI optical;bypassing Marketing;Dynamic Home Loan Account Tools;Branding;Home Gloves Latvia
-7;Ports Manager Fish;Networked;Fish;payment calculating;local area network Benin;turn-key dedicated;Wisconsin;target Human withdrawal
-8;dot-com payment Libyan Dinar;white sensor local;calculate;Chips;Villages uniform PCI;Automotive Tactics architectures;Wisconsin Facilitator Incredible;reinvent
-9;eco-centric Bedfordshire mesh;Configuration UIC-Franc;Ergonomic Concrete Soap Zambian Kwacha;Concrete Bedfordshire;portal calculating Metal;real-time discrete redundant;Synergistic Personal Loan Account Sleek;Borders
-10;olive Handcrafted Cotton Bacon Unbranded Fresh Pants;incubate;interfaces;Garden Dale Wallis and Futuna;generating;Computers Small Fresh Gloves back-end;interface;compress lavender Investment Account
+id;pais;provincia;ciudad;calle;portal;escalera;piso;letra;cliente_id
+1;Spain;Ávila;A Leal;Praza Canales;8;I;5;A;5
+2;Spain;Sevilla;Villa Castaño del Penedès;Calle Bañuelos;753;D;3;D;6
+3;Spain;Ceuta;Villa Serrano;Ruela Zamudio;870;D;4;C;2
+4;Spain;Zamora;O Luevano;Rúa Luis;8;I;8;C;4
+5;Spain;Pontevedra;A Gaona de San Pedro;Carrer Ignacio;4;D;21;E;3
+6;Spain;Melilla;As Ávila de Ulla;Paseo Villar;9;D;3;D;9
+7;Spain;Guipuzkoa;El Carrillo de las Torres;Camino Ainhoa;449;D;6;A;8
+8;Spain;Valladolid;Ibarra de la Sierra;Avinguda Jorge;4;I;6;F;7
+9;Spain;Lugo;Peralta del Barco;Plaça Ordoñez;32;D;3;G;6
+10;Spain;Córdoba;A Perea de Lemos;Calle Andrés;194;I;6;C;5
+11;Spain;Navarra;Polo del Puerto;Plaza Leyre;820;D;0;A;4
+12;Spain;Vizcaya;Gálvez de la Sierra;Travesía Víctor;3;I;0;B;3
+13;Spain;Málaga;Cabrera de la Sierra;Plaça Henríquez;60;D;0;A;2
+14;Spain;Tarragona;El Tirado de Lemos;Travessera Escobar;69;I;3;C;1
+15;Spain;Segovia;O Osorio del Barco;O Osorio del Barco;94;D;0;D;4
+16;Spain;Huesca;Navarrete Alta;Navarrete Alta;87;I;8;B;6
+17;Spain;Barcelona;Villa Miguel;Plaza Salinas;9;D;0;B;5
+18;Spain;Segovia;El Herrero Baja;Ronda Contreras;6;D;7;C;1
+19;Spain;Teruel;Teruel;Passeig Estévez;92;D;8;F;7
+20;Spain;Murcia;Luis de San Pedro;Ronda Mar;641;I;18;D;10
+21;Spain;Asturias;San Salgado;Ronda Lidia;89;D;8;D;10
+22;Spain;Alicante;Garza del Bages;Paseo Tamez;9;D;9;A;2
+23;Spain;Cantabria;El Toro de Ulla;Calle Juan José;42;I;8;D;3
+24;Spain;Huelva;Ojeda de las Torres;Ruela Ceja;8;I;2;E;1

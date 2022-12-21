@@ -2,14 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, isEmpty, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-
 import { IProducto } from 'app/shared/model/producto.model';
+import { IProductoTabla } from 'app/shared/model/producto.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProductoService } from './producto.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CrearEditarDialogComponent } from './crear-editar-dialog/crear-editar-dialog.component';
 
 @Component({
   selector: 'jhi-producto',
@@ -17,7 +19,7 @@ import { ProductoService } from './producto.service';
 })
 export class ProductoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  productos: IProducto[];
+  productos: IProductoTabla[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -31,6 +33,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
+    private modalService: NgbModal,
     protected productoService: ProductoService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -45,6 +48,15 @@ export class ProductoComponent implements OnInit, OnDestroy {
       this.previousPage = data.pagingParams.page;
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
+    });
+  }
+
+  open() {
+    const modalRef = this.modalService.open(CrearEditarDialogComponent, { size: 'lg' });
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
     });
   }
 
@@ -119,7 +131,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateProductos(data: IProducto[], headers: HttpHeaders) {
+  protected paginateProductos(data: IProductoTabla[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.productos = data;

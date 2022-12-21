@@ -6,6 +6,7 @@ import com.mycompany.myapp.service.dto.VideoJuegosDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,7 +28,7 @@ public interface VideoJuegosService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<JuegoTablaDTO> findAll(Pageable pageable);
+    Page<JuegoTablaDTO> findAllJuegoTabla(Pageable pageable);
 
     /**
      * Get all the videoJuegos with eager load of many-to-many relationships.
@@ -50,4 +51,6 @@ public interface VideoJuegosService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<VideoJuegosDTO> findAll();
 }

@@ -1,0 +1,21 @@
+.card {
+  margin-bottom: 4%;
+}
+.card:hover {
+  color: #ee6d0a;
+  background-color: #9b9999;
+}
+.card-header {
+  background-color: #aaaaaa;
+  color: #333;
+}
+.card-header:hover {
+  background-color: rgb(155, 153, 153);
+  color: #eee;
+}
+.list-group-item {
+  background-color: #eee;
+}
+a {
+  text-decoration: none !important;
+}

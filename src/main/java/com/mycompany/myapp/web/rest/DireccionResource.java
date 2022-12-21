@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.Direccion;
 import com.mycompany.myapp.service.DireccionService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import com.mycompany.myapp.service.dto.DireccionDTO;
@@ -79,6 +80,7 @@ public class DireccionResource {
         if (direccionDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        System.out.println(direccionDTO + "aaaaaaaaaaaaaa");
         DireccionDTO result = direccionService.save(direccionDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, direccionDTO.getId().toString()))
@@ -124,4 +126,13 @@ public class DireccionResource {
         direccionService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/direccions/c/{id}")
+    public ResponseEntity<List<DireccionDTO>> findByClienteId(@PathVariable Long id) {
+        log.debug("REST request to get a page of Direccions");
+        List<DireccionDTO> page = direccionService.findByClientId(id);
+
+        return ResponseEntity.ok().body(page);
+    }
+
 }

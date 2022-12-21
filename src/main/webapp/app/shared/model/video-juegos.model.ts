@@ -4,6 +4,7 @@ import { IPlataforma } from 'app/shared/model/plataforma.model';
 import { ICategoria } from 'app/shared/model/categoria.model';
 import { IVenta } from 'app/shared/model/venta.model';
 import { Fichero } from 'app/core/fichero.model';
+import { ICompannia } from './compannia.model';
 
 export const enum Pegi {
   PEGI3 = 'PEGI3',
@@ -46,12 +47,11 @@ export interface IVideoJuegos {
   precio?: number;
   stock?: number;
   destacado?: boolean;
-  caratulaId?: number;
-  companniaId?: number;
-  valoraciones?: IValoraciones[];
+  caratula?: Fichero;
+  compannia?: ICompannia;
   plataformas?: IPlataforma[];
   categorias?: ICategoria[];
-  ventas?: IVenta[];
+  valoracion?: number;
 }
 
 export class VideoJuegos implements IVideoJuegos {
@@ -64,13 +64,13 @@ export class VideoJuegos implements IVideoJuegos {
     public precio?: number,
     public stock?: number,
     public destacado?: boolean,
-    public caratulaId?: number,
-    public companniaId?: number,
-    public valoraciones?: IValoraciones[],
+    public caratula?: Fichero,
+    public compannia?: ICompannia,
     public plataformas?: IPlataforma[],
     public categorias?: ICategoria[],
-    public ventas?: IVenta[]
+    public valoracion?: number
   ) {
     this.destacado = this.destacado || false;
+    this.valoracion = this.valoracion || 0;
   }
 }

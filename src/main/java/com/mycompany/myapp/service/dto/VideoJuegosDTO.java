@@ -1,9 +1,11 @@
 package com.mycompany.myapp.service.dto;
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.mycompany.myapp.domain.Fichero;
 import com.mycompany.myapp.domain.enumeration.Pegi;
 
 /**
@@ -12,31 +14,18 @@ import com.mycompany.myapp.domain.enumeration.Pegi;
 public class VideoJuegosDTO implements Serializable {
 
     private Long id;
-
     private String titulo;
-
     private String sinopsis;
-
     private Pegi pegi;
-
     private LocalDate fechaLanzamiento;
-
     private Double precio;
-
     private Integer stock;
-
     private Boolean destacado;
-
-
-    private Long caratulaId;
-
-    private Long companniaId;
-
-    private Set<ValoracionesDTO> valoraciones = new HashSet<>();
-
-    private Set<PlataformaDTO> plataformas = new HashSet<>();
-
-    private Set<CategoriaDTO> categorias = new HashSet<>();
+    private Fichero caratula;
+    private CompanniaDTO compannia;
+    private List<PlataformaDTO> plataformas = new ArrayList<>();
+    private List<CategoriaDTO> categorias = new ArrayList<>();
+    private Double valoracion;
 
     public Long getId() {
         return id;
@@ -102,44 +91,48 @@ public class VideoJuegosDTO implements Serializable {
         this.destacado = destacado;
     }
 
-    public Long getCaratulaId() {
-        return caratulaId;
+    public Fichero getCaratula() {
+        return caratula;
     }
 
-    public void setCaratulaId(Long imagenId) {
-        this.caratulaId = imagenId;
+    public void setCaratula(Fichero caratula) {
+        this.caratula = caratula;
     }
 
-    public Long getCompanniaId() {
-        return companniaId;
+    public CompanniaDTO getCompannia() {
+        return compannia;
     }
 
-    public void setCompanniaId(Long companniaId) {
-        this.companniaId = companniaId;
+    public void setCompannia(CompanniaDTO compannia) {
+        this.compannia = compannia;
     }
 
-    public Set<ValoracionesDTO> getValoraciones() {
-        return valoraciones;
-    }
-
-    public void setValoraciones(Set<ValoracionesDTO> valoraciones) {
-        this.valoraciones = valoraciones;
-    }
-
-    public Set<PlataformaDTO> getPlataformas() {
+    public List<PlataformaDTO> getPlataformas() {
         return plataformas;
     }
 
-    public void setPlataformas(Set<PlataformaDTO> plataformas) {
+    public void setPlataformas(List<PlataformaDTO> plataformas) {
         this.plataformas = plataformas;
     }
 
-    public Set<CategoriaDTO> getCategorias() {
+    public List<CategoriaDTO> getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(Set<CategoriaDTO> categorias) {
+    public void setCategorias(List<CategoriaDTO> categorias) {
         this.categorias = categorias;
+    }
+
+    public Boolean getDestacado() {
+        return destacado;
+    }
+
+    public Double getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(Double valoracion) {
+        this.valoracion = valoracion;
     }
 
     @Override
@@ -174,8 +167,8 @@ public class VideoJuegosDTO implements Serializable {
             ", precio=" + getPrecio() +
             ", stock=" + getStock() +
             ", destacado='" + isDestacado() + "'" +
-            ", caratula=" + getCaratulaId() +
-            ", compannia=" + getCompanniaId() +
+            ", caratula=" + getCaratula() +
+            ", compannia=" + getCompannia() +
             "}";
     }
 }

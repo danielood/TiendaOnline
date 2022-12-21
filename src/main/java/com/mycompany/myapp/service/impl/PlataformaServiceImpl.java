@@ -89,9 +89,19 @@ public class PlataformaServiceImpl implements PlataformaService {
     }
 
     @Override
-    public Map<Long, List<String>> findAllById(List<Long> ids) {
+    public Map<Long, List<String>> findAllByVideoJuegoId(List<Long> ids) {
         Map<Long,List<String>> map = new HashMap<>();
-        List<IAuxNativeQuery> result = plataformaRepository.findAllByIds(ids);
+        List<IAuxNativeQuery> result = plataformaRepository.findAllByVideoJuegoIds(ids);
+        for(IAuxNativeQuery row : result){
+            map.put(row.getId(),toList(row.getConcat()));
+        }
+        return map;
+    }
+
+    @Override
+    public Map<Long, List<String>> findAllByProductoId(List<Long> ids) {
+        Map<Long,List<String>> map = new HashMap<>();
+        List<IAuxNativeQuery> result = plataformaRepository.findAllByProductoIds(ids);
         for(IAuxNativeQuery row : result){
             map.put(row.getId(),toList(row.getConcat()));
         }
@@ -102,5 +112,10 @@ public class PlataformaServiceImpl implements PlataformaService {
         String[] strings = stringList.split(",");
         List<String> listString = Arrays.asList(strings);
         return listString;
+    }
+
+    @Override
+    public List<PlataformaDTO> getAll() {
+        return Optional.of(this.plataformaRepository.findAll()).map(this.plataformaMapper :: toDto).get();
     }
 }

@@ -1,49 +1,117 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="venta">
-            <h2><span jhiTranslate="tiendaOnlineApp.venta.detail.title">Venta</span> {{venta.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="tiendaOnlineApp.venta.fechaVenta">Fecha Venta</span></dt>
-                <dd>
-                    <span>{{venta.fechaVenta}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.venta.precioVenta">Precio Venta</span></dt>
-                <dd>
-                    <span>{{venta.precioVenta}}</span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.venta.cliente">Cliente</span></dt>
-                <dd>
-                    <div *ngIf="venta.clienteId">
-                        <a [routerLink]="['/cliente', venta.clienteId, 'view']">{{venta.clienteId}}</a>
+<div class="d-flex">
+    <div class="">
+        <button class="btn btn-info" routerLink="/venta">
+            <fa-icon [icon]="'arrow-left'">
+            <span jhiTranslate="entity.action.back">Back</span>
+        </button>
+    </div>
+        <div class="container">
+          <!-- Title -->
+          <div class="d-flex justify-content-between align-items-center py-3">
+            <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #{{venta.id}}</h2>
+          </div>
+
+          <!-- Main content -->
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- Details -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="mb-3 d-flex justify-content-between">
+                    <div>
+                      <span class="me-3">{{venta.fechaVenta | date}}</span>
+                      <span class="me-3">#{{venta.id}}</span>
                     </div>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.venta.producto">Producto</span></dt>
-                <dd>
-                    <span *ngFor="let producto of venta.productos; let last = last">
-                        <a [routerLink]="['/producto', producto?.id, 'view' ]">{{producto.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="tiendaOnlineApp.venta.videoJuegos">Video Juegos</span></dt>
-                <dd>
-                    <span *ngFor="let videoJuegos of venta.videoJuegos; let last = last">
-                        <a [routerLink]="['/video-juegos', videoJuegos?.id, 'view' ]">{{videoJuegos.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-            </dl>
+                    <!-- <div class="d-flex">
+                      <button class="btn btn-primary" (click)="downloadPdf()"><i class="bi bi-download"></i> <span class="text">Invoice</span></button>
+                    </div> -->
+                  </div>
+                  <table class="table">
+                    <tbody>
+                      <tr *ngFor="let v of venta.productos" >
+                            <div class="d-flex mb-2">
+                              <div class="flex-shrink-0">
+                                <img alt="" width="35" class="img-fluid">
+                              </div>
+                              <div class="flex-lg-grow-1 ms-3">
+                                <h6 class="small mb-0"><a href="#" class="text-reset">{{v.nombre}}</a></h6>
+                                  <span *ngFor="let p of v.plataformas" class="small">{{p.nombre}}, </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>1</td>
+                          <td class="text-end">{{v.precio | number}}€</td>
+                      </tr>
+                      <tr *ngFor="let video of venta.videoJuegos" >
+                        <div class="d-flex mb-2">
+                          <div class="flex-shrink-0">
+                            <img alt="" width="35" class="img-fluid">
+                          </div>
+                          <div class="flex-lg-grow-1 ms-3">
+                            <h6 class="small mb-0"><a href="#" class="text-reset">{{video.titulo}}</a></h6>
+                              <span *ngFor="let plat of video.plataformas" class="small">{{plat.nombre}}, </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>1</td>
+                      <td class="text-end">{{video.precio | number}}€</td>
+                  </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="2">Subtotal</td>
+                        <td class="text-end">{{subTotal | number}}€</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Iva</td>
+                        <td class="text-end">21%</td>
+                      </tr>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/venta', venta.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
+                      <tr class="fw-bold">
+                        <td colspan="2">TOTAL</td>
+                        <td class="text-end">{{total | number}}€</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <!-- Payment -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-6">
+                        <h3 class="h6">Billing address</h3>
+                        <address>
+                          <strong>Pais: {{venta.direccion.pais}}</strong><br>
+                          Calle: {{venta.direccion.calle}}<br>
+                          Ciudad: {{venta.direccion.ciudad}}<br>
+                        </address>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <!-- Customer Notes -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h3 class="h6">Customer Details</h3>
+                  <p>{{venta.cliente.email}}</p>
+                </div>
+              </div>
+              <div class="card mb-4">
+                <!-- Shipping information -->
+                <div class="card-body">
+                  <h3 class="h6">Address</h3>
+                  <address>
+                    <strong>{{venta.cliente.nombre}} {{venta.cliente.apellido}}</strong><br>
+                    {{venta.direccion.ciudad}} {{venta.direccion.provincia}}<br>
+                    {{venta.direccion.calle}} {{venta.direccion.numero}}<br>
+                    <abbr title="Phone">Telfono:</abbr> {{venta.cliente.telefono}}
+                  </address>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 </div>

@@ -7,14 +7,18 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IVenta } from 'app/shared/model/venta.model';
+import { IVenta, IVentaTabla } from 'app/shared/model/venta.model';
+import { IDireccion } from 'app/shared/model/direccion.model';
 
 type EntityResponseType = HttpResponse<IVenta>;
 type EntityArrayResponseType = HttpResponse<IVenta[]>;
+type EntityArrayResponseType2 = HttpResponse<IDireccion[]>;
+type EntityArrayResponseVentaTabla = HttpResponse<IVentaTabla[]>;
 
 @Injectable({ providedIn: 'root' })
 export class VentaService {
   public resourceUrl = SERVER_API_URL + 'api/ventas';
+  public resourceUrl2 = SERVER_API_URL + 'api/direccions';
 
   constructor(protected http: HttpClient) {}
 
@@ -38,11 +42,26 @@ export class VentaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any): Observable<EntityArrayResponseVentaTabla> {
     const options = createRequestOption(req);
     return this.http
       .get<IVenta[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      .pipe(map((res: EntityArrayResponseVentaTabla) => this.convertDateArrayFromServer(res)));
+  }
+
+  findDireccionesByClientId(id: number): Observable<EntityArrayResponseType2> {
+    return this.http
+      .get<IDireccion[]>(`api/direccions/c/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType2) => this.convertDateArrayFromServer(res)));
+  }
+
+  deleteDireccionById(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`api/direccions/${id}`, { observe: 'response' });
+  }
+
+  updateDireccionById(direccionDTO: IDireccion): Observable<HttpResponse<any>> {
+    console.log(direccionDTO);
+    return this.http.put<IDireccion>(this.resourceUrl2, direccionDTO, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

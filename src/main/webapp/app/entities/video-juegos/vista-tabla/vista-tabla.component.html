@@ -1,17 +1,30 @@
 <div class="container d-flex justify-content-center">
-    <figure class="card card-product-grid card-lg"><a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="img-wrap" data-abc="true"><span class="title row d-flex col-4">{{juego.id}}</span><img alt="{{juego.titulo}}" src="https://images.alphacoders.com/596/596639.jpg"> </a>
+    <figure class="card card-product-grid card-lg">
+        <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="img-wrap" data-abc="true">
+            <span class="title row d-flex col-4">{{juego.id}}</span>
+            <img alt="{{juego.titulo}}" *ngIf="juego.caratula" [src]="url">
+            <img alt="{{juego.titulo}}" *ngIf="!juego.caratula" src="https://as01.epimg.net/img/meristation/placeholder-cover.png">
+        </a>
         <figcaption class="info-wrap">
             <div class="row">
-                <div class="col-md-9 col-xs-9"> <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title" data-abc="true">{{juego.titulo}}</a> <span class="rated">{{juego.compannia}}</span> </div>
+                <div class="col-md-9 col-xs-9">
+                    <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title d-block text-truncate" data-abc="true">{{juego.titulo}}</a>
+                    <span class="rated">{{juego.compannia}}</span>
+                </div>
                 <div class="col-md-3 col-xs-3">
-                    <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="rated row">{{juego.plataformas}}</span> </div>
+                    <div class="rating text-right d-block text-truncate">
+                        <span class="rated row">{{juego.plataformas}}</span>
+                    </div>
                 </div>
             </div>
         </figcaption>
         <div class="bottom-wrap-payment">
             <figcaption class="info-wrap">
                 <div class="row">
-                    <div class="col-md-9 col-xs-9"> <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title" data-abc="true">{{juego.precio | currency:'EUR':true}}</a> <span class="rated">{{juego.stock}} Disponibles</span> </div>
+                    <div class="col-md-9 col-xs-9">
+                        <a [routerLink]="['/video-juegos', juego.id, 'view' ]" class="title d-block text-truncate" data-abc="true">{{juego.precio | currency:'EUR':true}}</a>
+                        <span class="rated">{{juego.stock}} Disponibles</span>
+                    </div>
                     <div class="col-md-3 col-xs-3">
                         <div class="rating text-right" [ngSwitch]="juego.pegi">
                             <img *ngSwitchCase="'PEGI3'" alt="PEGI3" src="../../../../content/images/PEGI3.png" width="55px" height="64px">
@@ -24,7 +37,8 @@
                 </div>
             </figcaption>
         </div>
-        <div class="bottom-wrap"> <a href="#" class="btn btn-primary float-right" data-abc="true"> Editar </a>
+        <div class="bottom-wrap">
+            <a (click)="openEditModal()" class="btn btn-primary float-right" data-abc="true"> Editar </a>
             <div class="price-wrap">
                 <button type="submit"
                 [routerLink]="['/', 'video-juegos', { outlets: { popup: juego.id + '/delete'} }]"

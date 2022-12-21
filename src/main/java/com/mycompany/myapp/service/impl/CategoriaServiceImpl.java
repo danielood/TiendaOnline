@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -61,7 +62,6 @@ public class CategoriaServiceImpl implements CategoriaService {
             .map(categoriaMapper::toDto);
     }
 
-
     /**
      * Get one categoria by id.
      *
@@ -85,5 +85,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     public void delete(Long id) {
         log.debug("Request to delete Categoria : {}", id);
         categoriaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CategoriaDTO> getAll(){
+        return Optional.of(this.categoriaRepository.findAll()).map(this.categoriaMapper :: toDto).get();
     }
 }

@@ -1,0 +1,28 @@
+<section>
+    <div class="card" style="width: 18rem;">
+        <a [routerLink]="['/venta', venta.id, 'view' ]">
+        <div class="card-header">
+            Venta Nº {{venta.id}}
+        </div>
+        </a>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Fecha: {{venta.fechaVenta | date:'mediumDate'}}</li>
+          <li class="list-group-item">Cliente: {{venta.clienteId}}</li>
+          <li class="list-group-item">Precio total: {{venta.precioVenta| currency:'EUR'}}</li>
+          <li class="list-group-item">
+            <div class="botton-warp">
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                    type="submit"
+                    (click)="open()"
+                    replaceUrl="true"
+                    queryParamsHandling="merge"
+                    class="btn-primary btn-sm float-right">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+            </div>
+        </li>
+        </ul>
+    </div>
+</section>
+

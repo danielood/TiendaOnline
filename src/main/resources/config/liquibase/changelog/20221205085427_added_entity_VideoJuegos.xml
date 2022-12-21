@@ -7,7 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-    
+
     <property name="now" value="now()" dbms="mysql"/>
     <property name="autoIncrement" value="true"/>
 
@@ -26,7 +26,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="sinopsis" type="varchar(255)">
+            <column name="sinopsis" type="varchar(1000)">
                 <constraints nullable="true" />
             </column>
 
@@ -58,9 +58,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-
     </changeSet>
-
     <!--
         Load sample data generated with Faker.js
         - This data can be easily edited using a CSV editor (or even MS Excel) and
@@ -69,6 +67,32 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
+    <changeSet id="20221205085427-1-relations" author="jhipster">
+
+        <createTable tableName="video_juegos_plataforma">
+            <column name="plataforma_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="video_juegos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="video_juegos_id, plataforma_id" tableName="video_juegos_plataforma"/>
+
+        <createTable tableName="video_juegos_categoria">
+            <column name="categoria_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="video_juegos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="video_juegos_id, categoria_id" tableName="video_juegos_categoria"/>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
     <changeSet id="20221205085427-1-data" author="jhipster" context="faker">
         <loadData
                   file="config/liquibase/data/video_juegos.csv"
@@ -83,44 +107,23 @@
             <column name="precio" type="numeric"/>
             <column name="stock" type="numeric"/>
             <column name="destacado" type="boolean"/>
+            <column name="compannia_id" type="numeric"/>
+        </loadData>
+        <loadData
+                  file="config/liquibase/data/video_juegos_categoria.csv"
+                  separator=";"
+                  tableName="video_juegos_categoria"
+                  context="dev">
+            <column name="categoria_id" type="numeric"/>
+            <column name="video_juegos_id" type="numeric"/>
+        </loadData>
+        <loadData
+                  file="config/liquibase/data/video_juegos_plataforma.csv"
+                  separator=";"
+                  tableName="video_juegos_plataforma"
+                  context="dev">
+            <column name="plataforma_id" type="numeric"/>
+            <column name="video_juegos_id" type="numeric"/>
         </loadData>
     </changeSet>
-
-    <changeSet id="20221205085427-1-relations" author="jhipster">
-
-        <createTable tableName="video_juegos_valoraciones">
-            <column name="valoraciones_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="video_juegos_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="video_juegos_id, valoraciones_id" tableName="video_juegos_valoraciones"/>
-        
-        <createTable tableName="video_juegos_plataforma">
-            <column name="plataforma_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="video_juegos_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="video_juegos_id, plataforma_id" tableName="video_juegos_plataforma"/>
-        
-        <createTable tableName="video_juegos_categoria">
-            <column name="categoria_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="video_juegos_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="video_juegos_id, categoria_id" tableName="video_juegos_categoria"/>
-        
-    </changeSet>
-    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
