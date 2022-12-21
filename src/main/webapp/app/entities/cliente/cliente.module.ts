@@ -13,6 +13,7 @@ import {
   clienteRoute,
   clientePopupRoute
 } from './';
+import { AddDireccionModalComponent } from './add-direccion-modal/add-direccion-modal.component';
 
 const ENTITY_STATES = [...clienteRoute, ...clientePopupRoute];
 
@@ -23,9 +24,16 @@ const ENTITY_STATES = [...clienteRoute, ...clientePopupRoute];
     ClienteDetailComponent,
     ClienteUpdateComponent,
     ClienteDeleteDialogComponent,
-    ClienteDeletePopupComponent
+    ClienteDeletePopupComponent,
+    AddDireccionModalComponent
   ],
-  entryComponents: [ClienteComponent, ClienteUpdateComponent, ClienteDeleteDialogComponent, ClienteDeletePopupComponent],
+  entryComponents: [
+    ClienteComponent,
+    ClienteUpdateComponent,
+    ClienteDeleteDialogComponent,
+    ClienteDeletePopupComponent,
+    AddDireccionModalComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

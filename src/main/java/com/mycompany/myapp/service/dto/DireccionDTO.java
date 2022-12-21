@@ -2,6 +2,8 @@ package com.mycompany.myapp.service.dto;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.mycompany.myapp.domain.Cliente;
+
 /**
  * A DTO for the {@link com.mycompany.myapp.domain.Direccion} entity.
  */
@@ -26,7 +28,7 @@ public class DireccionDTO implements Serializable {
     private String letra;
 
 
-    private Long clienteId;
+    private Cliente cliente;
 
     public Long getId() {
         return id;
@@ -100,12 +102,12 @@ public class DireccionDTO implements Serializable {
         this.letra = letra;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override
@@ -141,7 +143,7 @@ public class DireccionDTO implements Serializable {
             ", escalera='" + getEscalera() + "'" +
             ", piso='" + getPiso() + "'" +
             ", letra='" + getLetra() + "'" +
-            ", cliente=" + getClienteId() +
+            ", cliente=" + getCliente() +
             "}";
     }
 }

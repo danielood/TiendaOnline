@@ -31,6 +31,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'plataforma',
         loadChildren: './plataforma/plataforma.module#TiendaOnlinePlataformaModule'
+      },
+      {
+        path: 'cliente',
+        loadChildren: './cliente/cliente.module#TiendaOnlineClienteModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])
