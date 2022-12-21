@@ -55,7 +55,7 @@ export class CrearEditarDialogComponent implements OnInit {
   ngOnInit(): void {
     this.isSaving = false;
     this.plataformaService
-      .query()
+      .findAll()
       .pipe(
         filter((mayBeOk: HttpResponse<IPlataforma[]>) => mayBeOk.ok),
         map((response: HttpResponse<IPlataforma[]>) => response.body)

@@ -99,6 +99,13 @@ public class CategoriaResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/categorias/all")
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        log.debug("REST request to get a page of Categorias");
+        List<CategoriaDTO> page = categoriaService.getAll();
+        return ResponseEntity.ok().body(page);
+    }
+
     /**
      * {@code GET  /categorias/:id} : get the "id" categoria.
      *

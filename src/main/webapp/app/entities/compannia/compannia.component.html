@@ -20,13 +20,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let compannia of compannias ;trackBy: trackId" [routerLink]="['/compannia', compannia.id, 'view' ]">
+            <tr *ngFor="let compannia of compannias ;trackBy: trackId">
                 <td><a [routerLink]="['/compannia', compannia.id, 'view' ]">{{compannia.id}}</a></td>
-                <td>{{compannia.nombre}}</td>
+                <td [routerLink]="['/compannia', compannia.id, 'view' ]">{{compannia.nombre}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
-                                [routerLink]="['/compannia', compannia.id, 'edit']"
+                                (click)="open(compannia)"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>

@@ -83,21 +83,21 @@ export class VideoJuegosUpdateComponent implements OnInit {
     this.isSaving = false;
     this.compannias = new Array<ICompannia>();
     this.companniaService
-      .query()
+      .findAll()
       .pipe(
         filter((mayBeOk: HttpResponse<ICompannia[]>) => mayBeOk.ok),
         map((response: HttpResponse<ICompannia[]>) => response.body)
       )
       .subscribe((res: ICompannia[]) => (this.compannias = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.plataformaService
-      .query()
+      .findAll()
       .pipe(
         filter((mayBeOk: HttpResponse<IPlataforma[]>) => mayBeOk.ok),
         map((response: HttpResponse<IPlataforma[]>) => response.body)
       )
       .subscribe((res: IPlataforma[]) => (this.plataformas = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.categoriaService
-      .query()
+      .findAll()
       .pipe(
         filter((mayBeOk: HttpResponse<ICategoria[]>) => mayBeOk.ok),
         map((response: HttpResponse<ICategoria[]>) => response.body)
@@ -275,6 +275,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.listPlat.push(newPlat);
       }
     }
+    this.selectedPlat = '';
   }
 
   deletePlat(index: number) {
@@ -291,6 +292,7 @@ export class VideoJuegosUpdateComponent implements OnInit {
         this.listCat.push(newCat);
       }
     }
+    this.selectedCat = '';
   }
 
   onSelectCompannia() {

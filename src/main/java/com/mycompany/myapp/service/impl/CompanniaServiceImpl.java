@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +86,10 @@ public class CompanniaServiceImpl implements CompanniaService {
     public void delete(Long id) {
         log.debug("Request to delete Compannia : {}", id);
         companniaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CompanniaDTO> getAll() {
+        return Optional.of(this.companniaRepository.findAll()).map(this.companniaMapper :: toDto).get();
     }
 }

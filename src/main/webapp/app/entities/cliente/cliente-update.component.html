@@ -19,14 +19,6 @@
                     </div>
 
                 </div>
-                <div>
-                    <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                    </button>
-                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                    </button>
-                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="tiendaOnlineApp.cliente.dni" for="field_dni">Dni</label>
                     <input type="text" class="form-control" name="dni" id="field_dni"
@@ -48,19 +40,19 @@
                            formControlName="telefono"/>
                 </div>
 
-                <button type="button" (click)="addDire()">Añadir Dirección</button>
+                <button type="button" class="btn btn-secondary" (click)="addDire()">Añadir Dirección</button>
 
                 <div class="form-group" *ngIf="direcciones.length>0">
                     <p>Direcciones</p>
-                    <table class="table table-bordered" >
+                    <table class="table" >
                         <tr *ngFor="let d of direcciones; let i = index" class="">
-                            <span>{{d.pais}}</span>
-
-                            <a (click)="deleteDire(i)">
-                                <fa-icon [icon]="'times'" class="fa"></fa-icon>
-                            </a>
+                            <span>{{d.calle}}</span>
                             <a (click)="editDire(i)">
-                                <span class="">edit</span>
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                            </a>
+                            <a (click)="deleteDire(i)">
+                                <fa-icon [icon]="'times'" class="red"></fa-icon>
                             </a>
                         </tr>
                     </table>

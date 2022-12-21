@@ -66,12 +66,11 @@ export class ClienteUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    // this.activatedRoute.data.subscribe(({ cliente }) => {
-    //   this.updateForm(cliente);
-    //   this.cliente = cliente;
-    // });
-    this.ventasService.findDireccionesByClientId(this.cliente.id).subscribe(res => (this.direcciones = res.body));
-
+    if (this.cliente) {
+      this.ventasService.findDireccionesByClientId(this.cliente.id).subscribe(res => (this.direcciones = res.body));
+    } else {
+      this.cliente = new Cliente();
+    }
     this.updateForm(this.cliente);
   }
 

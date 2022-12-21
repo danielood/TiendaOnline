@@ -52,24 +52,13 @@ export class ClienteComponent implements OnInit, OnDestroy {
   }
 
   open(cliente: ICliente) {
-    if (!cliente) {
-      cliente = {};
-      const modalRef = this.modalService.open(ClienteUpdateComponent, { size: 'lg', backdrop: 'static', keyboard: false });
-      modalRef.componentInstance.cliente = cliente;
-      modalRef.result.then(res => {
-        if (res == 0) {
-          this.loadAll();
-        }
-      });
-    } else {
-      const modalRef = this.modalService.open(ClienteUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.cliente = cliente;
-      modalRef.result.then(res => {
-        if (res == 0) {
-          this.loadAll();
-        }
-      });
-    }
+    const modalRef = this.modalService.open(ClienteUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.cliente = cliente;
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
+    });
   }
 
   loadAll() {

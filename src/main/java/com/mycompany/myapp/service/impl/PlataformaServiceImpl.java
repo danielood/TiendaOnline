@@ -113,4 +113,9 @@ public class PlataformaServiceImpl implements PlataformaService {
         List<String> listString = Arrays.asList(strings);
         return listString;
     }
+
+    @Override
+    public List<PlataformaDTO> getAll() {
+        return Optional.of(this.plataformaRepository.findAll()).map(this.plataformaMapper :: toDto).get();
+    }
 }

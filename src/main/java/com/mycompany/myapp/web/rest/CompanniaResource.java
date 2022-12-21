@@ -99,6 +99,13 @@ public class CompanniaResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/compannias/all")
+    public ResponseEntity<List<CompanniaDTO>> findAll() {
+        log.debug("REST request to get a page of Compannias");
+        List<CompanniaDTO> page = companniaService.getAll();
+        return ResponseEntity.ok().body(page);
+    }
+
     /**
      * {@code GET  /compannias/:id} : get the "id" compannia.
      *

@@ -30,6 +30,7 @@ public interface PlataformaService {
      */
     Page<PlataformaDTO> findAll(Pageable pageable);
 
+    List<PlataformaDTO> getAll();
 
     /**
      * Get the "id" plataforma.

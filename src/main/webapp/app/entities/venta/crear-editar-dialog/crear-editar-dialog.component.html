@@ -50,7 +50,7 @@
             </select>
             <select class="form-control mt-2" name="direccion" id="field_direccion" *ngIf="selectVisible" formControlName="direccion">
               <option></option>
-              <option [ngValue]="i" *ngFor="let i of dire">{{ i.pais + ' - ' + i.provincia + ' - ' + i.piso + '%' }}</option>
+              <option [ngValue]="i" *ngFor="let i of dire">{{ i.pais + ' - ' + i.provincia + ' - ' + i.ciudad +' - '+ i.calle }}</option>
             </select>
           </div>
           <div class="form-group">
@@ -76,7 +76,7 @@
                 <span>{{ prod.nombre }}</span>
 
                 <a (click)="deleteProd(i)">
-                  <fa-icon [icon]="'times'" class="fa"></fa-icon>
+                  <fa-icon [icon]="'times'" class="red"></fa-icon>
                 </a>
               </tr>
             </table>
@@ -103,7 +103,7 @@
               <tr *ngFor="let vid of listVid; let i = index" class="">
                 <span>{{ vid.titulo }}</span>
                 <a (click)="deleteVid(i)">
-                  <fa-icon [icon]="'times'" class="fa"></fa-icon>
+                  <fa-icon [icon]="'times'" class="red"></fa-icon>
                 </a>
               </tr>
             </table>
