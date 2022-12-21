@@ -1,0 +1,51 @@
+<div class="p-4">
+  <form name="nuevaDire" role="form" [formGroup]="nuevaDire" novalidate (ngSubmit)="save()">
+
+    <div class="form-group" [hidden]="">
+        <label for="id">ID</label>
+        <input type="text" class="form-control" id="id" name="id" formControlName="id"
+            readonly />
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_pais">Pais</label>
+        <input type="text" class="form-control" name="pais" id="field_pais" formControlName="pais"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_pais">Provincia</label>
+        <input type="text" class="form-control" name="provincia" id="field_provincia" formControlName="provincia"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_ciudad">Ciudad</label>
+        <input type="text" class="form-control" name="ciudad" id="field_ciudad" formControlName="ciudad"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_calle">Calle</label>
+        <input type="text" class="form-control" name="calle" id="field_calle" formControlName="calle"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_portal">portal</label>
+        <input type="text" class="form-control" name="portal" id="field_portal" formControlName="portal"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_escalera">escalera</label>
+        <input type="text" class="form-control" name="escalera" id="field_escalera" formControlName="escalera"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_piso">piso</label>
+        <input type="text" class="form-control" name="piso" id="field_piso" formControlName="piso"/>
+    </div>
+    <div class="form-group">
+        <label class="form-control-label" for="field_letra">letra</label>
+        <input type="text" class="form-control" name="letra" id="field_letra" formControlName="letra"/>
+    </div>
+<div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity"  class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+
+  </form>
+</div>
