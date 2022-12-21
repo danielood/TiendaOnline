@@ -1,11 +1,3 @@
-id;titulo;sinopsis;pegi;fecha_lanzamiento;precio;stock;destacado
-1;content;Gorgeous Electronics Brand;PEGI3;2022-12-04T22:17:31;25024;23978;true
-2;microchip;Response invoice;PEGI3;2022-12-04T18:13:37;73003;41960;false
-3;Louisiana;hack;PEGI3;2022-12-05T06:42:18;4600;9415;false
-4;JBOD;Shoes Music connect;PEGI3;2022-12-04T23:20:39;4805;61585;true
-5;HTTP explicit;Personal Loan Account;PEGI3;2022-12-04T16:29:36;16293;61585;false
-6;invoice Outdoors New York;multi-byte Jamaican Dollar North Carolina;PEGI3;2022-12-04T19:48:49;82063;94146;true
-7;parsing invoice;black;PEGI3;2022-12-04T23:51:15;1822;3896;false
-8;Gourde US Dollar Handcrafted Plastic Shirt;Armenian Dram wireless directional;PEGI3;2022-12-04T17:48:50;93664;87747;false
-9;schemas Specialist China;quantify multi-byte;PEGI3;2022-12-04T18:58:31;34080;86711;true
-10;SSL bandwidth;application Configurable iterate;PEGI3;2022-12-05T01:13:38;29763;89552;false
+id;titulo;sinopsis;pegi;fecha_lanzamiento;precio;stock;destacado;compannia_id
+1;Resident Evil 7: Biohazard;Resident Evil 7: Biohazard, conocido originalmente en Japón como Biohazard 7: Resident Evil es un videojuego perteneciente al género de horror de supervivencia, en primera persona desarrollado y publicado;PEGI18;2017-01-23;18.09;20;false;3
+2;Titanfall 2;Titanfall 2 es un videojuego de acción en primera persona estilo mecha, que ha sido desarrollado por Respawn Entertainment y está distribuido por EA Games para Microsoft Windows, PlayStation 4 y Xbox One. Es la secuela de Titanfall y fue lanzado a la venta el 28 de octubre de 2016.;PEGI16;2016-09-28;16.43;20;false;24

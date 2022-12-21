@@ -52,14 +52,13 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   }
 
   open(categoria: ICategoria) {
-    if (!categoria) {
-      categoria = {};
-      const modalRef = this.modalService.open(CategoriaUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.categoria = categoria;
-    } else {
-      const modalRef = this.modalService.open(CategoriaUpdateComponent, { size: 'lg' });
-      modalRef.componentInstance.categoria = categoria;
-    }
+    const modalRef = this.modalService.open(CategoriaUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.categoria = categoria;
+    modalRef.result.then(res => {
+      if (res == 0) {
+        this.loadAll();
+      }
+    });
   }
 
   loadAll() {

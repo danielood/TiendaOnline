@@ -10,7 +10,8 @@
           <li class="list-group-item">Cliente: {{venta.clienteId}}</li>
           <li class="list-group-item">Precio total: {{venta.precioVenta| currency:'EUR'}}</li>
           <li class="list-group-item">
-            <button type="submit"
+            <div class="botton-warp">
+                <button type="submit" *jhiHasAnyAuthority="'ROLE_ADMIN'"
             [routerLink]="['/', 'venta', { outlets: { popup: venta.id + '/delete'} }]"
             replaceUrl="true"
             queryParamsHandling="merge"
@@ -18,6 +19,16 @@
                 <fa-icon [icon]="'times'"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
             </button>
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                    type="submit"
+                    (click)="open()"
+                    replaceUrl="true"
+                    queryParamsHandling="merge"
+                    class="btn-primary btn-sm float-right">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+            </div>
         </li>
         </ul>
     </div>

@@ -46,7 +46,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/tiendaonline?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password: som1
+    password: Test12345*
     hikari:
       poolName: Hikari
       auto-commit: false

@@ -42,27 +42,10 @@ export class PlataformaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    // this.activatedRoute.data.subscribe(({ plataforma }) => {
-    //   this.updateForm(plataforma);
-    //   this.plataforma = plataforma;
-    // });
-
+    if (!this.plataforma) {
+      this.plataforma = new Plataforma();
+    }
     this.updateForm(this.plataforma);
-
-    this.videoJuegosService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IVideoJuegos[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IVideoJuegos[]>) => response.body)
-      )
-      .subscribe((res: IVideoJuegos[]) => (this.videojuegos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.productoService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProducto[]>) => response.body)
-      )
-      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(plataforma: IPlataforma) {
@@ -73,8 +56,7 @@ export class PlataformaUpdateComponent implements OnInit {
   }
 
   previousState() {
-    this.activeModal.dismiss();
-    //window.history.back();
+    this.activeModal.close(0);
   }
 
   save() {

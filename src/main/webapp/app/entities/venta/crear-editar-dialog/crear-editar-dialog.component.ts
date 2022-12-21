@@ -102,11 +102,9 @@ export class CrearEditarDialogComponent implements OnInit {
 
   onSelectVid() {
     this.selectedVidObj = this.videojuegos.find(p => p.titulo == this.selectedVid);
-
     if (this.selectedVidObj) {
       this.listVid.push(this.selectedVidObj);
       this.total = this.total + this.selectedVidObj.precio;
-      this.selectedVid = '';
     } else {
       alert('El videojuego no existe');
     }
@@ -114,11 +112,6 @@ export class CrearEditarDialogComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    // this.activatedRoute.data.subscribe(({ venta }) => {
-    //   this.updateForm(venta);
-    //   this.venta = venta;
-    // });
-
     this.clienteService
       .query()
       .pipe(
@@ -126,13 +119,7 @@ export class CrearEditarDialogComponent implements OnInit {
         map((response: HttpResponse<ICliente[]>) => response.body)
       )
       .subscribe((res: ICliente[]) => (this.clientes = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.productoService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProducto[]>) => response.body)
-      )
-      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.productoService.findAll().subscribe(res => (this.productos = res.body));
     this.videoJuegosService.findAll().subscribe(res => (this.videojuegos = res.body));
 
     this.selectedProd = '';
@@ -171,13 +158,13 @@ export class CrearEditarDialogComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    this.activeModal.close(0);
   }
 
   save() {
     this.isSaving = true;
     const venta = this.createFromForm();
-    if (venta.id !== undefined) {
+    if (venta.id != undefined || venta.id != null) {
       this.subscribeToSaveResponse(this.ventaService.update(venta));
     } else {
       this.subscribeToSaveResponse(this.ventaService.create(venta));
@@ -236,8 +223,8 @@ export class CrearEditarDialogComponent implements OnInit {
     }
     return option;
   }
+
   clear() {
-    this.activeModal.dismiss('cancel');
-    window.location.reload();
+    this.activeModal.dismiss();
   }
 }
